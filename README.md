@@ -2,6 +2,8 @@
 
 Just my customized new tab experience tailored for my needs.
 
+![Screenshot](./scrot.webp)
+
 ## Stack
 
 - TS
