@@ -21,7 +21,7 @@ Just my customized new tab experience tailored for my needs.
 - Install deps (`npm i`)
 - Copy `.env.local.template` to `.env.local` and add access token to HA
 - Build app (`npm run build`)
-- Go to Chrome (or whatever Chromium based browser, e.g. Brave), open [extensions page](chrome://extensions), turn on developer mode, click *Load unzipped* and select `build` folder of this app
+- Go to Chrome (or whatever Chromium based browser, e.g. Brave), open extensions page (`chrome://extensions`), turn on developer mode, click *Load unzipped* and select `build` folder of this app
 
 ## Development
 
