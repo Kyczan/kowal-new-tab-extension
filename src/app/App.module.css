@@ -16,8 +16,6 @@
   z-index: -1;
   right: 0px;
   display: block;
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out 0s;
   background: linear-gradient(
       rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 35%, 
       rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0.6) 100%
@@ -26,9 +24,15 @@
       90deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) 25%, 
       rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0.6) 100%
     ),
-    url(../../public/wallpapers/trees.webp);
+    var(--wallpaper);
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed, fixed;
   background-size: cover, cover;
+  animation: animate 0.5s ease-in-out 0s;
+}
+
+@keyframes animate {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
