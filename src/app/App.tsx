@@ -3,9 +3,15 @@ import { CSSProperties } from 'react'
 import Lights from '../features/lights/Lights'
 import TopSites from '../features/topSites/TopSites'
 import Clock from '../features/clock/Clock'
-import { getWallpaperUrl } from '../utils/utils'
+import { randomItem, dev } from '../utils/utils'
+import wallpapersData from './wallpapersData.json'
 
 import styles from './App.module.css'
+
+const getWallpaperUrl = () => {
+  const prefix = dev ? './' : '../../'
+  return `url("${prefix}wallpapers/${randomItem(wallpapersData)}")`
+}
 
 const App = () => {
   const wallpaperCssVar = {

@@ -1,16 +1,8 @@
 export const dev = process.env.NODE_ENV !== 'production'
 
-const randomNumber = (min: number, max: number): number => {
-  min = Math.ceil(min)
-  max = Math.floor(max)
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
-
-export const getWallpaperUrl = () => {
-  const NUMBER_OF_PHOTOS = 8
-
-  const nr = randomNumber(1, NUMBER_OF_PHOTOS)
-  const prefix = dev ? './' : '../../'
-
-  return `url("${prefix}wallpapers/${nr}.webp")`
+export const randomItem = <T>(arr: T[]): T => {
+  // it uses bitwise operator `| 0` that does nothing,
+  // but before operation float is converted to integer
+  // and this is much faster than `Math.floor()`
+  return arr[(Math.random() * arr.length) | 0]
 }
