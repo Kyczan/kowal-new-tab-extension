@@ -1,0 +1,32 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  justify-content: center;
+  align-content: start;
+  gap: 1rem;
+}
+
+.link {
+  width: 70px;
+  text-decoration: none;
+}
+
+.img {
+  width: 70px;
+  height: 70px;
+  padding: 16px;
+  background-color: var(--top-sites-tile-bg);
+  box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px 0px;
+  border-radius: 8px;
+}
+
+.title {
+  padding-top: 0.5rem;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+}

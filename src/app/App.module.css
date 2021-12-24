@@ -1,0 +1,34 @@
+.container {
+  position: relative;
+  margin: 4rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto auto;
+}
+
+.container::before {
+  pointer-events: none;
+  content: "";
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: -1;
+  right: 0px;
+  display: block;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out 0s;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 35%, 
+      rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0.6) 100%
+    ), 
+    linear-gradient(
+      90deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) 25%, 
+      rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0.6) 100%
+    ),
+    url(../../public/wallpapers/trees.webp);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed, fixed;
+  background-size: cover, cover;
+}

@@ -1,0 +1,28 @@
+/* light theme */
+[data-theme=light],
+:root:not([data-theme=dark]) {
+  color-scheme: light;
+  --background-color: #fff;
+  --top-sites-tile-bg: #fff;
+}
+
+/* dark theme */
+@media only screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme=light]) {
+    color-scheme: dark;
+    --background-color: #333639;
+    --top-sites-tile-bg: #1e2029;
+  }
+}
+
+body {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 300;
+  color: #fff;
+  background-color: var(--background-color);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
