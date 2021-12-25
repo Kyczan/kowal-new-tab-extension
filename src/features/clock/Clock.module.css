@@ -1,5 +1,5 @@
 .clock {
-
+  grid-area: clock;
 }
 
 .date {
@@ -8,4 +8,22 @@
 
 .time {
   font-size: 4rem;
+}
+
+@media (max-width: 900px) {
+  .clock {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  
+  .date {
+    font-size: 2rem;
+  }
+  
+  .time {
+    font-size: 2.5rem;
+  }
 }

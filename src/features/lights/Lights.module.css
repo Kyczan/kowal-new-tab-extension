@@ -1,9 +1,6 @@
 .lights {
+  grid-area: lights;
   justify-self: end;
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 1;
-  grid-row-end: 2;
   display: flex;
   flex-direction: column;
   font-size: 1.5rem;
@@ -33,4 +30,10 @@
 
 .bulb-off {
   color: white;
+}
+
+@media (max-width: 900px) {
+  .lights {
+    justify-self: center;
+  }
 }

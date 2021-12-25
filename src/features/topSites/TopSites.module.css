@@ -1,4 +1,7 @@
-.container {
+.sites {
+  --tile-size: 70px;
+  --tile-padding: 16px;
+  grid-area: sites;
   display: grid;
   grid-template-columns: repeat(6, auto);
   justify-content: center;
@@ -7,14 +10,14 @@
 }
 
 .link {
-  width: 70px;
+  width: var(--tile-size);
   text-decoration: none;
 }
 
 .img {
-  width: 70px;
-  height: 70px;
-  padding: 16px;
+  width: var(--tile-size);
+  height: var(--tile-size);
+  padding: var(--tile-padding);
   background-color: var(--top-sites-tile-bg);
   box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px 0px;
   border-radius: 8px;
@@ -29,4 +32,28 @@
   color: white;
   font-size: 14px;
   text-align: center;
+}
+
+@media (max-width: 1200px) {
+  .sites {
+    --tile-size: 64px;
+    --tile-padding: 12px;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 900px) {
+  .sites {
+    /* show only one row */
+    max-height: 100px;
+    overflow: hidden;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 650px) {
+  .sites {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }

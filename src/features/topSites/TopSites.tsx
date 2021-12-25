@@ -27,7 +27,7 @@ const TopSites = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.sites}>
       {sites.map((item) => (
         <a
           key={item.url}
