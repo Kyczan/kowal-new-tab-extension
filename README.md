@@ -1,6 +1,6 @@
 # My new tab Chrome extension
 
-Just my customized new tab experience tailored for my needs.
+Customized new tab experience tailored for my needs.
 
 ![Screenshot](./scrot.webp)
 
@@ -14,7 +14,8 @@ Just my customized new tab experience tailored for my needs.
 
 - Display date and time
 - Display top visited sites
-- Control lights in my flat (using my local [Home Assistant](https://www.home-assistant.io/) api and smart [Sonoff](https://sonoff.tech/) switches connected to HA via [this integration](https://github.com/AlexxIT/SonoffLAN))
+- Control lights in flat (using local [Home Assistant](https://www.home-assistant.io/) api and smart [Sonoff](https://sonoff.tech/) switches connected to HA via [this integration](https://github.com/AlexxIT/SonoffLAN))
+- Display agenda from Google calendars (it also uses [HA integration](https://www.home-assistant.io/integrations/google/) to retrieve data from Google calendar)
 - Cool wallpapers from [Unsplash](https://unsplash.com/)
 
 ## Installation
@@ -27,4 +28,14 @@ Just my customized new tab experience tailored for my needs.
 
 ## Development
 
-Just type `npm start` and dev server will spin up and app will be opened as normal webpage. Remember, that some features in dev mode are unavailable, such as most props in `chrome` object. In these cases functionalities are mocked (like top visited sites and favicons).
+Type `npm start` and dev server will spin up and app will be opened as normal webpage.
+
+To be able to make fetch calls to local home assistant url (`http://homeassistant.local:8123`) you need to add in HA `configuration.yaml` following lines:
+
+```yaml
+http:
+    cors_allowed_origins:
+        - http://localhost:3000
+```
+
+Remember, that some features in dev mode are unavailable, such as most props in `chrome` object. In these cases functionalities are mocked (like top visited sites and favicons).
