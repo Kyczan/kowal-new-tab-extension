@@ -88,13 +88,18 @@ const Calendar = () => {
     return weekday
   }
 
-  const getTime = (time: string | undefined) => {
+  const getTime = (time: string | undefined, day: string) => {
     if (time)
       return formatDate(time, {
         timeStyle: 'short',
       })
 
-    return ''
+    const weekday = formatDate(day, {
+      weekday: 'long',
+    })
+    const lastChar = weekday[weekday.length - 1]
+
+    return 'cał' + (lastChar === 'a' ? 'a' : 'y')
   }
 
   return (
@@ -115,7 +120,7 @@ const Calendar = () => {
           {item.events.map((event) => (
             <div key={event.id} className={styles.event}>
               <span className={styles.time}>
-                {getTime(event.start.dateTime)}
+                {getTime(event.start.dateTime, item.day)}
               </span>
               <span className={styles.summary}>{event.summary}</span>
               <span className={styles.cal}>
