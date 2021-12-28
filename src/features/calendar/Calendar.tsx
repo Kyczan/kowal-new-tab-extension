@@ -29,11 +29,13 @@ interface IAgendaItem {
 }
 
 const { timeMin, timeMax, allDays } = getRange()
+const STORAGE_KEY = 'agenda'
 
 const Calendar = () => {
+  const localAgenda = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
   const { data } = useHAStateItems()
   const [calendars, setCalendars] = useState<IHAStateItem[]>([])
-  const [agenda, setAgenda] = useState<IAgendaItem[]>([])
+  const [agenda, setAgenda] = useState<IAgendaItem[]>(localAgenda)
 
   useEffect(() => {
     if (Array.isArray(data)) {
@@ -67,6 +69,7 @@ const Calendar = () => {
       })
 
       setAgenda(agendaByDays)
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(agendaByDays))
     }
 
     if (calendars.length > 0) {
