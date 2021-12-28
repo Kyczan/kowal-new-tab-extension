@@ -29,7 +29,7 @@
 }
 
 .bulb-off {
-  color: white;
+  color: darkgray;
 }
 
 @media (max-width: 900px) {

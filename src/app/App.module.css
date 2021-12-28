@@ -7,7 +7,8 @@
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: auto;
   grid-template-areas: 
-    "clock sites lights";
+    "clock sites lights"
+    "calendar sites lights";
 }
 
 @media (max-width: 1200px) {
@@ -15,7 +16,7 @@
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 
       "clock sites"
-      ". lights";
+      "calendar lights";
   }
 }
 
@@ -25,7 +26,7 @@
     grid-template-areas: 
       "clock clock"
       "sites sites"
-      "lights lights";
+      "calendar lights";
   }
 }
 
@@ -35,7 +36,8 @@
     grid-template-areas: 
       "clock"
       "sites"
-      "lights";
+      "lights"
+      "calendar";
   }
 }
 
@@ -54,7 +56,7 @@
       rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0.6) 100%
     ), 
     linear-gradient(
-      90deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) 25%, 
+      90deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0) 30%, 
       rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0.6) 100%
     ),
     var(--wallpaper);

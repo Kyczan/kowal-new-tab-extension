@@ -1,26 +1,12 @@
 import { useEffect, useState } from 'react'
-import useSWR from 'swr'
 import { BsLightbulbFill, BsLightbulb } from 'react-icons/bs'
 
-import { toggleSwitch, switchesStateFetcher } from './haService'
+import { toggleSwitch, useHAStateItems, IHAStateItem } from '../../api/api'
 
 import styles from './Lights.module.css'
 
-interface IHAAttributes {
-  friendly_name: string
-}
-
-interface IHAStateItem {
-  entity_id: string
-  state: 'on' | 'off' | 'unavailable'
-  attributes: IHAAttributes
-}
-
 const Lights = () => {
-  const { data, mutate } = useSWR<IHAStateItem[]>(
-    `${process.env.REACT_APP_HA_URL}/api/states`,
-    switchesStateFetcher
-  )
+  const { data, mutate } = useHAStateItems()
   const [switches, setSwitches] = useState<IHAStateItem[]>([])
 
   useEffect(() => {
@@ -44,7 +30,7 @@ const Lights = () => {
   return (
     <div className={styles.lights}>
       <h2>Światła</h2>
-      <hr />
+      <div className="divider" />
       {switches.map((item) => (
         <button
           key={item.entity_id}

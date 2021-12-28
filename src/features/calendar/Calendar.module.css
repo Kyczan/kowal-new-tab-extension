@@ -1,0 +1,57 @@
+.calendar {
+  grid-area: calendar;
+  width: fit-content;
+  font-size: 20px;
+}
+
+.day-container {
+  margin-bottom: 1.5rem;
+}
+
+.day {
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  color: darkgray;
+}
+
+.date {
+  font-size: 14px;
+  font-weight: 300;
+  text-transform: lowercase;
+}
+
+.divider {
+  margin-bottom: 0.5rem;
+}
+
+.event {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.time {
+  font-size: 14px;
+  width: 40px;
+}
+
+.summary {
+  font-weight: 300;
+}
+
+.cal {
+  font-size: 14px;
+  margin-left: auto;
+  text-align: right;
+}
+
+@media (max-width: 650px) {
+  .calendar {
+    justify-self: center;
+  }
+}

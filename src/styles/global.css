@@ -26,3 +26,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.divider {
+  height: 0;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid darkgray;
+}
