@@ -29,15 +29,13 @@ const Lights = () => {
 
   return (
     <div className={styles.lights}>
-      <h2>Światła</h2>
-      <div className="divider" />
       {switches.map((item) => (
         <button
           key={item.entity_id}
           onClick={() => handleClick(item.entity_id)}
           className={styles.button}
         >
-          {item.attributes?.friendly_name}
+          {item.attributes?.friendly_name.replace(' światło', '')}
           {item.state === 'on' && (
             <BsLightbulbFill className={styles['bulb-on']} />
           )}
