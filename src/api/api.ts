@@ -1,5 +1,8 @@
 import useSWR from 'swr'
 
+import { dev } from '../utils/utils'
+import weatherMockData from '../features/weather/weatherMock.json'
+
 interface IHAAttributes {
   friendly_name: string
 }
@@ -32,6 +35,17 @@ export const haFetcher = (url: string) =>
       'Content-Type': 'application/json',
     }),
   }).then((response) => response.json())
+
+export const weatherFetcher = (url: string) => {
+  if (dev) return Promise.resolve(weatherMockData)
+
+  return fetch(`${process.env.REACT_APP_OPENWEATHER_API_URL}`, {
+    method: 'get',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
+  }).then((response) => response.json())
+}
 
 export const fetchCalEvents = (
   calId: string,

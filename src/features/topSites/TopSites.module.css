@@ -1,6 +1,6 @@
 .sites {
-  --tile-size: 70px;
-  --tile-padding: 16px;
+  --tile-size: 64px;
+  --tile-padding: 12px;
   grid-area: sites;
   display: grid;
   grid-template-columns: repeat(6, auto);
@@ -32,14 +32,6 @@
   color: white;
   font-size: 14px;
   text-align: center;
-}
-
-@media (max-width: 1200px) {
-  .sites {
-    --tile-size: 64px;
-    --tile-padding: 12px;
-    justify-content: flex-end;
-  }
 }
 
 @media (max-width: 900px) {

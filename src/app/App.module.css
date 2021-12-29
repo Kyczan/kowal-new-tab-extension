@@ -4,18 +4,29 @@
   display: grid;
   column-gap: 1rem;
   row-gap: 2rem;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr auto 1fr;
   grid-template-rows: auto;
   grid-template-areas: 
-    "clock sites lights"
-    "calendar sites lights";
+    "clock sites weather"
+    "calendar calendar lights";
+}
+
+@media (max-width: 1400px) {
+  .container {
+    grid-template-columns: 1fr auto auto 1fr;
+    grid-template-areas: 
+      "clock clock weather weather"
+      "calendar sites sites lights"
+      "calendar . . lights";
+  }
 }
 
 @media (max-width: 1200px) {
   .container {
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 
-      "clock sites"
+      "clock weather"
+      "sites sites"
       "calendar lights";
   }
 }
@@ -25,6 +36,7 @@
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 
       "clock clock"
+      "weather weather"
       "sites sites"
       "calendar lights";
   }
@@ -35,6 +47,7 @@
     grid-template-columns: 1fr;
     grid-template-areas: 
       "clock"
+      "weather"
       "sites"
       "lights"
       "calendar";

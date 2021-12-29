@@ -1,0 +1,29 @@
+.weather {
+  grid-area: weather;
+  justify-self: end;
+}
+
+.wrapper {
+  display: flex;
+  gap: 1rem;
+}
+
+.icon {
+  font-size: 140px;
+}
+
+.temp {
+  font-size: 4rem;
+  text-align: right;
+}
+
+.desc {
+  font-size: 1.125rem;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .weather {
+    justify-self: center;
+  }
+}

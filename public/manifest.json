@@ -10,6 +10,7 @@
   "permissions": [
     "topSites",
     "http://homeassistant.local:8123/",
+    "https://api.openweathermap.org/",
     "chrome://favicon/size/64@1x"
   ],
   "icons": {
