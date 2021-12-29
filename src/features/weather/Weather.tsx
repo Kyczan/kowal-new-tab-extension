@@ -24,6 +24,7 @@ interface IWeatherWeather {
 interface IWeatherData {
   weather: IWeatherWeather[]
   main: IWeatherMain
+  name: string
 }
 
 const Weather = () => {
@@ -32,18 +33,24 @@ const Weather = () => {
   return (
     <div className={styles.weather}>
       {data && (
-        <div className={styles.wrapper}>
-          <div className={styles.icon}>
-            {weatherIconsMap[data.weather[0].icon]}
-          </div>
-          <div>
-            <div className={styles.temp}>
-              {data.main.temp.toFixed(1)}
-              <sup>°</sup>C
-            </div>
+        <>
+          <div className={styles.header}>
+            <div className={styles.name}>{data.name}</div>
+            <div className={styles.name}>|</div>
             <div className={styles.desc}>{data.weather[0].description}</div>
           </div>
-        </div>
+          <div className={styles.wrapper}>
+            <div className={styles.icon}>
+              {weatherIconsMap[data.weather[0].icon]}
+            </div>
+            <div>
+              <div className={styles.temp}>
+                {data.main.temp.toFixed(1)}
+                <sup>°</sup>C
+              </div>
+            </div>
+          </div>
+        </>
       )}
     </div>
   )

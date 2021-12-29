@@ -3,9 +3,28 @@
   justify-self: end;
 }
 
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.name {
+  font-size: 2rem;
+  text-align: right;
+}
+
+.desc {
+  font-size: 1.125rem;
+  text-align: right;
+}
+
 .wrapper {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
+  justify-content: flex-end;
+  margin-top: -0.5rem;
 }
 
 .icon {
@@ -17,13 +36,16 @@
   text-align: right;
 }
 
-.desc {
-  font-size: 1.125rem;
-  text-align: right;
-}
-
 @media (max-width: 900px) {
   .weather {
     justify-self: center;
+  }
+
+  .header {
+    justify-content: center;
+  }
+
+  .wrapper {
+    justify-content: center;
   }
 }
