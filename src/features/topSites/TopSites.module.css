@@ -34,6 +34,18 @@
   text-align: center;
 }
 
+@media (max-width: 1400px) {
+  .sites {
+    justify-content: end;
+  }
+}
+
+@media (max-width: 1200px) {
+  .sites {
+    justify-content: center;
+  }
+}
+
 @media (max-width: 900px) {
   .sites {
     /* show only one row */

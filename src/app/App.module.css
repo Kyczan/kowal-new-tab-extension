@@ -13,11 +13,11 @@
 
 @media (max-width: 1400px) {
   .container {
-    grid-template-columns: 1fr auto auto 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas: 
-      "clock clock weather weather"
-      "calendar sites sites lights"
-      "calendar . . lights";
+      "clock weather"
+      "calendar sites"
+      "calendar lights";
   }
 }
 
