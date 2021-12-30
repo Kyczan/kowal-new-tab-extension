@@ -1,11 +1,9 @@
 .calendar {
   grid-area: calendar;
-  width: fit-content;
-  font-size: 20px;
 }
 
 .day-container {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .day {
@@ -19,35 +17,24 @@
   color: darkgray;
 }
 
-.date {
-  font-size: 14px;
-  font-weight: 300;
-  text-transform: lowercase;
-}
-
-.divider {
-  margin-bottom: 0.5rem;
-}
-
 .event {
   display: flex;
   align-items: baseline;
   gap: 0.5rem;
+  border-left: 4px solid var(--cal-color, darkgray);
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 .time {
   font-size: 14px;
-  width: 40px;
+  flex: 0 0 40px;
 }
 
 .summary {
   font-weight: 300;
-}
-
-.cal {
-  font-size: 14px;
-  margin-left: auto;
-  text-align: right;
+  font-size: 24px;
+  line-height: 1.75;
 }
 
 @media (max-width: 650px) {

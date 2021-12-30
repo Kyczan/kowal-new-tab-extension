@@ -1,26 +1,21 @@
-import { useEffect, useState } from 'react'
+import { CSSProperties, useEffect, useState } from 'react'
 
 import { useHAStateItems, fetchCalEvents, IHAStateItem } from '../../api/api'
-import { getRange, sameDay, formatDate } from '../../utils/utils'
+import { getRange, sameDay, formatDate, extractColor } from '../../utils/utils'
 
 import styles from './Calendar.module.css'
 
-type IEventDate = {
+interface IEventDate {
   dateTime: string
   date: string
 }
 
-interface IEventOrganizer {
-  displayName: string
-}
-
 interface IEventItem {
   id: string
-  description: string
   end: IEventDate
-  organizer: IEventOrganizer
   start: IEventDate
   summary: string
+  color: string
 }
 
 interface IAgendaItem {
@@ -54,6 +49,14 @@ const Calendar = () => {
       const calData: IEventItem[][] = await Promise.all(requests).then(
         (responses) => Promise.all(responses.map((r) => r.json()))
       )
+      calendars.forEach((item, i) => {
+        const color = extractColor(item.entity_id)
+        // mutate object to add info about calendar color
+        calData[i].forEach((calEvent) => {
+          calEvent.color = color
+        })
+      })
+
       const agendaData: IEventItem[] = calData.flat()
 
       const agendaByDays: IAgendaItem[] = allDays.map((day) => {
@@ -105,30 +108,28 @@ const Calendar = () => {
     return 'cał' + (lastChar === 'a' ? 'a' : 'y')
   }
 
+  const getCalStyle = (color: string) => {
+    return {
+      '--cal-color': color,
+    } as CSSProperties
+  }
+
   return (
     <div className={styles.calendar}>
       {agenda.map((item) => (
         <div key={item.day} className={styles['day-container']}>
-          <div className={styles.day}>
-            <span>{getDay(item.day)}</span>
-            <span className={styles.date}>
-              {formatDate(item.day, {
-                month: 'long',
-                day: 'numeric',
-              })}
-            </span>
-          </div>
-          <div className={`divider ${styles.divider}`} />
+          <div className={styles.day}>{getDay(item.day)}</div>
 
           {item.events.map((event) => (
-            <div key={event.id} className={styles.event}>
+            <div
+              key={event.id}
+              className={styles.event}
+              style={getCalStyle(event.color)}
+            >
               <span className={styles.time}>
                 {getTime(event.start.dateTime, item.day)}
               </span>
               <span className={styles.summary}>{event.summary}</span>
-              <span className={styles.cal}>
-                [{event.organizer.displayName}]
-              </span>
             </div>
           ))}
         </div>

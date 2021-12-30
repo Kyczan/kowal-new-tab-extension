@@ -39,3 +39,13 @@ export const formatDate = (
   date: string | Date,
   options: Intl.DateTimeFormatOptions
 ) => new Date(date).toLocaleString([], options)
+
+export const extractColor = (str: string) => {
+  const defaultColor = 'darkgray'
+  if (str.length < 6) return defaultColor
+
+  const colorCandidate = str.slice(-6)
+  return /^[0-9A-F]{6}$/i.test(colorCandidate)
+    ? `#${colorCandidate}`
+    : defaultColor
+}
