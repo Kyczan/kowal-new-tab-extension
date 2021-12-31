@@ -33,6 +33,14 @@
   color: darkgray;
 }
 
+.bulb-on.busy {
+  color: darkgray;
+}
+
+.bulb-off.busy {
+  color: white;
+}
+
 @media (max-width: 900px) {
   .lights {
     justify-self: center;
