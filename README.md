@@ -38,7 +38,7 @@ Customized new tab experience tailored for my needs.
   - `REACT_APP_OPENWEATHER_API_URL` api url to OpenWeather in format `https://api.openweathermap.org/data/2.5/weather?lang=pl&units=metric&id=YYY&appid=XXX` 
     - set your lang
     - your city id (replace `YYY` with city id - to get id go [here](https://openweathermap.org/), search for your city and copy id from browser url)
-    - and most important - obtain api key [here](https://openweathermap.org/api) and replace `XXX` with this key
+    - and most important - obtain api key [here](https://openweathermap.org/api) (you need to create free account) and replace `XXX` with this key
 - Edit `public/manifest.json` file and change `http://homeassistant.local:8123/` under `permissions` key to the same value as `REACT_APP_HA_URL` in `.env.local` file
 - Build app (`npm run build`)
 - Go to Chrome (or whatever Chromium based browser, e.g. Brave), open extensions page (`chrome://extensions`), turn on developer mode, click *Load unzipped* and select `build` folder of this app
