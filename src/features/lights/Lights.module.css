@@ -3,7 +3,7 @@
   justify-self: end;
   display: flex;
   flex-direction: column;
-  font-size: 24px;
+  font-size: 22px;
   width: fit-content;
 }
 
@@ -15,7 +15,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  line-height: 1.5;
+  line-height: 1.75;
 }
 
 .button:hover {
