@@ -80,20 +80,6 @@ const Calendar = () => {
     }
   }, [calendars])
 
-  const getDay = (date: string | Date) => {
-    const today = new Date()
-    const weekday = formatDate(date, {
-      weekday: 'long',
-    })
-
-    if (sameDay(today, date)) return `dzisiaj (${weekday})`
-
-    today.setHours(24)
-    if (sameDay(today, date)) return `jutro (${weekday})`
-
-    return weekday
-  }
-
   const getTime = (time: string | undefined, day: string) => {
     if (time)
       return formatDate(time, {
@@ -118,7 +104,11 @@ const Calendar = () => {
     <div className={styles.calendar}>
       {agenda.map((item) => (
         <div key={item.day} className={styles['day-container']}>
-          <div className={styles.day}>{getDay(item.day)}</div>
+          <div className={styles.day}>
+            {formatDate(item.day, {
+              weekday: 'long',
+            })}
+          </div>
 
           {item.events.map((event) => (
             <div

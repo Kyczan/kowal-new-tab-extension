@@ -40,7 +40,7 @@ const TopSites = () => {
             src={getFavicon(item.url)}
             alt={item.title}
           />
-          <p className={styles.title}>{item.title}</p>
+          {/* <p className={styles.title}>{item.title}</p> */}
         </a>
       ))}
     </div>

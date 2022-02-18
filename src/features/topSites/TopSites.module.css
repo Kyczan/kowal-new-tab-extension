@@ -1,6 +1,6 @@
 .sites {
-  --tile-size: 64px;
-  --tile-padding: 12px;
+  --tile-size: 48px;
+  --tile-padding: 8px;
   grid-area: sites;
   display: grid;
   grid-template-columns: repeat(6, auto);
@@ -20,7 +20,7 @@
   padding: var(--tile-padding);
   background-color: var(--top-sites-tile-bg);
   box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px 0px;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .title {
@@ -49,7 +49,7 @@
 @media (max-width: 900px) {
   .sites {
     /* show only one row */
-    max-height: 100px;
+    max-height: 50px;
     overflow: hidden;
     justify-content: center;
   }
