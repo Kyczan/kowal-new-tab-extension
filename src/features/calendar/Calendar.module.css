@@ -1,5 +1,27 @@
 .calendar {
   grid-area: calendar;
+  position: relative;
+}
+
+.toggle {
+  position: absolute;
+  background: none;
+  color: darkgray;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+  top: 3px;
+  left: 2px;
+}
+
+.wrapper-show {
+  display: block;
+}
+
+.wrapper-hide {
+  display: none;
 }
 
 .day-container {
@@ -15,6 +37,10 @@
   gap: 0.5rem;
   text-transform: uppercase;
   color: darkgray;
+}
+
+.first {
+  margin-left: 22px;
 }
 
 .event {

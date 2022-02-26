@@ -1,4 +1,5 @@
 import { CSSProperties, useEffect, useState } from 'react'
+import { BsChevronRight, BsChevronDown } from 'react-icons/bs'
 
 import { useHAStateItems, fetchCalEvents, IHAStateItem } from '../../api/api'
 import { getRange, sameDay, formatDate, extractColor } from '../../utils/utils'
@@ -24,13 +25,21 @@ interface IAgendaItem {
 }
 
 const { timeMin, timeMax, allDays } = getRange()
-const STORAGE_KEY = 'agenda'
+const storageKey = {
+  AGENDA: 'agenda',
+  TOGGLE: 'toggleAgenda',
+}
 
 const Calendar = () => {
-  const localAgenda = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+  const localAgenda = JSON.parse(
+    localStorage.getItem(storageKey.AGENDA) || '[]'
+  )
   const { data } = useHAStateItems()
   const [calendars, setCalendars] = useState<IHAStateItem[]>([])
   const [agenda, setAgenda] = useState<IAgendaItem[]>(localAgenda)
+  const [toggle, setToggle] = useState(
+    localStorage.getItem(storageKey.TOGGLE) || 'show'
+  )
 
   useEffect(() => {
     if (Array.isArray(data)) {
@@ -72,7 +81,7 @@ const Calendar = () => {
       })
 
       setAgenda(agendaByDays)
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(agendaByDays))
+      localStorage.setItem(storageKey.AGENDA, JSON.stringify(agendaByDays))
     }
 
     if (calendars.length > 0) {
@@ -100,30 +109,43 @@ const Calendar = () => {
     } as CSSProperties
   }
 
+  const handleToggle = () => {
+    setToggle((toggle) => {
+      const newVal = toggle === 'show' ? 'hide' : 'show'
+      localStorage.setItem(storageKey.TOGGLE, newVal)
+      return newVal
+    })
+  }
+
   return (
     <div className={styles.calendar}>
-      {agenda.map((item) => (
-        <div key={item.day} className={styles['day-container']}>
-          <div className={styles.day}>
-            {formatDate(item.day, {
-              weekday: 'long',
-            })}
-          </div>
-
-          {item.events.map((event) => (
-            <div
-              key={event.id}
-              className={styles.event}
-              style={getCalStyle(event.color)}
-            >
-              <span className={styles.time}>
-                {getTime(event.start.dateTime, item.day)}
-              </span>
-              <span className={styles.summary}>{event.summary}</span>
+      <button onClick={handleToggle} className={styles.toggle}>
+        {toggle === 'show' ? <BsChevronDown /> : <BsChevronRight />}
+      </button>
+      <div className={styles[`wrapper-${toggle}`]}>
+        {agenda.map((item, index) => (
+          <div key={item.day} className={styles['day-container']}>
+            <div className={`${styles.day} ${!index && styles.first}`}>
+              {formatDate(item.day, {
+                weekday: 'long',
+              })}
             </div>
-          ))}
-        </div>
-      ))}
+
+            {item.events.map((event) => (
+              <div
+                key={event.id}
+                className={styles.event}
+                style={getCalStyle(event.color)}
+              >
+                <span className={styles.time}>
+                  {getTime(event.start.dateTime, item.day)}
+                </span>
+                <span className={styles.summary}>{event.summary}</span>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
