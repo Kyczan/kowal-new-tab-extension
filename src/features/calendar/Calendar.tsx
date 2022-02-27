@@ -123,9 +123,9 @@ const Calendar = () => {
         {toggle === 'show' ? <BsChevronDown /> : <BsChevronRight />}
       </button>
       <div className={styles[`wrapper-${toggle}`]}>
-        {agenda.map((item, index) => (
+        {agenda.map((item) => (
           <div key={item.day} className={styles['day-container']}>
-            <div className={`${styles.day} ${!index && styles.first}`}>
+            <div className={styles.day}>
               {formatDate(item.day, {
                 weekday: 'long',
               })}

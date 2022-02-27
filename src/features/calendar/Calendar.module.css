@@ -13,7 +13,7 @@
   width: 14px;
   height: 14px;
   top: 3px;
-  left: 2px;
+  left: -16px;
 }
 
 .wrapper-show {
@@ -37,10 +37,6 @@
   gap: 0.5rem;
   text-transform: uppercase;
   color: darkgray;
-}
-
-.first {
-  margin-left: 22px;
 }
 
 .event {
