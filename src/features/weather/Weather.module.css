@@ -36,6 +36,11 @@
   text-align: right;
 }
 
+.pressure {
+  font-size: 1.125rem;
+  text-align: right;
+}
+
 @media (max-width: 900px) {
   .weather {
     justify-self: center;

@@ -48,6 +48,7 @@ const Weather = () => {
                 {data.main.temp.toFixed(1)}
                 <sup>°</sup>C
               </div>
+              <div className={styles.pressure}>{data.main.pressure} hPa</div>
             </div>
           </div>
         </>
