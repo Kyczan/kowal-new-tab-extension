@@ -1,0 +1,48 @@
+.airPurifier {
+  grid-area: airPurifier;
+  justify-self: end;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 22px;
+  height: fit-content;
+  padding: 1px 0 1px 6px;
+  line-height: 1.75;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.button {
+  border: none;
+  background: none;
+  color: white;
+  display: flex;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.btn-on {
+  color: white;
+  filter: drop-shadow(0 0 9px white);
+}
+
+.btn-off {
+  color: darkgray;
+}
+
+.btn-on.busy {
+  color: darkgray;
+}
+
+.btn-off.busy {
+  color: white;
+}

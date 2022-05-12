@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import Bulb from './Bulb'
+import AirPurifier from '../airPurifier/AirPurifier'
 import { toggleSwitch, useHAStateItems, IHAStateItem } from '../../api/api'
 
 import styles from './Lights.module.css'
@@ -34,6 +35,7 @@ const Lights = () => {
 
   return (
     <div className={styles.lights}>
+      <AirPurifier />
       {switches.map((item) => (
         <button
           key={item.entity_id}

@@ -5,12 +5,20 @@ import weatherMockData from '../features/weather/weatherMock.json'
 
 interface IHAAttributes {
   friendly_name: string
+  preset_mode?: HAFanPresetModes
 }
 
 export interface IHAStateItem {
   entity_id: string
   state: 'on' | 'off' | 'unavailable'
   attributes: IHAAttributes
+}
+
+export enum HAFanPresetModes {
+  AUTO = 'Auto',
+  SILENT = 'Silent',
+  FAVORITE = 'Favorite',
+  FAN = 'Fan',
 }
 
 export const useHAStateItems = () => {
@@ -75,6 +83,27 @@ export const toggleSwitch = async (entity_id: string) => {
         entity_id,
       }),
     })
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const setFanPresetMode = async (presetMode: HAFanPresetModes) => {
+  try {
+    await fetch(
+      `${process.env.REACT_APP_HA_URL}/api/services/fan/set_preset_mode`,
+      {
+        method: 'post',
+        headers: new Headers({
+          Authorization: `Bearer ${process.env.REACT_APP_HA_TOKEN}`,
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({
+          entity_id: 'fan.mi_air_purifier_3_3h',
+          preset_mode: presetMode,
+        }),
+      }
+    )
   } catch (e) {
     console.log(e)
   }
