@@ -33,7 +33,7 @@ const AirPurifier = () => {
     }, 250)
   }
 
-  return (
+  return preset ? (
     <div className={styles.airPurifier}>
       <div>Oczyszczacz</div>
       <div className={styles.buttons}>
@@ -51,7 +51,7 @@ const AirPurifier = () => {
         />
       </div>
     </div>
-  )
+  ) : null
 }
 
 export default AirPurifier
