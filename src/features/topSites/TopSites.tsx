@@ -23,7 +23,10 @@ const TopSites = () => {
   const getFavicon = (url: ISitesItem['url']): string => {
     if (dev) return 'https://via.placeholder.com/64'
 
-    return `chrome://favicon/size/64@1x/${url}`
+    // https://stackoverflow.com/a/73213968
+    return `chrome-extension://${
+      chrome.runtime.id
+    }/_favicon/?pageUrl=${encodeURIComponent(url)}&size=64`
   }
 
   return (

@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Kowal New Tab",
   "version": "1.0",
   "description": "My personal new tab",
@@ -9,9 +9,12 @@
   },
   "permissions": [
     "topSites",
+    "favicon"
+  ],
+  "host_permissions": [
     "http://homeassistant.local:8123/",
-    "https://api.openweathermap.org/",
-    "chrome://favicon/size/64@1x"
+    "https://ha.serdeczne.pl/",
+    "https://api.openweathermap.org/"
   ],
   "icons": {
     "16": "icon16.png",
