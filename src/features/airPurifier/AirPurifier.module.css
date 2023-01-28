@@ -2,6 +2,7 @@
   grid-area: airPurifier;
   justify-self: end;
   display: flex;
+  gap: 10px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;

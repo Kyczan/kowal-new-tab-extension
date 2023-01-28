@@ -10,7 +10,7 @@ interface IHAAttributes {
 
 export interface IHAStateItem {
   entity_id: string
-  state: 'on' | 'off' | 'unavailable'
+  state: any
   attributes: IHAAttributes
 }
 
@@ -20,6 +20,8 @@ export enum HAFanPresetModes {
   FAVORITE = 'Favorite',
   FAN = 'Fan',
 }
+
+export type HAFanLevels = 1 | 2 | 3
 
 export const useHAStateItems = () => {
   const { data, error, mutate } = useSWR<IHAStateItem[]>(
@@ -101,6 +103,27 @@ export const setFanPresetMode = async (presetMode: HAFanPresetModes) => {
         body: JSON.stringify({
           entity_id: 'fan.mi_air_purifier_3_3h',
           preset_mode: presetMode,
+        }),
+      }
+    )
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const setFanLevel = async (level: HAFanLevels) => {
+  try {
+    await fetch(
+      `${process.env.REACT_APP_HA_URL}/api/services/number/set_value`,
+      {
+        method: 'post',
+        headers: new Headers({
+          Authorization: `Bearer ${process.env.REACT_APP_HA_TOKEN}`,
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({
+          entity_id: 'number.mi_air_purifier_3_3h_fan_level',
+          value: level,
         }),
       }
     )

@@ -5,37 +5,44 @@ import {
   MdFavoriteBorder,
   MdFavorite,
 } from 'react-icons/md'
+import { IoMoonSharp, IoMoonOutline } from 'react-icons/io5'
+import {
+  TbWindmillOff,
+  TbWindmill,
+  TbNumber1,
+  TbNumber2,
+  TbNumber3,
+} from 'react-icons/tb'
 
-import { HAFanPresetModes } from '../../api/api'
+import { HAFanPresetModes, HAFanLevels } from '../../api/api'
 
 import styles from './AirPurifier.module.css'
 
 interface IButton {
   onClick: MouseEventHandler<HTMLButtonElement>
-  type: HAFanPresetModes
-  state: HAFanPresetModes | undefined
+  type: HAFanPresetModes | HAFanLevels
+  state: HAFanPresetModes | HAFanLevels | undefined
   busy: boolean
 }
 
+const buttonsMap = {
+  [HAFanPresetModes.AUTO]: { On: MdHdrAuto, Off: MdOutlineHdrAuto },
+  [HAFanPresetModes.FAVORITE]: { On: MdFavorite, Off: MdFavoriteBorder },
+  [HAFanPresetModes.SILENT]: { On: IoMoonSharp, Off: IoMoonOutline },
+  [HAFanPresetModes.FAN]: { On: TbWindmill, Off: TbWindmillOff },
+  1: { On: TbNumber1, Off: TbNumber1 },
+  2: { On: TbNumber2, Off: TbNumber2 },
+  3: { On: TbNumber3, Off: TbNumber3 },
+}
+
 const PresetButton = ({ onClick, type, state, busy }: IButton) => {
-  const busyClass = busy ? styles.busy : ''
+  const Icon = buttonsMap[type]
+
   return (
     <button onClick={onClick} className={styles.button} disabled={busy}>
-      {type === HAFanPresetModes.AUTO && state === HAFanPresetModes.AUTO && (
-        <MdHdrAuto className={`${styles['btn-on']} ${busyClass}`} />
-      )}
-      {type === HAFanPresetModes.AUTO && state !== HAFanPresetModes.AUTO && (
-        <MdOutlineHdrAuto className={`${styles['btn-off']} ${busyClass}`} />
-      )}
-
-      {type === HAFanPresetModes.FAVORITE &&
-        state === HAFanPresetModes.FAVORITE && (
-          <MdFavorite className={`${styles['btn-on']} ${busyClass}`} />
-        )}
-      {type === HAFanPresetModes.FAVORITE &&
-        state !== HAFanPresetModes.FAVORITE && (
-          <MdFavoriteBorder className={`${styles['btn-off']} ${busyClass}`} />
-        )}
+      {busy && <Icon.Off className={`${styles['btn-off']} ${styles.busy}`} />}
+      {!busy && state === type && <Icon.On className={styles['btn-on']} />}
+      {!busy && state !== type && <Icon.Off className={styles['btn-off']} />}
     </button>
   )
 }
