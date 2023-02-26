@@ -12,8 +12,8 @@
   cursor: pointer;
   width: 14px;
   height: 14px;
-  top: 3px;
-  left: -16px;
+  top: 1px;
+  left: -3px;
 }
 
 .wrapper-show {
@@ -31,21 +31,23 @@
 .day {
   font-size: 14px;
   font-weight: 600;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem;
-  text-transform: uppercase;
+  line-height: 1;
   color: darkgray;
+  padding-left: 1rem;
 }
 
 .event {
   display: flex;
   align-items: baseline;
   gap: 0.5rem;
-  border-left: 4px solid var(--cal-color, darkgray);
-  margin-left: 0.5rem;
-  padding-left: 0.5rem;
+}
+
+.event::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--cal-color, darkgray);
 }
 
 .time {
