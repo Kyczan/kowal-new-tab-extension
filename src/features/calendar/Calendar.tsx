@@ -127,7 +127,7 @@ const Calendar = () => {
           <div key={item.day} className={styles['day-container']}>
             <div className={styles.day}>
               {formatDate(item.day, {
-                weekday: 'short',
+                weekday: 'long',
               })}
             </div>
 
