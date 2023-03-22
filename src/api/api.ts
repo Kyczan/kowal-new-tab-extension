@@ -2,6 +2,7 @@ import useSWR from 'swr'
 
 import { dev } from '../utils/utils'
 import weatherMockData from '../features/weather/weatherMock.json'
+import allergensMockData from '../features/allergens/allergensMock.json'
 
 interface IHAAttributes {
   friendly_name: string
@@ -50,6 +51,17 @@ export const weatherFetcher = (url: string) => {
   if (dev) return Promise.resolve(weatherMockData)
 
   return fetch(`${process.env.REACT_APP_OPENWEATHER_API_URL}`, {
+    method: 'get',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
+  }).then((response) => response.json())
+}
+
+export const allergensFetcher = () => {
+  if (dev) return Promise.resolve(allergensMockData)
+
+  return fetch(`${process.env.REACT_APP_ALLERGENS_API_URL}`, {
     method: 'get',
     headers: new Headers({
       'Content-Type': 'application/json',

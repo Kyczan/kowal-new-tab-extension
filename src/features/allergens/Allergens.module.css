@@ -1,0 +1,17 @@
+.allergens {
+  font-size: 22px;
+  width: fit-content;
+  grid-area: allergens;
+}
+
+.allergen {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 650px) {
+  .allergens {
+    justify-self: center;
+  }
+}

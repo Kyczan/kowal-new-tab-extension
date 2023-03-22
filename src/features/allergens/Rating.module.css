@@ -1,0 +1,29 @@
+.rating {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+
+.emptyDot {
+  color: darkgray;
+  font-size: 1rem;
+}
+
+.fullDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  margin: 0 4px;
+}
+
+.fullDot--light {
+  background-color: #7bb342;
+}
+
+.fullDot--medium {
+  background-color: #f09200;
+}
+
+.fullDot--heavy {
+  background-color: #d40001;
+}

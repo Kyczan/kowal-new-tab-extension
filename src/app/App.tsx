@@ -5,6 +5,7 @@ import TopSites from '../features/topSites/TopSites'
 import Clock from '../features/clock/Clock'
 import Calendar from '../features/calendar/Calendar'
 import Weather from '../features/weather/Weather'
+import Allergens from '../features/allergens/Allergens'
 import { randomItem, dev } from '../utils/utils'
 import wallpapersData from './wallpapersData.json'
 
@@ -27,6 +28,7 @@ const App = () => {
       <TopSites />
       <Calendar />
       <Weather />
+      <Allergens />
     </div>
   )
 }

@@ -14,7 +14,8 @@
   "host_permissions": [
     "http://homeassistant.local:8123/",
     "https://ha.serdeczne.pl/",
-    "https://api.openweathermap.org/"
+    "https://api.openweathermap.org/",
+    "https://data.twojapogoda.pl/"
   ],
   "icons": {
     "16": "icon16.png",
