@@ -23,14 +23,16 @@ const allergenNames = [
   'Topola',
 ]
 
-interface IAllergensForecast {
-  name: string
-  date: string
+interface IAllergensHourlyForecast {
   allergens: number[]
 }
 
+interface IAllergensForecasts {
+  hourly: IAllergensHourlyForecast[]
+}
+
 interface IAllergensData {
-  forecasts: IAllergensForecast[]
+  forecasts: IAllergensForecasts
 }
 
 interface IAllergen {
@@ -43,7 +45,7 @@ const Allergens = () => {
   const [allergens, setAllergens] = useState<IAllergen[]>([])
 
   useEffect(() => {
-    const allergenIndexes = data?.forecasts[0].allergens
+    const allergenIndexes = data?.forecasts.hourly[0].allergens
     if (allergenIndexes) {
       const mapped = allergenIndexes.map((item, index) => ({
         name: allergenNames[index],

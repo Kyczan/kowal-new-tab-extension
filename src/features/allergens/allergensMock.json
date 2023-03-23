@@ -7,155 +7,225 @@
     "lng": "17.03",
     "abroad": false
   },
-  "forecasts": [
-    {
-      "name": "Wtorek",
-      "temp": 11,
-      "temp_night": 8,
-      "sign": "schmd",
-      "sign_desc": "deszcz",
-      "date": "21.03.2023",
-      "allergens": [
-        0,
-        0,
-        0,
-        0,
-        2,
-        3,
-        4,
-        5,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]
-    },
-    {
-      "name": "Środa",
-      "temp": 16,
-      "temp_night": 8,
-      "sign": "schmd",
-      "sign_desc": "deszcz",
-      "date": "22.03.2023",
-      "allergens": [
-        0,
-        0,
-        0,
-        0,
-        2,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]
-    },
-    {
-      "name": "Czwartek",
-      "temp": 15,
-      "temp_night": 9,
-      "sign": "schm",
-      "sign_desc": "zachmurzenie umiarkowane",
-      "date": "23.03.2023",
-      "allergens": [
-        0,
-        0,
-        1,
-        1,
-        3,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        1,
-        1,
-        2
-      ]
-    },
-    {
-      "name": "Piątek",
-      "temp": 17,
-      "temp_night": 11,
-      "sign": "schmd",
-      "sign_desc": "deszcz",
-      "date": "24.03.2023",
-      "allergens": [
-        0,
-        0,
-        0,
-        0,
-        2,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        2
-      ]
-    },
-    {
-      "name": "Sobota",
-      "temp": 13,
-      "temp_night": 6,
-      "sign": "schmdb",
-      "sign_desc": "burza z deszczem",
-      "date": "25.03.2023",
-      "allergens": [
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        2
-      ]
-    },
-    {
-      "name": "Niedziela",
-      "temp": 13,
-      "temp_night": 6,
-      "sign": "schmd",
-      "sign_desc": "deszcz",
-      "date": "26.03.2023",
-      "allergens": [
-        0,
-        0,
-        1,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        2
-      ]
-    }
-  ],
-  "page": {
-    "current": 1,
-    "last": 3,
-    "count": 6
+  "forecasts": {
+    "default": [
+      {
+        "name": "Dziś",
+        "temp": 17,
+        "temp_feel": 15,
+        "sign": "schm",
+        "sign_desc": "zachmurzenie umiarkowane",
+        "allergens": [
+          0,
+          0,
+          1,
+          1,
+          3,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          2
+        ]
+      },
+      {
+        "name": "Noc",
+        "temp": 11,
+        "temp_feel": 9,
+        "sign": "kchmd",
+        "sign_desc": "deszcz",
+        "allergens": [
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "name": "Jutro",
+        "temp": 18,
+        "temp_feel": 17,
+        "sign": "schmd",
+        "sign_desc": "deszcz",
+        "allergens": [
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      }
+    ],
+    "hourly": [
+      {
+        "name": "18:00",
+        "temp": 12,
+        "temp_feel": 11,
+        "sign": "schm",
+        "sign_desc": "zachmurzenie umiarkowane",
+        "date": "Czwartek, 23.03.2023",
+        "allergens": [
+          0,
+          0,
+          1,
+          1,
+          3,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          2
+        ]
+      },
+      {
+        "name": "19:00",
+        "temp": 12,
+        "temp_feel": 10,
+        "sign": "kchm",
+        "sign_desc": "zachmurzenie umiarkowane",
+        "date": "Czwartek, 23.03.2023",
+        "allergens": [
+          0,
+          0,
+          1,
+          1,
+          3,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          2
+        ]
+      },
+      {
+        "name": "20:00",
+        "temp": 12,
+        "temp_feel": 10,
+        "sign": "kchm",
+        "sign_desc": "zachmurzenie umiarkowane",
+        "date": "Czwartek, 23.03.2023",
+        "allergens": [
+          0,
+          0,
+          1,
+          1,
+          3,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          2
+        ]
+      }
+    ],
+    "daily": [
+      {
+        "name": "Czwartek",
+        "temp": 17,
+        "temp_night": 9,
+        "sign": "schm",
+        "sign_desc": "zachmurzenie umiarkowane",
+        "date": "23.03.2023",
+        "allergens": [
+          0,
+          0,
+          1,
+          1,
+          3,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          2
+        ]
+      },
+      {
+        "name": "Piątek",
+        "temp": 18,
+        "temp_night": 11,
+        "sign": "schmd",
+        "sign_desc": "deszcz",
+        "date": "24.03.2023",
+        "allergens": [
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "name": "Sobota",
+        "temp": 12,
+        "temp_night": 7,
+        "sign": "schmdb",
+        "sign_desc": "burza z deszczem",
+        "date": "25.03.2023",
+        "allergens": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ]
+      }
+    ]
   }
 }
