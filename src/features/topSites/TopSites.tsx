@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { dev } from '../../utils/utils'
+import { dev, getFavicon } from '../../utils/utils'
 import topSitesMockData from './topSitesMock.json'
 
 import styles from './TopSites.module.css'
@@ -20,15 +20,6 @@ const TopSites = () => {
     })
   }, [])
 
-  const getFavicon = (url: ISitesItem['url']): string => {
-    if (dev) return 'https://via.placeholder.com/64'
-
-    // https://stackoverflow.com/a/73213968
-    return `chrome-extension://${
-      chrome.runtime.id
-    }/_favicon/?pageUrl=${encodeURIComponent(url)}&size=64`
-  }
-
   return (
     <div className={styles.sites}>
       {sites.map((item) => (
@@ -43,7 +34,6 @@ const TopSites = () => {
             src={getFavicon(item.url)}
             alt={item.title}
           />
-          {/* <p className={styles.title}>{item.title}</p> */}
         </a>
       ))}
     </div>

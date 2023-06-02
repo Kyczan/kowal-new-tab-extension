@@ -23,15 +23,17 @@ const App = () => {
   } as CSSProperties
 
   return (
-    <div className={styles.container} style={wallpaperCssVar}>
+    <>
       <Bookmarks />
-      <Clock />
-      <Lights />
-      <TopSites />
-      <Calendar />
-      <Weather />
-      <Allergens />
-    </div>
+      <div className={styles.container} style={wallpaperCssVar}>
+        <Clock />
+        <Lights />
+        <TopSites />
+        <Calendar />
+        <Weather />
+        <Allergens />
+      </div>
+    </>
   )
 }
 

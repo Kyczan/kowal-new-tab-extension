@@ -1,4 +1,5 @@
 import { IBookmarkItem } from '../Bookmarks'
+import MenuItem from './MenuItem'
 
 import styles from '../Bookmarks.module.css'
 
@@ -8,17 +9,11 @@ interface IBookmarksBarProps {
 
 const BookmarksBar = ({ data }: IBookmarksBarProps) => {
   return (
-    <div className={styles.bookmarksBar}>
-      {data.map((item) => {
-        if (item.children) return <button key={item.id}>{item.title}</button>
-        else
-          return (
-            <a key={item.id} href={item.url}>
-              {item.title}
-            </a>
-          )
-      })}
-    </div>
+    <ul className={styles.bookmarksBar}>
+      {data.map((item) => (
+        <MenuItem item={item} key={item.id} depthLevel={0} />
+      ))}
+    </ul>
   )
 }
 

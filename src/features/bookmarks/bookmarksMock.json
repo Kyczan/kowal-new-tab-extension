@@ -20,6 +20,32 @@
                 "parentId": "7",
                 "title": "GDrive",
                 "url": "https://drive.google.com/"
+              },
+              {
+                "children": [
+                  {
+                    "dateLastUsed": 1685602471949,
+                    "id": "10",
+                    "index": 0,
+                    "parentId": "7",
+                    "title": "Gmail",
+                    "url": "https://mail.google.com/"
+                  },
+                  {
+                    "dateLastUsed": 1685344875998,
+                    "id": "11",
+                    "index": 1,
+                    "parentId": "7",
+                    "title": "GDrive",
+                    "url": "https://drive.google.com/"
+                  }
+                ],
+                "dateAdded": 1618420992487,
+                "dateGroupModified": 1685608139033,
+                "id": "7",
+                "index": 0,
+                "parentId": "1",
+                "title": "Google2"
               }
             ],
             "dateAdded": 1618420992487,
