@@ -9,7 +9,8 @@
   },
   "permissions": [
     "topSites",
-    "favicon"
+    "favicon",
+    "bookmarks"
   ],
   "host_permissions": [
     "http://homeassistant.local:8123/",

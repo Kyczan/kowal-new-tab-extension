@@ -1,0 +1,134 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "dateLastUsed": 1685602471949,
+                "id": "10",
+                "index": 0,
+                "parentId": "7",
+                "title": "Gmail",
+                "url": "https://mail.google.com/"
+              },
+              {
+                "dateLastUsed": 1685344875998,
+                "id": "11",
+                "index": 1,
+                "parentId": "7",
+                "title": "GDrive",
+                "url": "https://drive.google.com/"
+              },
+              {
+                "children": [
+                  {
+                    "dateLastUsed": 1685602471949,
+                    "id": "10",
+                    "index": 0,
+                    "parentId": "7",
+                    "title": "Gmail",
+                    "url": "https://mail.google.com/"
+                  },
+                  {
+                    "dateLastUsed": 1685344875998,
+                    "id": "11",
+                    "index": 1,
+                    "parentId": "7",
+                    "title": "GDrive",
+                    "url": "https://drive.google.com/"
+                  }
+                ],
+                "dateAdded": 1618420992487,
+                "dateGroupModified": 1685608139033,
+                "id": "7",
+                "index": 0,
+                "parentId": "1",
+                "title": "Google2"
+              }
+            ],
+            "dateAdded": 1618420992487,
+            "dateGroupModified": 1685608139033,
+            "id": "7",
+            "index": 0,
+            "parentId": "1",
+            "title": "Google"
+          },
+          {
+            "children": [
+              {
+                "dateAdded": 1666634723318,
+                "dateLastUsed": 1685108417575,
+                "id": "284",
+                "index": 0,
+                "parentId": "278",
+                "title": "YouTube",
+                "url": "https://www.youtube.com/"
+              },
+              {
+                "dateAdded": 1666634626450,
+                "dateLastUsed": 1685115831542,
+                "id": "279",
+                "index": 1,
+                "parentId": "278",
+                "title": "Netflix",
+                "url": "https://www.netflix.com/browse"
+              },
+              {
+                "dateAdded": 1676144181725,
+                "dateLastUsed": 1685263634570,
+                "id": "353",
+                "index": 2,
+                "parentId": "278",
+                "title": "SkyShowtime",
+                "url": "https://www.skyshowtime.com/"
+              },
+              {
+                "dateAdded": 1666634626450,
+                "dateLastUsed": 1685194549302,
+                "id": "280",
+                "index": 3,
+                "parentId": "278",
+                "title": "HBO Max",
+                "url": "https://play.hbomax.com/"
+              },
+              {
+                "dateAdded": 1666634626450,
+                "dateLastUsed": 1682262436085,
+                "id": "281",
+                "index": 4,
+                "parentId": "278",
+                "title": "Prime Video",
+                "url": "https://www.primevideo.com/"
+              }
+            ],
+            "dateAdded": 1666634570489,
+            "dateGroupModified": 1683528319400,
+            "id": "278",
+            "index": 1,
+            "parentId": "1",
+            "title": "Stream"
+          }
+        ],
+        "dateAdded": 1618420344747,
+        "dateGroupModified": 1666634636520,
+        "id": "1",
+        "index": 0,
+        "parentId": "0",
+        "title": "Zakładki"
+      },
+      {
+        "children": [],
+        "dateAdded": 1618420344747,
+        "id": "2",
+        "index": 1,
+        "parentId": "0",
+        "title": "Inne zakładki"
+      }
+    ],
+    "dateAdded": 1685553826820,
+    "id": "0",
+    "title": ""
+  }
+]

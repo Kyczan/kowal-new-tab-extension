@@ -49,3 +49,12 @@ export const extractColor = (str: string) => {
     ? `#${colorCandidate}`
     : defaultColor
 }
+
+export const getFavicon = (url: string, size: number = 64): string => {
+  if (dev) return `https://via.placeholder.com/${size}`
+
+  // https://stackoverflow.com/a/73213968
+  return `chrome-extension://${
+    chrome.runtime.id
+  }/_favicon/?pageUrl=${encodeURIComponent(url)}&size=${size}`
+}
