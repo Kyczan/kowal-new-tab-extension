@@ -8,6 +8,11 @@
   font-family: sans-serif;
   font-size: 13px;
   font-weight: 400;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 2;
 }
 
 .bookmarksBar {
@@ -90,7 +95,6 @@
   right: auto;
   margin: 0;
   padding: 10px 0;
-  z-index: 9999;
   min-width: 300px;
   max-width: 400px;
   list-style: none;
