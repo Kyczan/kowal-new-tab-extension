@@ -4,6 +4,10 @@
   color-scheme: light;
   --background-color: #fff;
   --top-sites-tile-bg: #fff;
+  --bookmarks-bar-bg: #f3f3f3;
+  --bookmarks-dropdown-bg: #fff;
+  --bookmarks-folder-bg: #92939a;
+  --bookmarks-bg-hover: rgba(0, 0, 0, 0.08);
 }
 
 /* dark theme */
@@ -12,6 +16,10 @@
     color-scheme: dark;
     --background-color: #333639;
     --top-sites-tile-bg: #1e2029;
+    --bookmarks-bar-bg: #313443;
+    --bookmarks-dropdown-bg: #1e2029;
+    --bookmarks-folder-bg: #92939a;
+    --bookmarks-bg-hover: rgba(255, 255, 255, 0.08);
   }
 }
 

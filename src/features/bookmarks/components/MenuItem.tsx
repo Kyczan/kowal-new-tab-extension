@@ -72,7 +72,7 @@ const MenuItem = ({ item, depthLevel }: IMenuItemProps) => {
 
       {item.url && (
         <a key={item.id} href={item.url}>
-          <img className={styles.img} src={getFavicon(item.url, 16)} alt="" />{' '}
+          <img className={styles.img} src={getFavicon(item.url, 32)} alt="" />{' '}
           <span>{item.title}</span>
         </a>
       )}

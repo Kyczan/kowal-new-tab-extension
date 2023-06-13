@@ -1,10 +1,5 @@
 .bookmarks {
-  --bg-color: #313443;
-  --bg-hover: rgba(255, 255, 255, 0.08);
-  --folder-color: #92939a;
-  --dropdown-bg-color: #1e2029;
-
-  background-color: var(--bg-color);
+  background-color: var(--bookmarks-bar-bg);
   font-family: sans-serif;
   font-size: 13px;
   font-weight: 400;
@@ -42,7 +37,7 @@
   align-items: center;
   padding: 6px;
   text-decoration: none;
-  color: #fff;
+  color: initial;
 }
 
 .menuItem a span {
@@ -52,13 +47,13 @@
 }
 
 .menuItem:hover {
-  background: var(--bg-hover);
+  background: var(--bookmarks-bg-hover);
   border: none;
   border-radius: 4px;
 }
 
 .menuItem .btn svg {
-  color: var(--folder-color);
+  color: var(--bookmarks-folder-bg);
   font-size: larger;
 }
 
@@ -86,7 +81,7 @@
   height: 0;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
-  border-left: 4px solid var(--folder-color);
+  border-left: 4px solid var(--bookmarks-folder-bg);
 }
 
 .dropdown {
@@ -98,7 +93,7 @@
   min-width: 300px;
   max-width: 400px;
   list-style: none;
-  background-color: var(--dropdown-bg-color);
+  background-color: var(--bookmarks-dropdown-bg);
   border-radius: 8px;
   box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px 0px;
 }
