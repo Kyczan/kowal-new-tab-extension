@@ -1,24 +1,29 @@
-import { BsLightbulbFill, BsLightbulb } from 'react-icons/bs'
+import {
+  PiLightbulbFill,
+  PiLightbulbDuotone,
+  PiLampDuotone,
+  PiLampFill,
+} from 'react-icons/pi'
 
 import styles from './Lights.module.css'
 
 interface IBulb {
-  state: 'on' | 'off' | 'unavailable'
+  type: 'bulb' | 'lamp'
+  state: 'on' | 'off'
   busy: boolean
 }
 
-const Bulb = ({ state, busy }: IBulb) => {
+const buttonsMap = {
+  bulb: { on: PiLightbulbFill, off: PiLightbulbDuotone },
+  lamp: { on: PiLampFill, off: PiLampDuotone },
+}
+
+const Bulb = ({ type, state, busy }: IBulb) => {
+  const Icon = buttonsMap[type][state]
+  const primaryClass = styles[`bulb-${state}`]
   const busyClass = busy ? styles.busy : ''
-  return (
-    <div>
-      {state === 'on' && (
-        <BsLightbulbFill className={`${styles['bulb-on']} ${busyClass}`} />
-      )}
-      {state !== 'on' && (
-        <BsLightbulb className={`${styles['bulb-off']} ${busyClass}`} />
-      )}
-    </div>
-  )
+
+  return <Icon className={`${primaryClass} ${busyClass}`} />
 }
 
 export default Bulb

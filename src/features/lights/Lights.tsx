@@ -25,8 +25,11 @@ const Lights = () => {
         const {
           attributes: { friendly_name },
         } = item
-        group[friendly_name] = group[friendly_name] ?? []
-        group[friendly_name].push(item)
+        const name = friendly_name
+          .replace(' światło', '')
+          .replace(' lampka', '')
+        group[name] = group[name] ?? []
+        group[name].push(item)
         return group
       }, {})
 
@@ -50,22 +53,29 @@ const Lights = () => {
       <AirPurifier />
       {Object.keys(switches).map((groupName) => (
         <div key={groupName} className={styles.group}>
-          <span>{groupName.replace(' światło', '')}</span>
+          <span>{groupName}</span>
 
           <div className={styles.buttonGroup}>
-            {switches[groupName].map((lightSwitch) => (
-              <button
-                key={lightSwitch.entity_id}
-                onClick={() => handleClick(lightSwitch.entity_id)}
-                className={styles.button}
-                disabled={busyList.includes(lightSwitch.entity_id)}
-              >
-                <Bulb
-                  state={lightSwitch.state}
-                  busy={busyList.includes(lightSwitch.entity_id)}
-                />
-              </button>
-            ))}
+            {switches[groupName].map((lightSwitch) => {
+              const isLamp =
+                lightSwitch.attributes.friendly_name.includes('lampka')
+
+              return (
+                <button
+                  key={lightSwitch.entity_id}
+                  onClick={() => handleClick(lightSwitch.entity_id)}
+                  className={styles.button}
+                  style={{ order: isLamp ? '-1' : '0' }} // show lamp first
+                  disabled={busyList.includes(lightSwitch.entity_id)}
+                >
+                  <Bulb
+                    type={isLamp ? 'lamp' : 'bulb'}
+                    state={lightSwitch.state}
+                    busy={busyList.includes(lightSwitch.entity_id)}
+                  />
+                </button>
+              )
+            })}
           </div>
         </div>
       ))}

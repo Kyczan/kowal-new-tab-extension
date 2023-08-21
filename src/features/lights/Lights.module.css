@@ -5,6 +5,7 @@
   flex-direction: column;
   font-size: 22px;
   width: fit-content;
+  min-width: 230px;
 }
 
 .group {
