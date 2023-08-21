@@ -8,7 +8,7 @@ import styles from './Lights.module.css'
 
 const Lights = () => {
   const { data, mutate } = useHAStateItems()
-  const [switches, setSwitches] = useState<IHAStateItem[]>([])
+  const [switches, setSwitches] = useState<Record<string, IHAStateItem[]>>({})
   const [busyList, setBusyList] = useState<string[]>([])
 
   useEffect(() => {
@@ -18,7 +18,20 @@ const Lights = () => {
           item.entity_id.startsWith('switch.sonoff_') &&
           item.state !== 'unavailable'
       )
-      setSwitches(filtered)
+
+      const grouped = filtered.reduce(
+        (group: Record<string, IHAStateItem[]>, item) => {
+          const {
+            attributes: { friendly_name },
+          } = item
+          group[friendly_name] = group[friendly_name] ?? []
+          group[friendly_name].push(item)
+          return group
+        },
+        {}
+      )
+
+      setSwitches(grouped)
     }
   }, [data])
 
@@ -36,16 +49,22 @@ const Lights = () => {
   return (
     <div className={styles.lights}>
       <AirPurifier />
-      {switches.map((item) => (
-        <button
-          key={item.entity_id}
-          onClick={() => handleClick(item.entity_id)}
-          className={styles.button}
-          disabled={busyList.includes(item.entity_id)}
-        >
-          {item.attributes?.friendly_name.replace(' światło', '')}
-          <Bulb state={item.state} busy={busyList.includes(item.entity_id)} />
-        </button>
+      {Object.keys(switches).map((item) => (
+        <div key={item} className={styles.group}>
+          <span>{item.replace(' światło', '')}</span>
+          <div className={styles.buttonGroup}>
+            {switches[item].map((it) => (
+              <button
+                key={it.entity_id}
+                onClick={() => handleClick(it.entity_id)}
+                className={styles.button}
+                disabled={busyList.includes(it.entity_id)}
+              >
+                <Bulb state={it.state} busy={busyList.includes(it.entity_id)} />
+              </button>
+            ))}
+          </div>
+        </div>
       ))}
     </div>
   )

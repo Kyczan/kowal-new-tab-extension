@@ -7,6 +7,16 @@
   width: fit-content;
 }
 
+.group {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0 0;
+}
+
+.buttonGroup {
+  display: flex;
+}
+
 .button {
   border: none;
   background: none;
