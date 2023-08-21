@@ -7,8 +7,6 @@
   align-items: center;
   justify-content: space-between;
   font-size: 22px;
-  height: fit-content;
-  line-height: 1.75;
 }
 
 .buttons {
@@ -22,8 +20,8 @@
   background: none;
   color: white;
   display: flex;
-  padding: 0;
-  margin: 1px 6px;
+  padding: 6px;
+  line-height: 1.75;
 }
 
 .button:hover {

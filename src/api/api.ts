@@ -18,14 +18,20 @@ export interface IHAStateItem {
   attributes: IHAAttributes
 }
 
-export enum HAFanPresetModes {
+export enum HAFanMainPresetModes {
   AUTO = 'Auto',
   SILENT = 'Silent',
   FAVORITE = 'Favorite',
+}
+
+export enum HAFanOnlyPresetMode {
   FAN = 'Fan',
 }
 
-export type HAFanLevels = 1 | 2 | 3
+export type HAFanPresetModes = HAFanMainPresetModes | HAFanOnlyPresetMode
+
+export const fanLevels = [1, 2, 3] as const
+export type HAFanLevels = typeof fanLevels[number]
 
 export const useHAStateItems = () => {
   const { data, error, mutate } = useSWR<IHAStateItem[]>(
