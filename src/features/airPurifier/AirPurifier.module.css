@@ -22,12 +22,14 @@
   background: none;
   color: white;
   display: flex;
+  padding: 0;
+  margin: 1px 6px;
 }
 
 .button:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
+  border-radius: 50%;
 }
 
 .btn-on {

@@ -6,9 +6,11 @@ import { toggleSwitch, useHAStateItems, IHAStateItem } from '../../api/api'
 
 import styles from './Lights.module.css'
 
+type GroupedLights = Record<string, IHAStateItem[]>
+
 const Lights = () => {
   const { data, mutate } = useHAStateItems()
-  const [switches, setSwitches] = useState<Record<string, IHAStateItem[]>>({})
+  const [switches, setSwitches] = useState<GroupedLights>({})
   const [busyList, setBusyList] = useState<string[]>([])
 
   useEffect(() => {
@@ -19,17 +21,14 @@ const Lights = () => {
           item.state !== 'unavailable'
       )
 
-      const grouped = filtered.reduce(
-        (group: Record<string, IHAStateItem[]>, item) => {
-          const {
-            attributes: { friendly_name },
-          } = item
-          group[friendly_name] = group[friendly_name] ?? []
-          group[friendly_name].push(item)
-          return group
-        },
-        {}
-      )
+      const grouped = filtered.reduce((group: GroupedLights, item) => {
+        const {
+          attributes: { friendly_name },
+        } = item
+        group[friendly_name] = group[friendly_name] ?? []
+        group[friendly_name].push(item)
+        return group
+      }, {})
 
       setSwitches(grouped)
     }
@@ -49,18 +48,22 @@ const Lights = () => {
   return (
     <div className={styles.lights}>
       <AirPurifier />
-      {Object.keys(switches).map((item) => (
-        <div key={item} className={styles.group}>
-          <span>{item.replace(' światło', '')}</span>
+      {Object.keys(switches).map((groupName) => (
+        <div key={groupName} className={styles.group}>
+          <span>{groupName.replace(' światło', '')}</span>
+
           <div className={styles.buttonGroup}>
-            {switches[item].map((it) => (
+            {switches[groupName].map((lightSwitch) => (
               <button
-                key={it.entity_id}
-                onClick={() => handleClick(it.entity_id)}
+                key={lightSwitch.entity_id}
+                onClick={() => handleClick(lightSwitch.entity_id)}
                 className={styles.button}
-                disabled={busyList.includes(it.entity_id)}
+                disabled={busyList.includes(lightSwitch.entity_id)}
               >
-                <Bulb state={it.state} busy={busyList.includes(it.entity_id)} />
+                <Bulb
+                  state={lightSwitch.state}
+                  busy={busyList.includes(lightSwitch.entity_id)}
+                />
               </button>
             ))}
           </div>
