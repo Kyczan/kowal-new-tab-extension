@@ -7,7 +7,14 @@ import {
   MdReportGmailerrorred,
 } from 'react-icons/md'
 import { IoMoonSharp, IoMoonOutline } from 'react-icons/io5'
-import { TbNumber1, TbNumber2, TbNumber3 } from 'react-icons/tb'
+import {
+  PiNumberCircleOne,
+  PiNumberCircleOneFill,
+  PiNumberCircleTwo,
+  PiNumberCircleTwoFill,
+  PiNumberCircleThree,
+  PiNumberCircleThreeFill,
+} from 'react-icons/pi'
 
 import { HAFanMainPresetModes, HAFanLevels } from '../../api/api'
 
@@ -24,9 +31,9 @@ const buttonsMap = {
   [HAFanMainPresetModes.AUTO]: { On: MdHdrAuto, Off: MdOutlineHdrAuto },
   [HAFanMainPresetModes.FAVORITE]: { On: MdFavorite, Off: MdFavoriteBorder },
   [HAFanMainPresetModes.SILENT]: { On: IoMoonSharp, Off: IoMoonOutline },
-  1: { On: TbNumber1, Off: TbNumber1 },
-  2: { On: TbNumber2, Off: TbNumber2 },
-  3: { On: TbNumber3, Off: TbNumber3 },
+  1: { On: PiNumberCircleOneFill, Off: PiNumberCircleOne },
+  2: { On: PiNumberCircleTwoFill, Off: PiNumberCircleTwo },
+  3: { On: PiNumberCircleThreeFill, Off: PiNumberCircleThree },
   undefined: { On: MdReportGmailerrorred, Off: MdReportGmailerrorred },
 }
 
