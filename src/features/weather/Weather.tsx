@@ -1,4 +1,5 @@
 import useSWR from 'swr'
+import { WiBarometer, WiHumidity } from 'react-icons/wi'
 
 import { weatherFetcher } from '../../api/api'
 import weatherIconsMap from './weatherIconsMap'
@@ -48,7 +49,16 @@ const Weather = () => {
                 {data.main.temp.toFixed(1)}
                 <sup>°</sup>C
               </div>
-              <div className={styles.pressure}>{data.main.pressure} hPa</div>
+              <div className={styles.info}>
+                <div className={styles.humidity}>
+                  <WiHumidity />
+                  {data.main.humidity}%
+                </div>
+                <div className={styles.pressure}>
+                  <WiBarometer />
+                  {data.main.pressure} hPa
+                </div>
+              </div>
             </div>
           </div>
         </>

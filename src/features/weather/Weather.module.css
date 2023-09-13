@@ -36,9 +36,23 @@
   text-align: right;
 }
 
+.info {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.humidity {
+  font-size: 1.125rem;
+  display: flex;
+  align-items: center;
+}
+
 .pressure {
   font-size: 1.125rem;
   text-align: right;
+  display: flex;
+  align-items: center;
 }
 
 @media (max-width: 900px) {
