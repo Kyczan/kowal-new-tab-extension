@@ -2,7 +2,8 @@ import useSWR from 'swr'
 import { WiBarometer, WiHumidity } from 'react-icons/wi'
 import { GoHome } from 'react-icons/go'
 
-import { weatherFetcher, useHAStateItems } from '../../api/api'
+import { weatherFetcher } from '../../api/api'
+import { useHAStateValue } from '../../api/hooks'
 import weatherIconsMap from './weatherIconsMap'
 
 import styles from './Weather.module.css'
@@ -31,14 +32,8 @@ interface IWeatherData {
 
 const Weather = () => {
   const { data } = useSWR<IWeatherData>('weather', weatherFetcher)
-  const { data: airPurifierData } = useHAStateItems()
-
-  const homeTemp = airPurifierData?.find(
-    ({ entity_id }) => entity_id === 'sensor.mi_air_purifier_3_3h_temperature'
-  )?.state
-  const homeHumid = airPurifierData?.find(
-    ({ entity_id }) => entity_id === 'sensor.mi_air_purifier_3_3h_humidity'
-  )?.state
+  const homeTemp = useHAStateValue('sensor.mi_air_purifier_3_3h_temperature')
+  const homeHumid = useHAStateValue('sensor.mi_air_purifier_3_3h_humidity')
 
   return (
     <div className={styles.weather}>
@@ -69,13 +64,13 @@ const Weather = () => {
                 </div>
               </div>
               <div className={styles.info}>
-                {homeTemp && homeTemp !== 'unavailable' && (
+                {homeTemp && (
                   <div className={styles.infoElement}>
                     <GoHome /> {homeTemp}
                     <sup>°</sup>C
                   </div>
                 )}
-                {homeHumid && homeHumid !== 'unavailable' && (
+                {homeHumid && (
                   <div className={styles.infoElement}>
                     <WiHumidity />
                     {homeHumid}%

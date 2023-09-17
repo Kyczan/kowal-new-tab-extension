@@ -4,12 +4,12 @@ import PresetButton from './PresetButton'
 import {
   setFanPresetMode,
   setFanLevel,
-  useHAStateItems,
   HAFanLevels,
   HAFanMainPresetModes,
   HAFanOnlyPresetMode,
   fanLevels,
 } from '../../api/api'
+import { useHAStateItems } from '../../api/hooks'
 
 import styles from './AirPurifier.module.css'
 

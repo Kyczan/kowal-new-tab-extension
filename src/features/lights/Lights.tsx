@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 
 import Bulb from './Bulb'
 import AirPurifier from '../airPurifier/AirPurifier'
-import { toggleSwitch, useHAStateItems, IHAStateItem } from '../../api/api'
+import { toggleSwitch, IHAStateItem } from '../../api/api'
+import { useHAStateItems } from '../../api/hooks'
 
 import styles from './Lights.module.css'
 

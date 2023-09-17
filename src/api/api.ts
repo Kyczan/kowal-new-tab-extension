@@ -1,11 +1,6 @@
-import { useEffect, useState } from 'react'
-import useSWR from 'swr'
-
 import { dev } from '../utils/utils'
 import weatherMockData from '../features/weather/weatherMock.json'
 import allergensMockData from '../features/allergens/allergensMock.json'
-import bookmarksMock from '../features/bookmarks/bookmarksMock.json'
-import { IBookmarkItem } from '../features/bookmarks/Bookmarks'
 
 interface IHAAttributes {
   friendly_name: string
@@ -32,20 +27,6 @@ export type HAFanPresetModes = HAFanMainPresetModes | HAFanOnlyPresetMode
 
 export const fanLevels = [1, 2, 3] as const
 export type HAFanLevels = typeof fanLevels[number]
-
-export const useHAStateItems = () => {
-  const { data, error, mutate } = useSWR<IHAStateItem[]>(
-    `/api/states`,
-    haFetcher
-  )
-
-  return {
-    data,
-    isLoading: !error && !data,
-    isError: error,
-    mutate,
-  }
-}
 
 export const haFetcher = (url: string) =>
   fetch(`${process.env.REACT_APP_HA_URL}${url}`, {
@@ -151,23 +132,4 @@ export const setFanLevel = async (level: HAFanLevels) => {
   } catch (e) {
     console.log(e)
   }
-}
-
-export const useBookmarks = () => {
-  const [bookmarks, setBookmarks] = useState<IBookmarkItem[]>([])
-
-  useEffect(() => {
-    const runEffect = async () => {
-      const data: IBookmarkItem[] = dev
-        ? bookmarksMock
-        : await chrome.bookmarks?.getTree()
-
-      const bookmarksBarData = data?.[0]?.children?.[0]?.children || []
-      setBookmarks(bookmarksBarData)
-    }
-
-    runEffect()
-  }, [])
-
-  return bookmarks
 }

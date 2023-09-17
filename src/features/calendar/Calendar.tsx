@@ -1,7 +1,8 @@
 import { CSSProperties, useEffect, useState } from 'react'
 import { BsChevronRight, BsChevronDown } from 'react-icons/bs'
 
-import { useHAStateItems, fetchCalEvents, IHAStateItem } from '../../api/api'
+import { fetchCalEvents, IHAStateItem } from '../../api/api'
+import { useHAStateItems } from '../../api/hooks'
 import { getRange, sameDay, formatDate, extractColor } from '../../utils/utils'
 
 import styles from './Calendar.module.css'

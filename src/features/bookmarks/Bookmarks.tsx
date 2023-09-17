@@ -1,5 +1,5 @@
 import BookmarksBar from './components/BookmarksBar'
-import { useBookmarks } from '../../api/api'
+import { useBookmarks } from '../../api/hooks'
 
 import styles from './Bookmarks.module.css'
 
