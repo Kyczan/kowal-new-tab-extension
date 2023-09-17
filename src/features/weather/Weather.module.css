@@ -38,17 +38,11 @@
 
 .info {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 1rem;
 }
 
-.humidity {
-  font-size: 1.125rem;
-  display: flex;
-  align-items: center;
-}
-
-.pressure {
+.infoElement {
   font-size: 1.125rem;
   text-align: right;
   display: flex;

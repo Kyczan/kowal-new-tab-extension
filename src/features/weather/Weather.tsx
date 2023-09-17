@@ -1,7 +1,8 @@
 import useSWR from 'swr'
 import { WiBarometer, WiHumidity } from 'react-icons/wi'
+import { GoHome } from 'react-icons/go'
 
-import { weatherFetcher } from '../../api/api'
+import { weatherFetcher, useHAStateItems } from '../../api/api'
 import weatherIconsMap from './weatherIconsMap'
 
 import styles from './Weather.module.css'
@@ -30,6 +31,14 @@ interface IWeatherData {
 
 const Weather = () => {
   const { data } = useSWR<IWeatherData>('weather', weatherFetcher)
+  const { data: airPurifierData } = useHAStateItems()
+
+  const homeTemp = airPurifierData?.find(
+    ({ entity_id }) => entity_id === 'sensor.mi_air_purifier_3_3h_temperature'
+  )?.state
+  const homeHumid = airPurifierData?.find(
+    ({ entity_id }) => entity_id === 'sensor.mi_air_purifier_3_3h_humidity'
+  )?.state
 
   return (
     <div className={styles.weather}>
@@ -50,14 +59,28 @@ const Weather = () => {
                 <sup>°</sup>C
               </div>
               <div className={styles.info}>
-                <div className={styles.humidity}>
-                  <WiHumidity />
-                  {data.main.humidity}%
-                </div>
-                <div className={styles.pressure}>
+                <div className={styles.infoElement}>
                   <WiBarometer />
                   {data.main.pressure} hPa
                 </div>
+                <div className={styles.infoElement}>
+                  <WiHumidity />
+                  {data.main.humidity}%
+                </div>
+              </div>
+              <div className={styles.info}>
+                {homeTemp && homeTemp !== 'unavailable' && (
+                  <div className={styles.infoElement}>
+                    <GoHome /> {homeTemp}
+                    <sup>°</sup>C
+                  </div>
+                )}
+                {homeHumid && homeHumid !== 'unavailable' && (
+                  <div className={styles.infoElement}>
+                    <WiHumidity />
+                    {homeHumid}%
+                  </div>
+                )}
               </div>
             </div>
           </div>
