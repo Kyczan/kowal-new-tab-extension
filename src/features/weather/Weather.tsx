@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import { WiBarometer, WiHumidity } from 'react-icons/wi'
+import { BsTree } from 'react-icons/bs'
 import { GoHome } from 'react-icons/go'
 
 import { weatherFetcher } from '../../api/api'
@@ -55,27 +55,26 @@ const Weather = () => {
               </div>
               <div className={styles.info}>
                 <div className={styles.infoElement}>
-                  <WiBarometer />
                   {data.main.pressure} hPa
                 </div>
-                <div className={styles.infoElement}>
-                  <WiHumidity />
-                  {data.main.humidity}%
+                <div className={styles.infoElement}>{data.main.humidity}%</div>
+                <div className={styles.infoIcon}>
+                  <BsTree />
                 </div>
               </div>
               <div className={styles.info}>
                 {homeTemp && (
                   <div className={styles.infoElement}>
-                    <GoHome /> {homeTemp}
+                    {homeTemp}
                     <sup>°</sup>C
                   </div>
                 )}
                 {homeHumid && (
-                  <div className={styles.infoElement}>
-                    <WiHumidity />
-                    {homeHumid}%
-                  </div>
+                  <div className={styles.infoElement}>{homeHumid}%</div>
                 )}
+                <div className={styles.infoIcon}>
+                  <GoHome />
+                </div>
               </div>
             </div>
           </div>

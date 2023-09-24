@@ -1,6 +1,7 @@
 .weather {
   grid-area: weather;
   justify-self: end;
+  margin-right: 6px;
 }
 
 .header {
@@ -39,6 +40,7 @@
 .info {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   gap: 1rem;
 }
 
@@ -47,6 +49,10 @@
   text-align: right;
   display: flex;
   align-items: center;
+}
+
+.infoIcon {
+  font-size: 1.125rem;
 }
 
 @media (max-width: 900px) {
