@@ -1,7 +1,6 @@
 .weather {
   grid-area: weather;
   justify-self: end;
-  margin-right: 6px;
 }
 
 .header {

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import useSWR from 'swr'
 
 import { dev } from '../utils/utils'
-import { IHAStateItem, haFetcher } from './api'
+import { IHAStateItem, haFetcher, toggleSwitch } from './api'
 import { IBookmarkItem } from '../features/bookmarks/Bookmarks'
 import bookmarksMock from '../features/bookmarks/bookmarksMock.json'
 
@@ -50,4 +50,54 @@ export const useBookmarks = () => {
   }, [])
 
   return bookmarks
+}
+
+export const useSwitch = (
+  entity_id: IHAStateItem['entity_id'],
+  name: string,
+  isLamp: boolean = false
+) => {
+  const [busy, setBusy] = useState(false)
+  const { data, mutate } = useHAStateItems()
+
+  const lightSwitch = data?.find?.((item) => item.entity_id === entity_id)
+
+  const toggle = async () => {
+    setBusy(true)
+    await toggleSwitch(entity_id)
+    setTimeout(async () => {
+      await mutate()
+      setBusy(false)
+    }, 250)
+  }
+
+  return {
+    state: lightSwitch?.state,
+    busy,
+    toggle,
+    name,
+    isLamp,
+  }
+}
+
+export const useLights = () => {
+  const bedroom = useSwitch('switch.sonoff_10003b5b2d', 'bedroom')
+  const bedroomLamp = useSwitch('switch.sonoff_10005f1750', 'bedroomLamp', true)
+  const hall = useSwitch('switch.sonoff_10003b644f', 'hall')
+  const living1 = useSwitch('switch.sonoff_1000504672_1', 'living1')
+  const living2 = useSwitch('switch.sonoff_1000504672_2', 'living2')
+  const kitchen = useSwitch('switch.sonoff_10003b66b9', 'kitchen')
+  const bathroom1 = useSwitch('switch.sonoff_10005741b6_1', 'bathroom1')
+  const bathroom2 = useSwitch('switch.sonoff_10005741b6_2', 'bathroom2')
+
+  return [
+    bedroom,
+    bedroomLamp,
+    hall,
+    living1,
+    living2,
+    kitchen,
+    bathroom1,
+    bathroom2,
+  ]
 }

@@ -7,6 +7,7 @@ import Calendar from '../features/calendar/Calendar'
 import Weather from '../features/weather/Weather'
 import Allergens from '../features/allergens/Allergens'
 import Bookmarks from '../features/bookmarks/Bookmarks'
+import FloorPlan from '../features/floorPlan/FloorPlan'
 import { randomItem, dev } from '../utils/utils'
 import wallpapersData from './wallpapersData.json'
 
@@ -27,11 +28,12 @@ const App = () => {
       <Bookmarks />
       <div className={styles.container} style={wallpaperCssVar}>
         <Clock />
-        <Lights />
+        {/* <Lights /> */}
         <TopSites />
         <Calendar />
         <Weather />
         <Allergens />
+        <FloorPlan />
       </div>
     </>
   )
