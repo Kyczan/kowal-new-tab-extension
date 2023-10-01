@@ -4,7 +4,6 @@ import {
   MdOutlineHdrAuto,
   MdFavoriteBorder,
   MdFavorite,
-  MdReportGmailerrorred,
 } from 'react-icons/md'
 import { IoMoonSharp, IoMoonOutline } from 'react-icons/io5'
 import {
@@ -14,6 +13,7 @@ import {
   PiNumberCircleTwoFill,
   PiNumberCircleThree,
   PiNumberCircleThreeFill,
+  PiWarningBold,
 } from 'react-icons/pi'
 
 import { HAFanMainPresetModes, HAFanLevels } from '../../api/api'
@@ -34,7 +34,7 @@ const buttonsMap = {
   1: { On: PiNumberCircleOneFill, Off: PiNumberCircleOne },
   2: { On: PiNumberCircleTwoFill, Off: PiNumberCircleTwo },
   3: { On: PiNumberCircleThreeFill, Off: PiNumberCircleThree },
-  undefined: { On: MdReportGmailerrorred, Off: MdReportGmailerrorred },
+  undefined: { On: PiWarningBold, Off: PiWarningBold },
 }
 
 const PresetButton = ({ onClick, type, state, busy }: IButton) => {
