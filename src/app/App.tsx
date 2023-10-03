@@ -1,6 +1,5 @@
 import { CSSProperties } from 'react'
 
-import Lights from '../features/lights/Lights'
 import TopSites from '../features/topSites/TopSites'
 import Clock from '../features/clock/Clock'
 import Calendar from '../features/calendar/Calendar'
@@ -28,7 +27,6 @@ const App = () => {
       <Bookmarks />
       <div className={styles.container} style={wallpaperCssVar}>
         <Clock />
-        {/* <Lights /> */}
         <TopSites />
         <Calendar />
         <Weather />

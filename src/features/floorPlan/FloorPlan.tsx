@@ -1,6 +1,7 @@
 import { useLights } from '../../api/hooks'
 import LightButton from './LightButton'
 import AirPurifier from '../airPurifier/AirPurifier'
+// import Vacuum from '../vacuum/Vacuum'
 import { ReactComponent as PlanIcon } from './assets/plan.svg'
 
 import styles from './FloorPlan.module.css'
@@ -22,9 +23,9 @@ const FloorPlan = () => {
             onClick={toggle}
           />
         ))}
+        {/* <Vacuum className={styles.vacuum} /> */}
+        <AirPurifier className={styles.airPurifier} />
       </div>
-
-      <AirPurifier />
     </div>
   )
 }

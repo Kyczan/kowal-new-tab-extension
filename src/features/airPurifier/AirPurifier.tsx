@@ -15,7 +15,11 @@ import styles from './AirPurifier.module.css'
 
 const purifierStates = [...Object.values(HAFanMainPresetModes), ...fanLevels]
 
-const AirPurifier = () => {
+interface IAirPurifier {
+  className?: string
+}
+
+const AirPurifier = ({ className = '' }: IAirPurifier) => {
   const { data, mutate } = useHAStateItems()
   const [preset, setPreset] = useState<
     HAFanMainPresetModes | HAFanLevels | undefined
@@ -74,27 +78,27 @@ const AirPurifier = () => {
   }
 
   return (
-    <div className={styles.airPurifier}>
-      {!show && <div>Oczyszczacz</div>}
-      {show && (
-        <div className={styles.buttons}>
-          {purifierStates.map((type) => (
-            <PresetButton
-              key={type}
-              onClick={() => handleClick(type)}
-              type={type}
-              state={preset}
-              busy={busy}
-            />
-          ))}
-        </div>
-      )}
+    <div className={`${styles.airPurifier} ${className}`}>
       <PresetButton
         onClick={toggleButtonList}
         type={preset}
         state={preset}
         busy={busy}
       />
+      {show && (
+        <div className={styles.buttons}>
+          {purifierStates.map((type, index) => (
+            <PresetButton
+              key={type}
+              onClick={() => handleClick(type)}
+              type={type}
+              state={preset}
+              busy={busy}
+              id={index}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

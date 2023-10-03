@@ -25,6 +25,7 @@ interface IButton {
   type: HAFanMainPresetModes | HAFanLevels | undefined
   state: HAFanMainPresetModes | HAFanLevels | undefined
   busy: boolean
+  id?: number
 }
 
 const buttonsMap = {
@@ -37,11 +38,16 @@ const buttonsMap = {
   undefined: { On: PiWarningBold, Off: PiWarningBold },
 }
 
-const PresetButton = ({ onClick, type, state, busy }: IButton) => {
+const PresetButton = ({ onClick, type, state, busy, id }: IButton) => {
   const Icon = type ? buttonsMap[type] : buttonsMap.undefined
 
   return (
-    <button onClick={onClick} className={styles.button} disabled={busy}>
+    <button
+      onClick={onClick}
+      className={styles.button}
+      disabled={busy}
+      data-id={id}
+    >
       {busy && <Icon.Off className={`${styles['btn-off']} ${styles.busy}`} />}
       {!busy && state === type && <Icon.On className={styles['btn-on']} />}
       {!busy && state !== type && <Icon.Off className={styles['btn-off']} />}

@@ -10,7 +10,7 @@
 
 .planIcon {
   height: auto;
-  color: lightgray;
+  color: darkgray;
 }
 
 .button {
@@ -84,4 +84,20 @@
 .bathroom2 {
   top: 41%;
   left: 9%;
+}
+
+.vacuum {
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  top: 46%;
+  left: 78%;
+  transform: rotate(180deg);
+  padding: 2px;
+}
+
+.airPurifier {
+  position: absolute;
+  top: 58%;
+  left: 78%;
 }
