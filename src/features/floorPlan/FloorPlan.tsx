@@ -2,7 +2,7 @@ import { useLights } from '../../api/hooks'
 import LightButton from './LightButton'
 import AirPurifier from '../airPurifier/AirPurifier'
 // import Vacuum from '../vacuum/Vacuum'
-import { ReactComponent as PlanIcon } from './assets/plan.svg'
+import PlanIcon from './assets/plan.svg?react'
 
 import styles from './FloorPlan.module.css'
 

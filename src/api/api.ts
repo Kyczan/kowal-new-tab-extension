@@ -29,10 +29,10 @@ export const fanLevels = [1, 2, 3] as const
 export type HAFanLevels = typeof fanLevels[number]
 
 export const haFetcher = (url: string) =>
-  fetch(`${process.env.REACT_APP_HA_URL}${url}`, {
+  fetch(`${import.meta.env.VITE_HA_URL}${url}`, {
     method: 'get',
     headers: new Headers({
-      Authorization: `Bearer ${process.env.REACT_APP_HA_TOKEN}`,
+      Authorization: `Bearer ${import.meta.env.VITE_HA_TOKEN}`,
       'Content-Type': 'application/json',
     }),
   }).then((response) => response.json())
@@ -40,7 +40,7 @@ export const haFetcher = (url: string) =>
 export const weatherFetcher = (url: string) => {
   if (dev) return Promise.resolve(weatherMockData)
 
-  return fetch(`${process.env.REACT_APP_OPENWEATHER_API_URL}`, {
+  return fetch(`${import.meta.env.VITE_OPENWEATHER_API_URL}`, {
     method: 'get',
     headers: new Headers({
       'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export const weatherFetcher = (url: string) => {
 export const allergensFetcher = () => {
   if (dev) return Promise.resolve(allergensMockData)
 
-  return fetch(`${process.env.REACT_APP_ALLERGENS_API_URL}`, {
+  return fetch(`${import.meta.env.VITE_ALLERGENS_API_URL}`, {
     method: 'get',
     headers: new Headers({
       'Content-Type': 'application/json',
@@ -65,11 +65,11 @@ export const fetchCalEvents = (
   timeMax: string
 ) =>
   fetch(
-    `${process.env.REACT_APP_HA_URL}/api/calendars/${calId}?start=${timeMin}&end=${timeMax}`,
+    `${import.meta.env.VITE_HA_URL}/api/calendars/${calId}?start=${timeMin}&end=${timeMax}`,
     {
       method: 'get',
       headers: new Headers({
-        Authorization: `Bearer ${process.env.REACT_APP_HA_TOKEN}`,
+        Authorization: `Bearer ${import.meta.env.VITE_HA_TOKEN}`,
         'Content-Type': 'application/json',
       }),
     }
@@ -77,10 +77,10 @@ export const fetchCalEvents = (
 
 export const toggleSwitch = async (entity_id: string) => {
   try {
-    await fetch(`${process.env.REACT_APP_HA_URL}/api/services/switch/toggle`, {
+    await fetch(`${import.meta.env.VITE_HA_URL}/api/services/switch/toggle`, {
       method: 'post',
       headers: new Headers({
-        Authorization: `Bearer ${process.env.REACT_APP_HA_TOKEN}`,
+        Authorization: `Bearer ${import.meta.env.VITE_HA_TOKEN}`,
         'Content-Type': 'application/json',
       }),
       body: JSON.stringify({
@@ -95,11 +95,11 @@ export const toggleSwitch = async (entity_id: string) => {
 export const setFanPresetMode = async (presetMode: HAFanPresetModes) => {
   try {
     await fetch(
-      `${process.env.REACT_APP_HA_URL}/api/services/fan/set_preset_mode`,
+      `${import.meta.env.VITE_HA_URL}/api/services/fan/set_preset_mode`,
       {
         method: 'post',
         headers: new Headers({
-          Authorization: `Bearer ${process.env.REACT_APP_HA_TOKEN}`,
+          Authorization: `Bearer ${import.meta.env.VITE_HA_TOKEN}`,
           'Content-Type': 'application/json',
         }),
         body: JSON.stringify({
@@ -116,11 +116,11 @@ export const setFanPresetMode = async (presetMode: HAFanPresetModes) => {
 export const setFanLevel = async (level: HAFanLevels) => {
   try {
     await fetch(
-      `${process.env.REACT_APP_HA_URL}/api/services/number/set_value`,
+      `${import.meta.env.VITE_HA_URL}/api/services/number/set_value`,
       {
         method: 'post',
         headers: new Headers({
-          Authorization: `Bearer ${process.env.REACT_APP_HA_TOKEN}`,
+          Authorization: `Bearer ${import.meta.env.VITE_HA_TOKEN}`,
           'Content-Type': 'application/json',
         }),
         body: JSON.stringify({

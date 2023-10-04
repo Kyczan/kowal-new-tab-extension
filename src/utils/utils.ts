@@ -1,4 +1,4 @@
-export const dev = process.env.NODE_ENV !== 'production'
+export const dev = import.meta.env.DEV
 
 export const randomItem = <T>(arr: T[]): T => {
   // it uses bitwise operator `| 0` that does nothing,
@@ -54,7 +54,6 @@ export const getFavicon = (url: string, size: number = 64): string => {
   if (dev) return `https://via.placeholder.com/${size}`
 
   // https://stackoverflow.com/a/73213968
-  return `chrome-extension://${
-    chrome.runtime.id
-  }/_favicon/?pageUrl=${encodeURIComponent(url)}&size=${size}`
+  return `chrome-extension://${chrome.runtime.id
+    }/_favicon/?pageUrl=${encodeURIComponent(url)}&size=${size}`
 }
