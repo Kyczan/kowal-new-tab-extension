@@ -9,7 +9,7 @@ import bookmarksMock from '../features/bookmarks/bookmarksMock.json'
 export const useHAStateItems = () => {
   const { data, error, mutate } = useSWR<IHAStateItem[]>(
     `/api/states`,
-    haFetcher
+    haFetcher,
   )
 
   return {
@@ -55,7 +55,7 @@ export const useBookmarks = () => {
 export const useSwitch = (
   entity_id: IHAStateItem['entity_id'],
   name: string,
-  isLamp: boolean = false
+  isLamp: boolean = false,
 ) => {
   const [busy, setBusy] = useState(false)
   const { data, mutate } = useHAStateItems()
