@@ -27,9 +27,18 @@ Customized new tab experience tailored for my needs.
 - Display agenda from Google calendars
 - Display hourly updated allergens in your area from https://twojapogoda.pl
 
-## Configuration
+## Installation
 
-First, copy `.env.local.template` file to `.env.local`
+- Clone repo
+- Install deps (`npm i`)
+- Copy (or rename) `.env.local.template` file to `.env.local`
+- Configure features (see below [Configuration](#configuration) section)
+- Edit `public/manifest.json` file and change `http://homeassistant.local:8123/` under `permissions` key to the same value as `VITE_HA_URL` in `.env.local` file
+- Build app (`npm run build`)
+- Go to Chrome (or whatever Chromium based browser, e.g. Brave), open extensions page (`chrome://extensions`), turn on developer mode, click **Load unzipped** and select `build` folder of this app
+- Open new tab and enjoy!
+
+## Configuration
 
 ### Bookmarks bar
 I created this component to replace native bookmarks bar. I want to display bar only in the new tab and not in pages (there is setting for that in browser, but it is broken if you are using custom new tab).
@@ -97,15 +106,6 @@ VITE_ALLERGENS_API_URL="https://data.twojapogoda.pl/forecasts/themed/allergies/d
 ```
 
 You need to find your city id (`2517` is Wrocław). Visit https://www.twojapogoda.pl/ open dev tools, go to network tab. Next use search to find your city and click enter. It will make some requests in network tab. One of them will be number - it is your city id.
-
-## Installation
-
-- Clone repo
-- Install deps (`npm i`)
-- Edit `public/manifest.json` file and change `http://homeassistant.local:8123/` under `permissions` key to the same value as `VITE_HA_URL` in `.env.local` file
-- Build app (`npm run build`)
-- Go to Chrome (or whatever Chromium based browser, e.g. Brave), open extensions page (`chrome://extensions`), turn on developer mode, click **Load unzipped** and select `build` folder of this app
-- Open new tab and enjoy!
 
 ## Development
 
