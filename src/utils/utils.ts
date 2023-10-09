@@ -1,4 +1,22 @@
+import config from '../../config.json'
+import { IConfig, IFeatures } from '../types'
+
 export const dev = import.meta.env.DEV
+
+export const getConfig = (feature: IFeatures) => {
+  const configData = config as IConfig
+  return configData[feature]
+}
+
+export const featureEnabled = (feature: IFeatures) => {
+  const feat = getConfig(feature)
+
+  if ('enabled' in feat) {
+    return feat.enabled
+  }
+
+  return false
+}
 
 export const randomItem = <T>(arr: T[]): T => {
   // it uses bitwise operator `| 0` that does nothing,
@@ -37,7 +55,7 @@ export const sameDay = (date1: string | Date, date2: string | Date) => {
 
 export const formatDate = (
   date: string | Date,
-  options: Intl.DateTimeFormatOptions
+  options: Intl.DateTimeFormatOptions,
 ) => new Date(date).toLocaleString([], options)
 
 export const extractColor = (str: string) => {
@@ -54,6 +72,7 @@ export const getFavicon = (url: string, size: number = 64): string => {
   if (dev) return `https://via.placeholder.com/${size}`
 
   // https://stackoverflow.com/a/73213968
-  return `chrome-extension://${chrome.runtime.id
-    }/_favicon/?pageUrl=${encodeURIComponent(url)}&size=${size}`
+  return `chrome-extension://${
+    chrome.runtime.id
+  }/_favicon/?pageUrl=${encodeURIComponent(url)}&size=${size}`
 }

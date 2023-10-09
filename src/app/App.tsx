@@ -7,14 +7,15 @@ import Weather from '../features/weather/Weather'
 import Allergens from '../features/allergens/Allergens'
 import Bookmarks from '../features/bookmarks/Bookmarks'
 import FloorPlan from '../features/floorPlan/FloorPlan'
-import { randomItem, dev } from '../utils/utils'
-import wallpapersData from './wallpapersData.json'
+import { getConfig, featureEnabled, randomItem, dev } from '../utils/utils'
+import { IConfig } from '../types'
 
 import styles from './App.module.css'
 
 const getWallpaperUrl = () => {
+  const wallpapers = getConfig('wallpapers') as IConfig['wallpapers']
   const prefix = dev ? './' : '../../'
-  return `url("${prefix}wallpapers/${randomItem(wallpapersData)}")`
+  return `url("${prefix}wallpapers/${randomItem(wallpapers.list)}")`
 }
 
 const App = () => {
@@ -24,14 +25,14 @@ const App = () => {
 
   return (
     <>
-      <Bookmarks />
+      {featureEnabled('bookmarks') && <Bookmarks />}
       <div className={styles.container} style={wallpaperCssVar}>
-        <Clock />
-        <TopSites />
-        <Calendar />
-        <Weather />
-        <Allergens />
-        <FloorPlan />
+        {featureEnabled('clock') && <Clock />}
+        {featureEnabled('topSites') && <TopSites />}
+        {featureEnabled('calendar') && <Calendar />}
+        {featureEnabled('weather') && <Weather />}
+        {featureEnabled('allergens') && <Allergens />}
+        {featureEnabled('floorPlan') && <FloorPlan />}
       </div>
     </>
   )

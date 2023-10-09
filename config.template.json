@@ -1,0 +1,68 @@
+{
+  "homeAssistant": {
+    "haUrl": "http://homeassistant.local:8123",
+    "haToken": "yourHAToken"
+  },
+  "airPurifier": {
+    "enabled": true
+  },
+  "allergens": {
+    "enabled": true,
+    "api": {
+      "baseUrl": "https://data.twojapogoda.pl/forecasts/themed/allergies/default/",
+      "cityId": "2517"
+    }
+  },
+  "bookmarks": {
+    "enabled": true
+  },
+  "calendar": {
+    "enabled": true
+  },
+  "clock": {
+    "enabled": true
+  },
+  "floorPlan": {
+    "enabled": true,
+    "lights": [
+      {
+        "name": "bedroom",
+        "entity_id": "switch.sonoff_xxxxxx",
+        "type": "bulb",
+        "top": "73%",
+        "left": "64%"
+      },
+      {
+        "name": "bedroomLamp",
+        "entity_id": "switch.sonoff_yyyyyy",
+        "type": "lamp",
+        "top": "58%",
+        "left": "52%"
+      }
+    ]
+  },
+  "topSites": {
+    "enabled": true
+  },
+  "weather": {
+    "enabled": true,
+    "api": {
+      "baseUrl": "https://api.openweathermap.org/data/2.5/weather",
+      "lang": "pl",
+      "units": "metric",
+      "cityId": "3081368",
+      "key": "yourApiKey"
+    }
+  },
+  "wallpapers": {
+    "list": [
+      "1-chris-kursikowski-unsplash.webp",
+      "2-geran-de-klerk-unsplash.webp",
+      "3-ivan-bandura-unsplash.webp",
+      "4-mauro-lima-unsplash.webp",
+      "5-max-okhrimenko-unsplash.webp",
+      "6-vitalii-khodzinskyi-unsplash.webp",
+      "7-wolfgang-hasselmann-unsplash.webp"
+    ]
+  }
+}

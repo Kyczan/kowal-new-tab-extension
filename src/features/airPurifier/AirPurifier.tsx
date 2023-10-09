@@ -30,10 +30,10 @@ const AirPurifier = ({ className = '' }: IAirPurifier) => {
   useEffect(() => {
     if (Array.isArray(data)) {
       const filteredPresets = data.find(
-        (item) => item.entity_id === 'fan.mi_air_purifier_3_3h'
+        (item) => item.entity_id === 'fan.mi_air_purifier_3_3h',
       )
       const filteredLevels = data.find(
-        (item) => item.entity_id === 'number.mi_air_purifier_3_3h_fan_level'
+        (item) => item.entity_id === 'number.mi_air_purifier_3_3h_fan_level',
       )
       const presetMode = filteredPresets?.attributes?.preset_mode
       const fanLevel = filteredLevels?.state

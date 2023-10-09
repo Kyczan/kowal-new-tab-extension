@@ -1,8 +1,8 @@
 import { useLights } from '../../api/hooks'
+import { featureEnabled } from '../../utils/utils'
 import LightButton from './LightButton'
 import AirPurifier from '../airPurifier/AirPurifier'
 // import Vacuum from '../vacuum/Vacuum'
-import PlanIcon from './assets/plan.svg?react'
 
 import styles from './FloorPlan.module.css'
 
@@ -12,19 +12,21 @@ const FloorPlan = () => {
   return (
     <div className={styles.floorPlan}>
       <div className={styles.wrapper}>
-        <PlanIcon className={styles.planIcon} />
-        {lights.map(({ name, busy, isLamp, state, toggle }) => (
+        <img src="/plan.svg" alt="Floor Plan" className={styles.planIcon} />
+        {lights.map(({ name, busy, type, state, toggle, top, left }) => (
           <LightButton
             key={name}
-            className={styles[name]}
             busy={busy}
-            isLamp={isLamp}
+            type={type}
             state={state}
             onClick={toggle}
+            style={{ top, left }}
           />
         ))}
         {/* <Vacuum className={styles.vacuum} /> */}
-        <AirPurifier className={styles.airPurifier} />
+        {featureEnabled('airPurifier') && (
+          <AirPurifier className={styles.airPurifier} />
+        )}
       </div>
     </div>
   )

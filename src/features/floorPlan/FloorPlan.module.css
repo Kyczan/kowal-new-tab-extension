@@ -9,6 +9,7 @@
 }
 
 .planIcon {
+  width: 100%;
   height: auto;
   color: darkgray;
 }
@@ -42,48 +43,6 @@
 
 .bulb-off.busy {
   color: lightgray;
-}
-
-/* lights positions: */
-
-.bedroom {
-  top: 73%;
-  left: 64%;
-}
-
-.bedroomLamp {
-  top: 58%;
-  left: 52%;
-}
-
-.hall {
-  top: 73%;
-  left: 27%;
-}
-
-.living1 {
-  top: 26%;
-  left: 68%;
-}
-
-.living2 {
-  top: 26%;
-  left: 60%;
-}
-
-.kitchen {
-  top: 16%;
-  left: 16%;
-}
-
-.bathroom1 {
-  top: 55%;
-  left: 9%;
-}
-
-.bathroom2 {
-  top: 41%;
-  left: 9%;
 }
 
 .vacuum {

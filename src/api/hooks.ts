@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import useSWR from 'swr'
 
-import { dev } from '../utils/utils'
+import { IConfig, LightType } from '../types'
+import { dev, getConfig } from '../utils/utils'
 import { IHAStateItem, haFetcher, toggleSwitch } from './api'
 import { IBookmarkItem } from '../features/bookmarks/Bookmarks'
 import bookmarksMock from '../features/bookmarks/bookmarksMock.json'
@@ -55,7 +56,9 @@ export const useBookmarks = () => {
 export const useSwitch = (
   entity_id: IHAStateItem['entity_id'],
   name: string,
-  isLamp: boolean = false,
+  type: LightType,
+  top: string,
+  left: string,
 ) => {
   const [busy, setBusy] = useState(false)
   const { data, mutate } = useHAStateItems()
@@ -76,28 +79,22 @@ export const useSwitch = (
     busy,
     toggle,
     name,
-    isLamp,
+    type,
+    top,
+    left,
   }
 }
 
 export const useLights = () => {
-  const bedroom = useSwitch('switch.sonoff_10003b5b2d', 'bedroom')
-  const bedroomLamp = useSwitch('switch.sonoff_10005f1750', 'bedroomLamp', true)
-  const hall = useSwitch('switch.sonoff_10003b644f', 'hall')
-  const living1 = useSwitch('switch.sonoff_1000504672_1', 'living1')
-  const living2 = useSwitch('switch.sonoff_1000504672_2', 'living2')
-  const kitchen = useSwitch('switch.sonoff_10003b66b9', 'kitchen')
-  const bathroom1 = useSwitch('switch.sonoff_10005741b6_1', 'bathroom1')
-  const bathroom2 = useSwitch('switch.sonoff_10005741b6_2', 'bathroom2')
+  const { lights } = getConfig('floorPlan') as IConfig['floorPlan']
+  const switches = []
 
-  return [
-    bedroom,
-    bedroomLamp,
-    hall,
-    living1,
-    living2,
-    kitchen,
-    bathroom1,
-    bathroom2,
-  ]
+  for (let i = 0; i < lights.length; i++) {
+    const { entity_id, name, type, left, top } = lights[i]
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const item = useSwitch(entity_id, name, type, top, left)
+    switches.push(item)
+  }
+
+  return switches
 }
