@@ -42,6 +42,7 @@ interface ILight {
 
 interface IFloorPlan {
   enabled: boolean
+  width: string
   lights: ILight[]
 }
 

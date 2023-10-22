@@ -24,6 +24,7 @@
   },
   "floorPlan": {
     "enabled": true,
+    "width": "340px",
     "lights": [
       {
         "name": "bedroom",
