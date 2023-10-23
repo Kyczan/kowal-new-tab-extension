@@ -51,7 +51,7 @@ const Weather = () => {
             <div>
               <div className={styles.temp}>
                 {data.main.temp.toFixed(1)}
-                <sup>°</sup>C
+                °C
               </div>
               <div className={styles.info}>
                 <div className={styles.infoElement}>
@@ -64,10 +64,7 @@ const Weather = () => {
               </div>
               <div className={styles.info}>
                 {homeTemp && (
-                  <div className={styles.infoElement}>
-                    {homeTemp}
-                    <sup>°</sup>C
-                  </div>
+                  <div className={styles.infoElement}>{homeTemp}°C</div>
                 )}
                 {homeHumid && (
                   <div className={styles.infoElement}>{homeHumid}%</div>
