@@ -3,7 +3,16 @@ import useSWR from 'swr'
 
 import { IConfig, LightType } from '../types'
 import { dev, getConfig } from '../utils/utils'
-import { IHAStateItem, haFetcher, toggleSwitch } from './api'
+import {
+  IHAStateItem,
+  haFetcher,
+  toggleSwitch,
+  setFanPresetMode,
+  setFanLevel,
+  HAFanLevels,
+  HAFanMainPresetModes,
+  HAFanOnlyPresetMode,
+} from './api'
 import { IBookmarkItem } from '../features/bookmarks/Bookmarks'
 import bookmarksMock from '../features/bookmarks/bookmarksMock.json'
 
@@ -86,15 +95,102 @@ export const useSwitch = (
 }
 
 export const useLights = () => {
-  const { lights } = getConfig('floorPlan') as IConfig['floorPlan']
+  const { list } = getConfig('lights') as IConfig['lights']
   const switches = []
 
-  for (let i = 0; i < lights.length; i++) {
-    const { entity_id, name, type, left, top } = lights[i]
+  for (let i = 0; i < list.length; i++) {
+    const { entity_id, name, type, left, top } = list[i]
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const item = useSwitch(entity_id, name, type, top, left)
     switches.push(item)
   }
 
   return switches
+}
+
+export const useAirPurifier = (
+  main_entity_id: IHAStateItem['entity_id'],
+  fan_level_entity_id: IHAStateItem['entity_id'],
+  name: string,
+  top: string,
+  left: string,
+) => {
+  const { data, mutate } = useHAStateItems()
+  const [busy, setBusy] = useState(false)
+  const [show, setShow] = useState(false)
+
+  const filteredPresets = data?.find(
+    (item) => item.entity_id === main_entity_id,
+  )
+  const filteredLevels = data?.find(
+    (item) => item.entity_id === fan_level_entity_id,
+  )
+  const presetMode = filteredPresets?.attributes?.preset_mode
+  const fanLevel = filteredLevels?.state
+  const preset =
+    presetMode === HAFanOnlyPresetMode.FAN
+      ? (+fanLevel as HAFanLevels)
+      : presetMode
+
+  const toggleButtonList = () => {
+    setShow((show) => !show)
+  }
+
+  const handleClickPreset = async (newPreset: HAFanMainPresetModes) => {
+    setBusy(true)
+
+    await setFanPresetMode(main_entity_id, newPreset)
+    await mutate()
+    setBusy(false)
+    toggleButtonList()
+  }
+
+  const handleClickFan = async (newLevel: HAFanLevels) => {
+    setBusy(true)
+
+    await setFanLevel(fan_level_entity_id, newLevel)
+    await setFanPresetMode(main_entity_id, HAFanOnlyPresetMode.FAN)
+    await mutate()
+    setBusy(false)
+    toggleButtonList()
+  }
+
+  const handleClick = (type: HAFanMainPresetModes | HAFanLevels) => {
+    if (typeof type === 'string') {
+      handleClickPreset(type)
+    } else {
+      handleClickFan(type)
+    }
+  }
+
+  return {
+    preset,
+    busy,
+    show,
+    handleClick,
+    toggleButtonList,
+    name,
+    top,
+    left,
+  }
+}
+
+export const useAirPurifiers = () => {
+  const { list } = getConfig('airPurifiers') as IConfig['airPurifiers']
+  const purifiers = []
+
+  for (let i = 0; i < list.length; i++) {
+    const { main_entity_id, fan_level_entity_id, name, left, top } = list[i]
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const item = useAirPurifier(
+      main_entity_id,
+      fan_level_entity_id,
+      name,
+      top,
+      left,
+    )
+    purifiers.push(item)
+  }
+
+  return purifiers
 }

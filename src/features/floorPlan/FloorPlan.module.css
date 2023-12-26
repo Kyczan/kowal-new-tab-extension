@@ -53,9 +53,3 @@
   transform: rotate(180deg);
   padding: 2px;
 }
-
-.airPurifier {
-  position: absolute;
-  top: 58%;
-  left: 78%;
-}

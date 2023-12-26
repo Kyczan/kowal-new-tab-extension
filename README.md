@@ -23,7 +23,7 @@ Customized new tab experience tailored for my needs.
 - Display top visited sites
 - Display current weather from https://openweathermap.org/
 - Control lights in the flat
-- Control Air Purifier
+- Control Air Purifiers
 - Display agenda from Google calendars
 - Display hourly updated allergens in your area from https://twojapogoda.pl
 
@@ -40,10 +40,10 @@ Customized new tab experience tailored for my needs.
 
 ## Configuration
 
-Most configuration needs to be done in `config.json` file. You can turn on/off most features by editing property `enabled: true/false` in each feature.
+Most configuration needs to be done in `config.json` file. You can turn on/off most features by editing property `"enabled": true/false` in each feature.
 
 ### Bookmarks bar
-I created this component to replace native bookmarks bar. I want to display bar only in the new tab and not in pages (there is setting for that in browser, but it is broken if you are using custom new tab).
+I created this component to replace native bookmarks bar. I want to display bar only in the new tab and not in visited pages (there is setting for that in browser, but it is broken if you are using custom new tab).
 
 ### Wallpapers
 You can use your own set of wallpapers. Place images in `public/wallpapers` folder and edit `wallpapers.list` in `config.json` file. There should be names of the images placed in wallpapers folder.
@@ -55,21 +55,22 @@ In `config.json` set following variables under `api` property:
 - `cityId` - your city id - to get id go [here](https://openweathermap.org/), search for your city and copy id from browser url
 - `key` - most important - obtain api key [here](https://openweathermap.org/api) (you need to create free account)
 
+### Floor Plan
+If you want to control lights or air purifier - you need a floor plan. Create it in `.svg` format (I used for that great free app [Inkscape](https://inkscape.org/)). Then upload/paste it into this web [app](https://jakearchibald.github.io/svgomg/) (it will improve svg file and fix some issues). Next, put file in `public/plan.svg`.
+
 ### Lights
 This one requires some work. 
-
-You need a floor plan. Create it in `.svg` format (I used for that great free app [Inkscape](https://inkscape.org/)). Then upload/paste it into this web [app](https://jakearchibald.github.io/svgomg/) (it will improve svg file and fix some issues). Put file in `public/plan.svg`.
 
 You need to control switches over Internet or local network. I'm using [Home Assistant](https://www.home-assistant.io/) api and smart [Sonoff](https://sonoff.tech/) switches connected to HA via [this integration](https://github.com/AlexxIT/SonoffLAN).
 
 Set following variables in `config.json` under `homeAssistant` property:
-- `haUrl` - link which you use to open HA in browser (in my case it is `http://homeassistant.local:8123`)
+- `haUrl` - link which you use to open HA in browser (in my case it is `http://homeassistant.local:8123`, but it can be some external url if you have exposed HA to Internet - just remember to set the same value in `public/manifest.json`)
 - `haToken` access token to HA ([here](https://developers.home-assistant.io/docs/api/rest/) is info how to obtain token)
 
-Next obtain `entity_id` from HA for all switches and put them in `config.json` under `floorPlan.lights`. Also adjust there bulbs positions using `left` and `top` property (values are percents of floor plan dimensions). It is easier to position it in the browser. Just run this app in [Development](#development) mode, inspect lightbulb and experiment with css.
+Next obtain `entity_id` from HA for all switches and put them in `config.json` under `lights.list`. Also adjust there bulbs positions using `left` and `top` property (values are percents of floor plan dimensions). It is easier to position it in the browser. Just run this app in [Development](#development) mode, inspect lightbulb and experiment with css.
 
 ### Air Purifier
-It also uses HA api to control Purifier. I have Xiaomi Mi Air Purifier 3H. It uses this [integration](https://www.home-assistant.io/integrations/xiaomi_miio/).
+It also uses HA api to control Purifier. I have Xiaomi Mi Air Purifier 3H (and this app was tested only for this model). It uses this [integration](https://www.home-assistant.io/integrations/xiaomi_miio/). You can use more than one Air Purifier. In `config.json` under `airPurifiers.list` you need to specify your devices and its positions like for Lights.
 
 ### Calendar
 It also uses [HA integration](https://www.home-assistant.io/integrations/google/) to retrieve data from Google calendar. To see calendar colors you need to modify in **HA** `google_calendars.yaml` file. Add to `device_id` suffix with hex color (like `_ff0000`) (this is some workaround, because HA integration doesn't provide info about calendar color):

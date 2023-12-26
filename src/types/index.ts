@@ -8,10 +8,6 @@ interface IHomeAssistant {
   haToken: string
 }
 
-interface IAirPurifier {
-  enabled: boolean
-}
-
 interface IAllergens {
   enabled: boolean
   api: {
@@ -32,6 +28,24 @@ interface IClock {
   enabled: boolean
 }
 
+interface IFloorPlan {
+  enabled: boolean
+  width: string
+}
+
+interface IAirPurifier {
+  name: string
+  main_entity_id: string
+  fan_level_entity_id: string
+  top: string
+  left: string
+}
+
+interface IAirPurifiers {
+  enabled: boolean
+  list: IAirPurifier[]
+}
+
 interface ILight {
   name: string
   entity_id: string
@@ -40,10 +54,9 @@ interface ILight {
   left: string
 }
 
-interface IFloorPlan {
+interface ILights {
   enabled: boolean
-  width: string
-  lights: ILight[]
+  list: ILight[]
 }
 
 interface ITopSites {
@@ -67,12 +80,13 @@ interface IWeather {
 
 export interface IConfig {
   homeAssistant: IHomeAssistant
-  airPurifier: IAirPurifier
   allergens: IAllergens
   bookmarks: IBookmarks
   calendar: ICalendar
   clock: IClock
   floorPlan: IFloorPlan
+  airPurifiers: IAirPurifiers
+  lights: ILights
   topSites: ITopSites
   weather: IWeather
   wallpapers: IWallpapers

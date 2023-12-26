@@ -118,7 +118,10 @@ export const toggleSwitch = async (entity_id: string) => {
   }
 }
 
-export const setFanPresetMode = async (presetMode: HAFanPresetModes) => {
+export const setFanPresetMode = async (
+  main_entity_id: string,
+  presetMode: HAFanPresetModes,
+) => {
   const { haToken, haUrl } = getConfig(
     'homeAssistant',
   ) as IConfig['homeAssistant']
@@ -131,7 +134,7 @@ export const setFanPresetMode = async (presetMode: HAFanPresetModes) => {
         'Content-Type': 'application/json',
       }),
       body: JSON.stringify({
-        entity_id: 'fan.mi_air_purifier_3_3h',
+        entity_id: main_entity_id,
         preset_mode: presetMode,
       }),
     })
@@ -140,7 +143,10 @@ export const setFanPresetMode = async (presetMode: HAFanPresetModes) => {
   }
 }
 
-export const setFanLevel = async (level: HAFanLevels) => {
+export const setFanLevel = async (
+  fan_level_entity_id: string,
+  level: HAFanLevels,
+) => {
   const { haToken, haUrl } = getConfig(
     'homeAssistant',
   ) as IConfig['homeAssistant']
@@ -153,7 +159,7 @@ export const setFanLevel = async (level: HAFanLevels) => {
         'Content-Type': 'application/json',
       }),
       body: JSON.stringify({
-        entity_id: 'number.mi_air_purifier_3_3h_fan_level',
+        entity_id: fan_level_entity_id,
         value: level,
       }),
     })

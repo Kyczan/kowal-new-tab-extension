@@ -3,9 +3,6 @@
     "haUrl": "http://homeassistant.local:8123",
     "haToken": "yourHAToken"
   },
-  "airPurifier": {
-    "enabled": true
-  },
   "allergens": {
     "enabled": true,
     "api": {
@@ -24,8 +21,30 @@
   },
   "floorPlan": {
     "enabled": true,
-    "width": "340px",
-    "lights": [
+    "width": "340px"
+  },
+  "airPurifiers": {
+    "enabled": true,
+    "list": [
+      {
+        "name": "bedroom",
+        "main_entity_id": "fan.mi_air_purifier_3_3h",
+        "fan_level_entity_id": "number.mi_air_purifier_3_3h_fan_level",
+        "top": "58%",
+        "left": "78%"
+      },
+      {
+        "name": "living",
+        "main_entity_id": "fan.mi_air_purifier_3_3h",
+        "fan_level_entity_id": "number.mi_air_purifier_3_3h_fan_level",
+        "top": "38%",
+        "left": "78%"
+      }
+    ]
+  },
+  "lights": {
+    "enabled": true,
+    "list": [
       {
         "name": "bedroom",
         "entity_id": "switch.sonoff_xxxxxx",
