@@ -6,6 +6,7 @@ import Calendar from '../features/calendar/Calendar'
 import Weather from '../features/weather/Weather'
 import Allergens from '../features/allergens/Allergens'
 import FloorPlan from '../features/floorPlan/FloorPlan'
+import Settings from '../features/settings/Settings'
 import { getConfig, featureEnabled, randomItem, dev } from '../utils/utils'
 import { IConfig } from '../types'
 
@@ -23,14 +24,17 @@ const App = () => {
   } as CSSProperties
 
   return (
-    <div className={styles.container} style={wallpaperCssVar}>
-      {featureEnabled('clock') && <Clock />}
-      {featureEnabled('topSites') && <TopSites />}
-      {featureEnabled('calendar') && <Calendar />}
-      {featureEnabled('weather') && <Weather />}
-      {featureEnabled('allergens') && <Allergens />}
-      {featureEnabled('floorPlan') && <FloorPlan />}
-    </div>
+    <>
+      <div className={styles.container} style={wallpaperCssVar}>
+        {featureEnabled('clock') && <Clock />}
+        {featureEnabled('topSites') && <TopSites />}
+        {featureEnabled('calendar') && <Calendar />}
+        {featureEnabled('weather') && <Weather />}
+        {featureEnabled('allergens') && <Allergens />}
+        {featureEnabled('floorPlan') && <FloorPlan />}
+      </div>
+      <Settings />
+    </>
   )
 }
 
