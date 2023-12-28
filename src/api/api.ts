@@ -1,6 +1,5 @@
 import { IConfig } from '../types'
 import { getConfig, dev } from '../utils/utils'
-import weatherMockData from '../features/weather/weatherMock.json'
 import allergensMockData from '../features/allergens/allergensMock.json'
 
 interface IHAAttributes {
@@ -10,7 +9,7 @@ interface IHAAttributes {
 
 export interface IHAStateItem {
   entity_id: string
-  state: any
+  state: string
   attributes: IHAAttributes
 }
 
@@ -38,25 +37,6 @@ export const haFetcher = (url: string) => {
     method: 'get',
     headers: new Headers({
       Authorization: `Bearer ${haToken}`,
-      'Content-Type': 'application/json',
-    }),
-  }).then((response) => response.json())
-}
-
-export const weatherFetcher = () => {
-  if (dev) return Promise.resolve(weatherMockData)
-
-  const { api } = getConfig('weather') as IConfig['weather']
-  const { baseUrl, cityId, key, lang, units } = api
-  const url = new URL(baseUrl)
-  url.searchParams.append('lang', lang)
-  url.searchParams.append('units', units)
-  url.searchParams.append('id', cityId)
-  url.searchParams.append('appid', key)
-
-  return fetch(url.href, {
-    method: 'get',
-    headers: new Headers({
       'Content-Type': 'application/json',
     }),
   }).then((response) => response.json())

@@ -30,15 +30,19 @@ export const useHAStateItems = () => {
   }
 }
 
-export const useHAStateValue = (entity_id: IHAStateItem['entity_id']) => {
+export const useHAStateValue = (
+  entity_id: IHAStateItem['entity_id'],
+  useLocalStorage: boolean = false,
+) => {
   const { data } = useHAStateItems()
   const value = data?.find((item) => item.entity_id === entity_id)?.state
 
-  if (!value || value === 'unavailable') {
-    return localStorage.getItem(entity_id) || ''
+  if (useLocalStorage) {
+    if (!value || value === 'unavailable') {
+      return localStorage.getItem(entity_id) || ''
+    }
+    localStorage.setItem(entity_id, value)
   }
-
-  localStorage.setItem(entity_id, value)
 
   return value
 }
@@ -126,7 +130,7 @@ export const useAirPurifier = (
     (item) => item.entity_id === fan_level_entity_id,
   )
   const presetMode = filteredPresets?.attributes?.preset_mode
-  const fanLevel = filteredLevels?.state
+  const fanLevel = filteredLevels?.state || ''
   const preset =
     presetMode === HAFanOnlyPresetMode.FAN
       ? (+fanLevel as HAFanLevels)

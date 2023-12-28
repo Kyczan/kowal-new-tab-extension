@@ -42,6 +42,18 @@ Customized new tab experience tailored for my needs.
 
 Most configuration needs to be done in `config.json` file. You can turn on/off most features by editing property `"enabled": true/false` in each feature.
 
+### Home Assistant
+
+Some features are connected to [Home Assistant](https://www.home-assistant.io/) and are using its api:
+- Calendar
+- Lights
+- Air Purifier
+- Weather
+
+To connect to HA set following variables in `config.json` under `homeAssistant` property:
+- `haUrl` - link which you use to open HA in browser (in my case it is `http://homeassistant.local:8123`, but it can be some external url if you have exposed HA to Internet - just remember to set the same value in `public/manifest.json`)
+- `haToken` access token to HA ([here](https://developers.home-assistant.io/docs/api/rest/) is info how to obtain token)
+
 ### Bookmarks bar
 I created this component to replace native bookmarks bar. I want to display bar only in the new tab and not in visited pages (there is setting for that in browser, but it is broken if you are using custom new tab).
 
@@ -49,25 +61,17 @@ I created this component to replace native bookmarks bar. I want to display bar 
 You can use your own set of wallpapers. Place images in `public/wallpapers` folder and edit `wallpapers.list` in `config.json` file. There should be names of the images placed in wallpapers folder.
 
 ### Weather
-In `config.json` set following variables under `api` property:
-- `lang` - your language (here lang is set to `pl`)
-- `units` - set to `metric`
-- `cityId` - your city id - to get id go [here](https://openweathermap.org/), search for your city and copy id from browser url
-- `key` - most important - obtain api key [here](https://openweathermap.org/api) (you need to create free account)
+It uses OpenWeatherMap [integration](https://www.home-assistant.io/integrations/openweathermap/) in HA. You also need api key from OpenWeatherMap (get it [here](https://openweathermap.org/api)), which you need to paste into integration config in HA.
+
+Here, in `config.json` under `weather.name` set display name for your location. It is just for display purposes. There is no need to change `weather.entity_id`.
 
 ### Floor Plan
 If you want to control lights or air purifier - you need a floor plan. Create it in `.svg` format (I used for that great free app [Inkscape](https://inkscape.org/)). Then upload/paste it into this web [app](https://jakearchibald.github.io/svgomg/) (it will improve svg file and fix some issues). Next, put file in `public/plan.svg`.
 
 ### Lights
-This one requires some work. 
+I'm using smart [Sonoff](https://sonoff.tech/) switches connected to HA via [this integration](https://github.com/AlexxIT/SonoffLAN).
 
-You need to control switches over Internet or local network. I'm using [Home Assistant](https://www.home-assistant.io/) api and smart [Sonoff](https://sonoff.tech/) switches connected to HA via [this integration](https://github.com/AlexxIT/SonoffLAN).
-
-Set following variables in `config.json` under `homeAssistant` property:
-- `haUrl` - link which you use to open HA in browser (in my case it is `http://homeassistant.local:8123`, but it can be some external url if you have exposed HA to Internet - just remember to set the same value in `public/manifest.json`)
-- `haToken` access token to HA ([here](https://developers.home-assistant.io/docs/api/rest/) is info how to obtain token)
-
-Next obtain `entity_id` from HA for all switches and put them in `config.json` under `lights.list`. Also adjust there bulbs positions using `left` and `top` property (values are percents of floor plan dimensions). It is easier to position it in the browser. Just run this app in [Development](#development) mode, inspect lightbulb and experiment with css.
+Obtain `entity_id` from HA for all switches and put them in `config.json` under `lights.list`. Also adjust there bulbs positions using `left` and `top` property (values are percents of floor plan dimensions). It is easier to position it in the browser. Just run this app in [Development](#development) mode, inspect lightbulb and experiment with css.
 
 ### Air Purifier
 It also uses HA api to control Purifier. I have Xiaomi Mi Air Purifier 3H (and this app was tested only for this model). It uses this [integration](https://www.home-assistant.io/integrations/xiaomi_miio/). You can use more than one Air Purifier. In `config.json` under `airPurifiers.list` you need to specify your devices and its positions like for Lights.

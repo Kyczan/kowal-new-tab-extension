@@ -69,13 +69,8 @@ interface IWallpapers {
 
 interface IWeather {
   enabled: boolean
-  api: {
-    baseUrl: string
-    lang: string
-    units: string
-    cityId: string
-    key: string
-  }
+  name: string
+  entity_id: string
 }
 
 export interface IConfig {

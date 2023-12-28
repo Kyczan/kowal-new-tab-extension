@@ -22,7 +22,7 @@ const FloorPlan = () => {
               key={name}
               busy={busy}
               type={type}
-              state={state}
+              state={state as 'on' | 'off' | undefined}
               onClick={toggle}
               style={{ top, left }}
             />

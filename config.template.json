@@ -66,13 +66,8 @@
   },
   "weather": {
     "enabled": true,
-    "api": {
-      "baseUrl": "https://api.openweathermap.org/data/2.5/weather",
-      "lang": "pl",
-      "units": "metric",
-      "cityId": "3081368",
-      "key": "yourApiKey"
-    }
+    "name": "Wrocław",
+    "entity_id": "sensor.openweathermap"
   },
   "wallpapers": {
     "list": [
