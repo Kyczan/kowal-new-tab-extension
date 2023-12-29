@@ -13,11 +13,15 @@ import {
   WiFog,
 } from 'react-icons/wi'
 
+import { IConfig } from '../../types'
 import { useHAStateValue } from '../../api/hooks'
+import { getConfig } from '../../utils/utils'
 
 const CurrentWeatherIcon = () => {
-  const code = +(useHAStateValue('sensor.openweathermap_weather_code') || '')
-  const condition = useHAStateValue('sensor.openweathermap_condition') || ''
+  const { entity_id } = getConfig('weather') as IConfig['weather']
+
+  const code = +(useHAStateValue(`${entity_id}_weather_code`) || '')
+  const condition = useHAStateValue(`${entity_id}_condition`) || ''
   const isNight = condition.includes('night')
 
   // see https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
