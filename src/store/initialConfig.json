@@ -1,7 +1,7 @@
 {
   "homeAssistant": {
     "haUrl": "http://homeassistant.local:8123",
-    "haToken": "yourHAToken"
+    "haToken": "yourToken"
   },
   "allergens": {
     "enabled": true,
@@ -11,17 +11,17 @@
     }
   },
   "calendar": {
-    "enabled": true
+    "enabled": false
   },
   "clock": {
     "enabled": true
   },
   "floorPlan": {
-    "enabled": true,
+    "enabled": false,
     "width": "340px"
   },
   "airPurifiers": {
-    "enabled": true,
+    "enabled": false,
     "list": [
       {
         "name": "bedroom",
@@ -29,30 +29,23 @@
         "fan_level_entity_id": "number.mi_air_purifier_3_3h_fan_level",
         "top": "58%",
         "left": "78%"
-      },
-      {
-        "name": "living",
-        "main_entity_id": "fan.mi_air_purifier_3_3h",
-        "fan_level_entity_id": "number.mi_air_purifier_3_3h_fan_level",
-        "top": "38%",
-        "left": "78%"
       }
     ]
   },
   "lights": {
-    "enabled": true,
+    "enabled": false,
     "list": [
       {
         "name": "bedroom",
-        "entity_id": "switch.sonoff_xxxxxx",
+        "entity_id": "switch.sonoff_10003b5dcc",
         "type": "bulb",
         "top": "73%",
-        "left": "64%"
+        "left": "65%"
       },
       {
         "name": "bedroomLamp",
-        "entity_id": "switch.sonoff_yyyyyy",
-        "type": "lamp",
+        "entity_id": "switch.sonoff_10005f10dd",
+        "type": "bulb",
         "top": "58%",
         "left": "52%"
       }
@@ -62,7 +55,7 @@
     "enabled": true
   },
   "weather": {
-    "enabled": true,
+    "enabled": false,
     "entity_id": "sensor.openweathermap"
   },
   "wallpapers": {

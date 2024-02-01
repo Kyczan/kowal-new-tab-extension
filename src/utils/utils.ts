@@ -1,28 +1,10 @@
-import config from '../../config.json'
-import { IConfig, IFeatures } from '../types'
-
 export const dev = import.meta.env.DEV
-
-export const getConfig = (feature: IFeatures) => {
-  const configData = config as IConfig
-  return configData[feature]
-}
-
-export const featureEnabled = (feature: IFeatures) => {
-  const feat = getConfig(feature)
-
-  if ('enabled' in feat) {
-    return feat.enabled
-  }
-
-  return false
-}
 
 export const randomItem = <T>(arr: T[]): T => {
   // it uses bitwise operator `| 0` that does nothing,
   // but before operation float is converted to integer
   // and this is much faster than `Math.floor()`
-  return arr[(Math.random() * arr.length) | 0]
+  return arr && arr[(Math.random() * arr.length) | 0]
 }
 
 export const getRange = () => {

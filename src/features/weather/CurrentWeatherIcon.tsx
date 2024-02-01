@@ -15,14 +15,13 @@ import {
 
 import { IConfig } from '../../types'
 import { useHAStateValue } from '../../api/hooks'
-import { getConfig } from '../../utils/utils'
+import { useFeature } from '../../store/store'
 
 const CurrentWeatherIcon = () => {
-  const { entity_id } = getConfig('weather') as IConfig['weather']
+  const { entity_id } = useFeature('weather') as IConfig['weather']
 
   const code = +(useHAStateValue(`${entity_id}_weather_code`) || '')
-  const condition = useHAStateValue(`${entity_id}_condition`) || ''
-  const isNight = condition.includes('night')
+  const isNight = useHAStateValue('sun.sun') === 'below_horizon'
 
   // see https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
   if (code < 300) return <WiStormShowers />

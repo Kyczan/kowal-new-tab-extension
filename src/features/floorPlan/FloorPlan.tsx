@@ -1,6 +1,6 @@
 import { IConfig } from '../../types'
 import { useLights, useAirPurifiers } from '../../api/hooks'
-import { featureEnabled, getConfig } from '../../utils/utils'
+import { useFeature } from '../../store/store'
 import LightButton from './LightButton'
 import AirPurifier from '../airPurifier/AirPurifier'
 // import Vacuum from '../vacuum/Vacuum'
@@ -10,13 +10,17 @@ import styles from './FloorPlan.module.css'
 const FloorPlan = () => {
   const lights = useLights()
   const purifiers = useAirPurifiers()
-  const { width } = getConfig('floorPlan') as IConfig['floorPlan']
+  const floorPlanConfig = useFeature('floorPlan') as IConfig['floorPlan']
+  const lightsConfig = useFeature('lights') as IConfig['lights']
+  const airPurifiersConfig = useFeature(
+    'airPurifiers',
+  ) as IConfig['airPurifiers']
 
   return (
     <div className={styles.floorPlan}>
-      <div className={styles.wrapper} style={{ width }}>
+      <div className={styles.wrapper} style={{ width: floorPlanConfig?.width }}>
         <img src="/plan.svg" alt="Floor Plan" className={styles.planIcon} />
-        {featureEnabled('lights') &&
+        {lightsConfig?.enabled &&
           lights.map(({ name, busy, type, state, toggle, top, left }) => (
             <LightButton
               key={name}
@@ -28,7 +32,7 @@ const FloorPlan = () => {
             />
           ))}
         {/* <Vacuum className={styles.vacuum} /> */}
-        {featureEnabled('airPurifiers') &&
+        {airPurifiersConfig?.enabled &&
           purifiers.map(
             ({
               preset,

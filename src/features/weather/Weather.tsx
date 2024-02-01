@@ -3,14 +3,14 @@ import { GoHome } from 'react-icons/go'
 
 import { IConfig } from '../../types'
 import { useHAStateValue } from '../../api/hooks'
-import { getConfig } from '../../utils/utils'
+import { useFeature } from '../../store/store'
 import CurrentWeatherIcon from './CurrentWeatherIcon'
 import BeaufortIcon from './BeaufortIcon'
 
 import styles from './Weather.module.css'
 
 const Weather = () => {
-  const { entity_id } = getConfig('weather') as IConfig['weather']
+  const { entity_id } = useFeature('weather') as IConfig['weather']
 
   const description = useHAStateValue(`${entity_id}_weather`)
   const temperature = useHAStateValue(`${entity_id}_temperature`)

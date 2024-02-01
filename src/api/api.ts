@@ -1,5 +1,4 @@
-import { IConfig } from '../types'
-import { getConfig, dev } from '../utils/utils'
+import { dev } from '../utils/utils'
 import allergensMockData from '../features/allergens/allergensMock.json'
 
 interface IHAAttributes {
@@ -28,27 +27,20 @@ export type HAFanPresetModes = HAFanMainPresetModes | HAFanOnlyPresetMode
 export const fanLevels = [1, 2, 3] as const
 export type HAFanLevels = (typeof fanLevels)[number]
 
-export const haFetcher = (url: string) => {
-  const { haToken, haUrl } = getConfig(
-    'homeAssistant',
-  ) as IConfig['homeAssistant']
-
-  return fetch(`${haUrl}${url}`, {
+export const haFetcher = (url: string, token: string) => {
+  return fetch(url, {
     method: 'get',
     headers: new Headers({
-      Authorization: `Bearer ${haToken}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     }),
   }).then((response) => response.json())
 }
 
-export const allergensFetcher = () => {
+export const allergensFetcher = (url: string) => {
   if (dev) return Promise.resolve(allergensMockData)
 
-  const { api } = getConfig('allergens') as IConfig['allergens']
-  const { baseUrl, cityId } = api
-
-  return fetch(`${baseUrl}${cityId}`, {
+  return fetch(url, {
     method: 'get',
     headers: new Headers({
       'Content-Type': 'application/json',
@@ -60,11 +52,9 @@ export const fetchCalEvents = (
   calId: string,
   timeMin: string,
   timeMax: string,
+  haToken: string,
+  haUrl: string,
 ) => {
-  const { haToken, haUrl } = getConfig(
-    'homeAssistant',
-  ) as IConfig['homeAssistant']
-
   return fetch(
     `${haUrl}/api/calendars/${calId}?start=${timeMin}&end=${timeMax}`,
     {
@@ -77,11 +67,11 @@ export const fetchCalEvents = (
   )
 }
 
-export const toggleSwitch = async (entity_id: string) => {
-  const { haToken, haUrl } = getConfig(
-    'homeAssistant',
-  ) as IConfig['homeAssistant']
-
+export const toggleSwitch = async (
+  entity_id: string,
+  haToken: string,
+  haUrl: string,
+) => {
   try {
     await fetch(`${haUrl}/api/services/switch/toggle`, {
       method: 'post',
@@ -101,11 +91,9 @@ export const toggleSwitch = async (entity_id: string) => {
 export const setFanPresetMode = async (
   main_entity_id: string,
   presetMode: HAFanPresetModes,
+  haToken: string,
+  haUrl: string,
 ) => {
-  const { haToken, haUrl } = getConfig(
-    'homeAssistant',
-  ) as IConfig['homeAssistant']
-
   try {
     await fetch(`${haUrl}/api/services/fan/set_preset_mode`, {
       method: 'post',
@@ -126,11 +114,9 @@ export const setFanPresetMode = async (
 export const setFanLevel = async (
   fan_level_entity_id: string,
   level: HAFanLevels,
+  haToken: string,
+  haUrl: string,
 ) => {
-  const { haToken, haUrl } = getConfig(
-    'homeAssistant',
-  ) as IConfig['homeAssistant']
-
   try {
     await fetch(`${haUrl}/api/services/number/set_value`, {
       method: 'post',

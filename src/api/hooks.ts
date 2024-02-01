@@ -2,7 +2,6 @@ import { useState } from 'react'
 import useSWR from 'swr'
 
 import { IConfig, LightType } from '../types'
-import { getConfig } from '../utils/utils'
 import {
   IHAStateItem,
   haFetcher,
@@ -13,10 +12,13 @@ import {
   HAFanMainPresetModes,
   HAFanOnlyPresetMode,
 } from './api'
+import { useFeature } from '../store/store'
 
 export const useHAStateItems = () => {
+  const ha = useFeature('homeAssistant') as IConfig['homeAssistant']
+  const { haToken, haUrl } = ha || {}
   const { data, error, mutate } = useSWR<IHAStateItem[]>(
-    `/api/states`,
+    [`${haUrl}/api/states`, haToken],
     haFetcher,
   )
 
@@ -25,6 +27,8 @@ export const useHAStateItems = () => {
     isLoading: !error && !data,
     isError: error,
     mutate,
+    haToken,
+    haUrl,
   }
 }
 
@@ -53,13 +57,13 @@ export const useSwitch = (
   left: string,
 ) => {
   const [busy, setBusy] = useState(false)
-  const { data, mutate } = useHAStateItems()
+  const { data, mutate, haToken, haUrl } = useHAStateItems()
 
   const lightSwitch = data?.find?.((item) => item.entity_id === entity_id)
 
   const toggle = async () => {
     setBusy(true)
-    await toggleSwitch(entity_id)
+    await toggleSwitch(entity_id, haToken, haUrl)
     setTimeout(async () => {
       await mutate()
       setBusy(false)
@@ -78,7 +82,8 @@ export const useSwitch = (
 }
 
 export const useLights = () => {
-  const { list } = getConfig('lights') as IConfig['lights']
+  const lights = useFeature('lights') as IConfig['lights']
+  const { list } = lights || {}
   const switches = []
 
   for (let i = 0; i < list.length; i++) {
@@ -98,7 +103,7 @@ export const useAirPurifier = (
   top: string,
   left: string,
 ) => {
-  const { data, mutate } = useHAStateItems()
+  const { data, mutate, haToken, haUrl } = useHAStateItems()
   const [busy, setBusy] = useState(false)
   const [show, setShow] = useState(false)
 
@@ -122,7 +127,7 @@ export const useAirPurifier = (
   const handleClickPreset = async (newPreset: HAFanMainPresetModes) => {
     setBusy(true)
 
-    await setFanPresetMode(main_entity_id, newPreset)
+    await setFanPresetMode(main_entity_id, newPreset, haToken, haUrl)
     await mutate()
     setBusy(false)
     toggleButtonList()
@@ -131,8 +136,13 @@ export const useAirPurifier = (
   const handleClickFan = async (newLevel: HAFanLevels) => {
     setBusy(true)
 
-    await setFanLevel(fan_level_entity_id, newLevel)
-    await setFanPresetMode(main_entity_id, HAFanOnlyPresetMode.FAN)
+    await setFanLevel(fan_level_entity_id, newLevel, haToken, haUrl)
+    await setFanPresetMode(
+      main_entity_id,
+      HAFanOnlyPresetMode.FAN,
+      haToken,
+      haUrl,
+    )
     await mutate()
     setBusy(false)
     toggleButtonList()
@@ -159,7 +169,8 @@ export const useAirPurifier = (
 }
 
 export const useAirPurifiers = () => {
-  const { list } = getConfig('airPurifiers') as IConfig['airPurifiers']
+  const airPurifiers = useFeature('airPurifiers') as IConfig['airPurifiers']
+  const { list } = airPurifiers || {}
   const purifiers = []
 
   for (let i = 0; i < list.length; i++) {
