@@ -10,9 +10,6 @@
       "cityId": "2517"
     }
   },
-  "bookmarks": {
-    "enabled": true
-  },
   "calendar": {
     "enabled": true
   },
@@ -66,7 +63,6 @@
   },
   "weather": {
     "enabled": true,
-    "name": "Wrocław",
     "entity_id": "sensor.openweathermap"
   },
   "wallpapers": {

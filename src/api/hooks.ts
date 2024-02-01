@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import useSWR from 'swr'
 
 import { IConfig, LightType } from '../types'
-import { dev, getConfig } from '../utils/utils'
+import { getConfig } from '../utils/utils'
 import {
   IHAStateItem,
   haFetcher,
@@ -13,8 +13,6 @@ import {
   HAFanMainPresetModes,
   HAFanOnlyPresetMode,
 } from './api'
-import { IBookmarkItem } from '../features/bookmarks/Bookmarks'
-import bookmarksMock from '../features/bookmarks/bookmarksMock.json'
 
 export const useHAStateItems = () => {
   const { data, error, mutate } = useSWR<IHAStateItem[]>(
@@ -45,25 +43,6 @@ export const useHAStateValue = (
   }
 
   return value
-}
-
-export const useBookmarks = () => {
-  const [bookmarks, setBookmarks] = useState<IBookmarkItem[]>([])
-
-  useEffect(() => {
-    const runEffect = async () => {
-      const data: IBookmarkItem[] = dev
-        ? bookmarksMock
-        : await chrome.bookmarks?.getTree()
-
-      const bookmarksBarData = data?.[0]?.children?.[0]?.children || []
-      setBookmarks(bookmarksBarData)
-    }
-
-    runEffect()
-  }, [])
-
-  return bookmarks
 }
 
 export const useSwitch = (

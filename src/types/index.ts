@@ -16,10 +16,6 @@ interface IAllergens {
   }
 }
 
-interface IBookmarks {
-  enabled: boolean
-}
-
 interface ICalendar {
   enabled: boolean
 }
@@ -76,7 +72,6 @@ interface IWeather {
 export interface IConfig {
   homeAssistant: IHomeAssistant
   allergens: IAllergens
-  bookmarks: IBookmarks
   calendar: ICalendar
   clock: IClock
   floorPlan: IFloorPlan

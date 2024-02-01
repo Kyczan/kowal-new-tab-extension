@@ -9,7 +9,7 @@ import CurrentWeatherIcon from './CurrentWeatherIcon'
 import styles from './Weather.module.css'
 
 const Weather = () => {
-  const { name, entity_id } = getConfig('weather') as IConfig['weather']
+  const { entity_id } = getConfig('weather') as IConfig['weather']
 
   const description = useHAStateValue(`${entity_id}_weather`)
   const temperature = useHAStateValue(`${entity_id}_temperature`)
@@ -29,8 +29,6 @@ const Weather = () => {
       {description && temperature && (
         <>
           <div className={styles.header}>
-            <div className={styles.name}>{name}</div>
-            <div className={styles.name}>|</div>
             <div className={styles.desc}>{description}</div>
           </div>
           <div className={styles.wrapper}>

@@ -17,7 +17,6 @@ Customized new tab experience tailored for my needs.
 
 ## Features
 
-- Display bookmarks bar
 - Cool, randomly changing wallpapers from https://unsplash.com/ 
 - Display date and time
 - Display top visited sites
@@ -53,9 +52,6 @@ Some features are connected to [Home Assistant](https://www.home-assistant.io/) 
 To connect to HA set following variables in `config.json` under `homeAssistant` property:
 - `haUrl` - link which you use to open HA in browser (in my case it is `http://homeassistant.local:8123`, but it can be some external url if you have exposed HA to Internet - just remember to set the same value in `public/manifest.json`)
 - `haToken` access token to HA ([here](https://developers.home-assistant.io/docs/api/rest/) is info how to obtain token)
-
-### Bookmarks bar
-I created this component to replace native bookmarks bar. I want to display bar only in the new tab and not in visited pages (there is setting for that in browser, but it is broken if you are using custom new tab).
 
 ### Wallpapers
 You can use your own set of wallpapers. Place images in `public/wallpapers` folder and edit `wallpapers.list` in `config.json` file. There should be names of the images placed in wallpapers folder.
