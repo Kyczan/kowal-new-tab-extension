@@ -21,7 +21,7 @@ function Settings() {
           className={styles.modal}
           overlayClassName={styles.overlay}
         >
-          <h1>Settings</h1>
+          <h1 className={styles.title}>Settings</h1>
         </Modal>
       )}
     </div>

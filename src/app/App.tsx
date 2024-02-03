@@ -8,7 +8,7 @@ import Allergens from '../features/allergens/Allergens'
 import FloorPlan from '../features/floorPlan/FloorPlan'
 import Settings from '../features/settings/Settings'
 import { randomItem, dev } from '../utils/utils'
-import { useFeature, useConfigActions, useConfig } from '../store/store'
+import { useFeature, useConfigActions } from '../store/store'
 import { IConfig } from '../types'
 
 import styles from './App.module.css'
@@ -21,8 +21,6 @@ const getWallpaperUrl = (wallpapers: IConfig['wallpapers'] | undefined) => {
 
 const App = () => {
   const { fetchConfig } = useConfigActions()
-  const config = useConfig()
-  console.log(config)
 
   useEffect(() => {
     fetchConfig()

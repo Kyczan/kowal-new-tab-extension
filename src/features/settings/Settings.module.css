@@ -23,7 +23,7 @@
 
 .modal {
   position: absolute;
-  top: 6rem;
+  top: 4rem;
   left: 4rem;
   right: 4rem;
   bottom: 4rem;
@@ -40,4 +40,8 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0);
+}
+
+.title {
+  font-weight: 300;
 }
