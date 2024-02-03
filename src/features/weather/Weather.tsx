@@ -5,6 +5,7 @@ import { IConfig } from '../../types'
 import { useHAStateValue } from '../../api/hooks'
 import { getConfig } from '../../utils/utils'
 import CurrentWeatherIcon from './CurrentWeatherIcon'
+import BeaufortIcon from './BeaufortIcon'
 
 import styles from './Weather.module.css'
 
@@ -15,6 +16,7 @@ const Weather = () => {
   const temperature = useHAStateValue(`${entity_id}_temperature`)
   const pressure = useHAStateValue(`${entity_id}_pressure`)
   const humidity = useHAStateValue(`${entity_id}_humidity`)
+  const wind = Math.round(+(useHAStateValue(`${entity_id}_wind_speed`) || ''))
   const homeTemp = useHAStateValue(
     'sensor.mi_air_purifier_3_3h_temperature',
     true,
@@ -34,31 +36,52 @@ const Weather = () => {
           <div className={styles.wrapper}>
             <div className={styles.icon}>
               <CurrentWeatherIcon />
+              <div className={styles.windIcon} title="Beaufort scale">
+                <BeaufortIcon wind={wind} />
+              </div>
             </div>
+
             <div>
-              <div className={styles.temp}>
+              <div className={styles.temp} title="Outdoor temperature">
                 {(+temperature).toFixed(1)}
-                °C
+                <span className={styles.infoUnit}>°C</span>
               </div>
               <div className={styles.info}>
+                {wind && (
+                  <div className={styles.infoElement} title="Wind speed">
+                    {wind}&nbsp;
+                    <span className={styles.infoUnit}>km/h</span>
+                  </div>
+                )}
                 {pressure && (
-                  <div className={styles.infoElement}>{pressure} hPa</div>
+                  <div className={styles.infoElement} title="Pressure">
+                    {pressure}&nbsp;<span className={styles.infoUnit}>hPa</span>
+                  </div>
                 )}
                 {humidity && (
-                  <div className={styles.infoElement}>{humidity}%</div>
+                  <div className={styles.infoElement} title="Outdoor humidity">
+                    {humidity}
+                    <span className={styles.infoUnit}>%</span>
+                  </div>
                 )}
-                <div className={styles.infoIcon}>
+                <div className={styles.infoIcon} title="Outdoor">
                   <BsTree />
                 </div>
               </div>
               <div className={styles.info}>
                 {homeTemp && (
-                  <div className={styles.infoElement}>{homeTemp}°C</div>
+                  <div className={styles.infoElement} title="Home temperature">
+                    {homeTemp}
+                    <span className={styles.infoUnit}>°C</span>
+                  </div>
                 )}
                 {homeHumid && (
-                  <div className={styles.infoElement}>{homeHumid}%</div>
+                  <div className={styles.infoElement} title="Home humidity">
+                    {homeHumid}
+                    <span className={styles.infoUnit}>%</span>
+                  </div>
                 )}
-                <div className={styles.infoIcon}>
+                <div className={styles.infoIcon} title="Home">
                   <GoHome />
                 </div>
               </div>
