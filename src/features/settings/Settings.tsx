@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import Modal from 'react-modal'
 import { HiOutlineCog6Tooth } from 'react-icons/hi2'
+import { IoCloseCircleOutline } from 'react-icons/io5'
+
+import ModalBody from './ModalBody/ModalBody'
 
 import styles from './Settings.module.css'
 
@@ -21,7 +24,13 @@ function Settings() {
           className={styles.modal}
           overlayClassName={styles.overlay}
         >
-          <h1 className={styles.title}>Settings</h1>
+          <div className={styles.header}>
+            <h1 className={styles.title}>Settings</h1>
+            <button className={styles.button} onClick={() => setOpen(false)}>
+              <IoCloseCircleOutline />
+            </button>
+          </div>
+          <ModalBody />
         </Modal>
       )}
     </div>

@@ -13,14 +13,14 @@
     "react-icons": "^4.10.1",
     "react-modal": "^3.16.1",
     "swr": "^1.1.1",
-    "typescript": "^4.5.4",
+    "typescript": "^5.3.3",
     "vite": "^4.4.10",
     "vite-plugin-svgr": "^4.1.0",
     "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.171",
-    "@types/node": "^16.11.15",
+    "@types/node": "^20.11.16",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "@types/react-modal": "^3.16.3",

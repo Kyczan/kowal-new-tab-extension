@@ -1,0 +1,15 @@
+.body {
+  margin-top: 2rem;
+}
+
+.feature {
+  display: flex;
+  gap: 2rem;
+  font-size: 1.25rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.item {
+  width: 200px;
+}
