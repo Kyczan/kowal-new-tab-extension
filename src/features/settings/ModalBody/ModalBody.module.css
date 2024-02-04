@@ -2,6 +2,14 @@
   margin-top: 2rem;
 }
 
+.group {
+  margin-left: 20px;
+}
+
+.group .item {
+  width: 180px;
+}
+
 .feature {
   display: flex;
   gap: 2rem;
@@ -11,5 +19,10 @@
 }
 
 .item {
+  font-size: 1.25rem;
   width: 200px;
+}
+
+.input {
+  flex-grow: 1;
 }

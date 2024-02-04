@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import Switch from '../Switch/Switch'
 import { useConfig, useConfigActions } from '../../../store/store'
 
@@ -6,6 +8,13 @@ import styles from './ModalBody.module.css'
 function ModalBody() {
   const config = useConfig()
   const { updateConfig } = useConfigActions()
+  const [form, setForm] = useState(structuredClone(config))
+
+  const save = () => {
+    if (form) {
+      updateConfig(form)
+    }
+  }
 
   const toggleFeature = (
     feature:
@@ -18,20 +27,62 @@ function ModalBody() {
       | 'lights'
       | 'airPurifiers',
   ) => {
-    if (config) {
-      const clonedConfig = structuredClone(config)
-      const currentState = config[feature].enabled
-      clonedConfig[feature].enabled = !currentState
-      updateConfig(clonedConfig)
+    if (form) {
+      const clonedForm = structuredClone(form)
+      const currentState = form[feature].enabled
+      clonedForm[feature].enabled = !currentState
+      setForm(clonedForm)
+      updateConfig(clonedForm)
     }
   }
 
-  return config ? (
+  const onHomeAssistantInputChange =
+    (target: 'haUrl' | 'haToken') =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (form) {
+        const clonedForm = structuredClone(form)
+        clonedForm.homeAssistant[target] = e.target.value
+        setForm(clonedForm)
+      }
+    }
+
+  return form ? (
     <div className={styles.body}>
+      <div className={styles.item}>Home Assistant</div>
+      <div className={styles.group}>
+        <div className={styles.feature}>
+          <label htmlFor="haUrl" className={styles.item}>
+            HA url
+          </label>
+          <input
+            type="text"
+            id="haUrl"
+            name="haUrl"
+            className={styles.input}
+            value={form.homeAssistant.haUrl}
+            onChange={onHomeAssistantInputChange('haUrl')}
+            onBlur={save}
+          />
+        </div>
+        <div className={styles.feature}>
+          <label htmlFor="haToken" className={styles.item}>
+            HA token
+          </label>
+          <input
+            type="text"
+            id="haToken"
+            name="haToken"
+            className={styles.input}
+            value={form.homeAssistant.haToken}
+            onChange={onHomeAssistantInputChange('haToken')}
+            onBlur={save}
+          />
+        </div>
+      </div>
       <div className={styles.feature}>
         <div className={styles.item}>Clock</div>
         <Switch
-          isOn={config.clock.enabled}
+          isOn={form.clock.enabled}
           onChange={() => toggleFeature('clock')}
           id="clock"
         />
@@ -39,7 +90,7 @@ function ModalBody() {
       <div className={styles.feature}>
         <div className={styles.item}>Top sites</div>
         <Switch
-          isOn={config.topSites.enabled}
+          isOn={form.topSites.enabled}
           onChange={() => toggleFeature('topSites')}
           id="topSites"
         />
@@ -47,7 +98,7 @@ function ModalBody() {
       <div className={styles.feature}>
         <div className={styles.item}>Weather</div>
         <Switch
-          isOn={config.weather.enabled}
+          isOn={form.weather.enabled}
           onChange={() => toggleFeature('weather')}
           id="weather"
         />
@@ -55,7 +106,7 @@ function ModalBody() {
       <div className={styles.feature}>
         <div className={styles.item}>Calendar</div>
         <Switch
-          isOn={config.calendar.enabled}
+          isOn={form.calendar.enabled}
           onChange={() => toggleFeature('calendar')}
           id="calendar"
         />
@@ -63,7 +114,7 @@ function ModalBody() {
       <div className={styles.feature}>
         <div className={styles.item}>Floor plan</div>
         <Switch
-          isOn={config.floorPlan.enabled}
+          isOn={form.floorPlan.enabled}
           onChange={() => toggleFeature('floorPlan')}
           id="floorPlan"
         />
@@ -71,7 +122,7 @@ function ModalBody() {
       <div className={styles.feature}>
         <div className={styles.item}>Lights</div>
         <Switch
-          isOn={config.lights.enabled}
+          isOn={form.lights.enabled}
           onChange={() => toggleFeature('lights')}
           id="lights"
         />
@@ -79,7 +130,7 @@ function ModalBody() {
       <div className={styles.feature}>
         <div className={styles.item}>Air purifiers</div>
         <Switch
-          isOn={config.airPurifiers.enabled}
+          isOn={form.airPurifiers.enabled}
           onChange={() => toggleFeature('airPurifiers')}
           id="airPurifiers"
         />
@@ -87,7 +138,7 @@ function ModalBody() {
       <div className={styles.feature}>
         <div className={styles.item}>Allergens</div>
         <Switch
-          isOn={config.allergens.enabled}
+          isOn={form.allergens.enabled}
           onChange={() => toggleFeature('allergens')}
           id="allergens"
         />

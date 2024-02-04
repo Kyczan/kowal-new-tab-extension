@@ -14,8 +14,11 @@
   ],
   "host_permissions": [
     "http://homeassistant.local:8123/",
-    "https://ha.serdeczne.pl/",
     "https://data.twojapogoda.pl/"
+  ],
+  "optional_host_permissions": [
+    "https://*/*",
+    "http://*/*"
   ],
   "icons": {
     "16": "icon16.png",
