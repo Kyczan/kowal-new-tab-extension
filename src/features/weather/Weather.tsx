@@ -1,22 +1,20 @@
 import { BsTree } from 'react-icons/bs'
 import { GoHome } from 'react-icons/go'
 
-import { IConfig } from '../../types'
 import { useHAStateValue } from '../../api/hooks'
-import { useFeature } from '../../store/store'
 import CurrentWeatherIcon from './CurrentWeatherIcon'
 import BeaufortIcon from './BeaufortIcon'
 
 import styles from './Weather.module.css'
 
 const Weather = () => {
-  const { entity_id } = useFeature('weather') as IConfig['weather']
-
-  const description = useHAStateValue(`${entity_id}_weather`)
-  const temperature = useHAStateValue(`${entity_id}_temperature`)
-  const pressure = useHAStateValue(`${entity_id}_pressure`)
-  const humidity = useHAStateValue(`${entity_id}_humidity`)
-  const wind = Math.round(+(useHAStateValue(`${entity_id}_wind_speed`) || ''))
+  const description = useHAStateValue(`sensor.openweathermap_weather`)
+  const temperature = useHAStateValue(`sensor.openweathermap_temperature`)
+  const pressure = useHAStateValue(`sensor.openweathermap_pressure`)
+  const humidity = useHAStateValue(`sensor.openweathermap_humidity`)
+  const wind = Math.round(
+    +(useHAStateValue(`sensor.openweathermap_wind_speed`) || ''),
+  )
   const homeTemp = useHAStateValue(
     'sensor.mi_air_purifier_3_3h_temperature',
     true,

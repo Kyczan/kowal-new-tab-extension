@@ -55,8 +55,7 @@
     "enabled": true
   },
   "weather": {
-    "enabled": false,
-    "entity_id": "sensor.openweathermap"
+    "enabled": false
   },
   "wallpapers": {
     "list": [

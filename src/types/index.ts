@@ -65,8 +65,6 @@ interface IWallpapers {
 
 interface IWeather {
   enabled: boolean
-  name: string
-  entity_id: string
 }
 
 export interface IConfig {

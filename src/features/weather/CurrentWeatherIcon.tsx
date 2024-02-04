@@ -13,14 +13,10 @@ import {
   WiFog,
 } from 'react-icons/wi'
 
-import { IConfig } from '../../types'
 import { useHAStateValue } from '../../api/hooks'
-import { useFeature } from '../../store/store'
 
 const CurrentWeatherIcon = () => {
-  const { entity_id } = useFeature('weather') as IConfig['weather']
-
-  const code = +(useHAStateValue(`${entity_id}_weather_code`) || '')
+  const code = +(useHAStateValue(`sensor.openweathermap_weather_code`) || '')
   const isNight = useHAStateValue('sun.sun') === 'below_horizon'
 
   // see https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
