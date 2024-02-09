@@ -46,6 +46,15 @@ function ModalBody() {
       }
     }
 
+  const onAllergensInputChange =
+    (target: 'cityId') => (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (form) {
+        const clonedForm = structuredClone(form)
+        clonedForm.allergens.api[target] = e.target.value
+        setForm(clonedForm)
+      }
+    }
+
   return form ? (
     <div className={styles.body}>
       <div className={styles.item}>Home Assistant</div>
@@ -79,6 +88,36 @@ function ModalBody() {
           />
         </div>
       </div>
+
+      <div className={styles.spacer} />
+
+      <div className={styles.feature}>
+        <div className={styles.item}>Allergens</div>
+        <Switch
+          isOn={form.allergens.enabled}
+          onChange={() => toggleFeature('allergens')}
+          id="allergens"
+        />
+      </div>
+      <div className={styles.group}>
+        <div className={styles.feature}>
+          <label htmlFor="cityId" className={styles.item}>
+            City id
+          </label>
+          <input
+            type="text"
+            id="cityId"
+            name="cityId"
+            className={`${styles.input} ${styles.short}`}
+            value={form.allergens.api.cityId}
+            onChange={onAllergensInputChange('cityId')}
+            onBlur={save}
+          />
+        </div>
+      </div>
+
+      <div className={styles.spacer} />
+
       <div className={styles.feature}>
         <div className={styles.item}>Clock</div>
         <Switch
@@ -133,14 +172,6 @@ function ModalBody() {
           isOn={form.airPurifiers.enabled}
           onChange={() => toggleFeature('airPurifiers')}
           id="airPurifiers"
-        />
-      </div>
-      <div className={styles.feature}>
-        <div className={styles.item}>Allergens</div>
-        <Switch
-          isOn={form.allergens.enabled}
-          onChange={() => toggleFeature('allergens')}
-          id="allergens"
         />
       </div>
     </div>
