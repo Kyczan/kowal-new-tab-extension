@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import HomeAssistant from '../HomeAssistant/HomeAssistant'
+import Allergens from '../Allergens/Allergens'
 import Switch from '../Switch/Switch'
 import { useConfig, useConfigActions } from '../../../store/store'
 
@@ -36,87 +38,15 @@ function ModalBody() {
     }
   }
 
-  const onHomeAssistantInputChange =
-    (target: 'haUrl' | 'haToken') =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (form) {
-        const clonedForm = structuredClone(form)
-        clonedForm.homeAssistant[target] = e.target.value
-        setForm(clonedForm)
-      }
-    }
-
-  const onAllergensInputChange =
-    (target: 'cityId') => (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (form) {
-        const clonedForm = structuredClone(form)
-        clonedForm.allergens.api[target] = e.target.value
-        setForm(clonedForm)
-      }
-    }
-
   return form ? (
     <div className={styles.body}>
-      <div className={styles.item}>Home Assistant</div>
-      <div className={styles.group}>
-        <div className={styles.feature}>
-          <label htmlFor="haUrl" className={styles.item}>
-            HA url
-          </label>
-          <input
-            type="text"
-            id="haUrl"
-            name="haUrl"
-            className={styles.input}
-            value={form.homeAssistant.haUrl}
-            onChange={onHomeAssistantInputChange('haUrl')}
-            onBlur={save}
-          />
-        </div>
-        <div className={styles.feature}>
-          <label htmlFor="haToken" className={styles.item}>
-            HA token
-          </label>
-          <input
-            type="text"
-            id="haToken"
-            name="haToken"
-            className={styles.input}
-            value={form.homeAssistant.haToken}
-            onChange={onHomeAssistantInputChange('haToken')}
-            onBlur={save}
-          />
-        </div>
-      </div>
-
-      <div className={styles.spacer} />
-
-      <div className={styles.feature}>
-        <div className={styles.item}>Allergens</div>
-        <Switch
-          isOn={form.allergens.enabled}
-          onChange={() => toggleFeature('allergens')}
-          id="allergens"
-        />
-      </div>
-      <div className={styles.group}>
-        <div className={styles.feature}>
-          <label htmlFor="cityId" className={styles.item}>
-            City id
-          </label>
-          <input
-            type="text"
-            id="cityId"
-            name="cityId"
-            className={`${styles.input} ${styles.short}`}
-            value={form.allergens.api.cityId}
-            onChange={onAllergensInputChange('cityId')}
-            onBlur={save}
-          />
-        </div>
-      </div>
-
-      <div className={styles.spacer} />
+      <HomeAssistant form={form} setForm={setForm} save={save} />
+      <Allergens
+        form={form}
+        setForm={setForm}
+        save={save}
+        toggleFeature={toggleFeature}
+      />
 
       <div className={styles.feature}>
         <div className={styles.item}>Clock</div>
