@@ -58,3 +58,5 @@ export const getFavicon = (url: string, size: number = 64): string => {
     chrome.runtime.id
   }/_favicon/?pageUrl=${encodeURIComponent(url)}&size=${size}`
 }
+
+export const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))

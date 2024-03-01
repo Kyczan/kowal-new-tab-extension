@@ -36,6 +36,7 @@ const FloorPlan = () => {
           purifiers.map(
             ({
               preset,
+              preset_modes,
               busy,
               show,
               handleClick,
@@ -47,6 +48,7 @@ const FloorPlan = () => {
               <AirPurifier
                 key={name}
                 preset={preset}
+                preset_modes={preset_modes}
                 busy={busy}
                 show={show}
                 handleClick={handleClick}

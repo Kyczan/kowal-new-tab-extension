@@ -3,10 +3,11 @@ import { HAFanMainPresetModes, HAFanLevels, fanLevels } from '../../api/api'
 
 import styles from './AirPurifier.module.css'
 
-const purifierStates = [...Object.values(HAFanMainPresetModes), ...fanLevels]
+const mainPresetModes = Object.values(HAFanMainPresetModes)
 
 interface IAirPurifier {
   preset: HAFanMainPresetModes | HAFanLevels | undefined
+  preset_modes: string[]
   busy: boolean
   show: boolean
   handleClick: (type: HAFanMainPresetModes | HAFanLevels) => void
@@ -16,12 +17,18 @@ interface IAirPurifier {
 
 const AirPurifier = ({
   preset,
+  preset_modes,
   busy,
   show,
   handleClick,
   toggleButtonList,
   style,
 }: IAirPurifier) => {
+  const intersection = mainPresetModes.filter((value) =>
+    preset_modes.includes(value),
+  )
+  const purifierStates = [...intersection, ...fanLevels]
+
   return (
     <div className={styles.airPurifier} style={style}>
       <PresetButton

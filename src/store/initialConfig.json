@@ -18,17 +18,34 @@
   },
   "floorPlan": {
     "enabled": false,
-    "width": "340px"
+    "width": "300px"
   },
   "airPurifiers": {
     "enabled": false,
     "list": [
       {
+        "name": "living",
+        "entity_id": "fan.mi_air_purifier_3_3h",
+        "preset_modes": [
+          "Auto",
+          "Silent",
+          "Favorite",
+          "Fan"
+        ],
+        "top": "23%",
+        "left": "82%"
+      },
+      {
         "name": "bedroom",
-        "main_entity_id": "fan.mi_air_purifier_3_3h",
-        "fan_level_entity_id": "number.mi_air_purifier_3_3h_fan_level",
-        "top": "58%",
-        "left": "78%"
+        "entity_id": "fan.zhimi_mb5a_2808_air_purifier",
+        "preset_modes": [
+          "Auto",
+          "Sleep",
+          "Favorite",
+          "Manual"
+        ],
+        "top": "82%",
+        "left": "71%"
       }
     ]
   },

@@ -4,6 +4,7 @@ import allergensMockData from '../features/allergens/allergensMock.json'
 interface IHAAttributes {
   friendly_name: string
   preset_mode?: HAFanPresetModes
+  percentage?: number
 }
 
 export interface IHAStateItem {
@@ -15,16 +16,18 @@ export interface IHAStateItem {
 export enum HAFanMainPresetModes {
   AUTO = 'Auto',
   SILENT = 'Silent',
+  SLEEP = 'Sleep',
   FAVORITE = 'Favorite',
 }
 
 export enum HAFanOnlyPresetMode {
   FAN = 'Fan',
+  MANUAL = 'Manual',
 }
 
 export type HAFanPresetModes = HAFanMainPresetModes | HAFanOnlyPresetMode
 
-export const fanLevels = [1, 2, 3] as const
+export const fanLevels = [33, 66, 100] as const
 export type HAFanLevels = (typeof fanLevels)[number]
 
 export const haFetcher = (url: string, token: string) => {
@@ -89,7 +92,7 @@ export const toggleSwitch = async (
 }
 
 export const setFanPresetMode = async (
-  main_entity_id: string,
+  entity_id: string,
   presetMode: HAFanPresetModes,
   haToken: string,
   haUrl: string,
@@ -102,7 +105,7 @@ export const setFanPresetMode = async (
         'Content-Type': 'application/json',
       }),
       body: JSON.stringify({
-        entity_id: main_entity_id,
+        entity_id,
         preset_mode: presetMode,
       }),
     })
@@ -112,21 +115,21 @@ export const setFanPresetMode = async (
 }
 
 export const setFanLevel = async (
-  fan_level_entity_id: string,
-  level: HAFanLevels,
+  entity_id: string,
+  percentage: HAFanLevels,
   haToken: string,
   haUrl: string,
 ) => {
   try {
-    await fetch(`${haUrl}/api/services/number/set_value`, {
+    await fetch(`${haUrl}/api/services/fan/set_percentage`, {
       method: 'post',
       headers: new Headers({
         Authorization: `Bearer ${haToken}`,
         'Content-Type': 'application/json',
       }),
       body: JSON.stringify({
-        entity_id: fan_level_entity_id,
-        value: level,
+        entity_id,
+        percentage,
       }),
     })
   } catch (e) {

@@ -13,6 +13,7 @@ import {
   HAFanOnlyPresetMode,
 } from './api'
 import { useFeature } from '../store/store'
+import { delay } from '../utils/utils'
 
 export const useHAStateItems = () => {
   const ha = useFeature('homeAssistant') as IConfig['homeAssistant']
@@ -97,8 +98,8 @@ export const useLights = () => {
 }
 
 export const useAirPurifier = (
-  main_entity_id: IHAStateItem['entity_id'],
-  fan_level_entity_id: IHAStateItem['entity_id'],
+  entity_id: IHAStateItem['entity_id'],
+  preset_modes: string[],
   name: string,
   top: string,
   left: string,
@@ -107,16 +108,12 @@ export const useAirPurifier = (
   const [busy, setBusy] = useState(false)
   const [show, setShow] = useState(false)
 
-  const filteredPresets = data?.find(
-    (item) => item.entity_id === main_entity_id,
-  )
-  const filteredLevels = data?.find(
-    (item) => item.entity_id === fan_level_entity_id,
-  )
-  const presetMode = filteredPresets?.attributes?.preset_mode
-  const fanLevel = filteredLevels?.state || ''
+  const purifier = data?.find((item) => item.entity_id === entity_id)
+  const presetMode = purifier?.attributes?.preset_mode
+  const fanLevel = purifier?.attributes?.percentage || ''
   const preset =
-    presetMode === HAFanOnlyPresetMode.FAN
+    presetMode === HAFanOnlyPresetMode.FAN ||
+    presetMode === HAFanOnlyPresetMode.MANUAL
       ? (+fanLevel as HAFanLevels)
       : presetMode
 
@@ -127,7 +124,7 @@ export const useAirPurifier = (
   const handleClickPreset = async (newPreset: HAFanMainPresetModes) => {
     setBusy(true)
 
-    await setFanPresetMode(main_entity_id, newPreset, haToken, haUrl)
+    await setFanPresetMode(entity_id, newPreset, haToken, haUrl)
     await mutate()
     setBusy(false)
     toggleButtonList()
@@ -136,13 +133,9 @@ export const useAirPurifier = (
   const handleClickFan = async (newLevel: HAFanLevels) => {
     setBusy(true)
 
-    await setFanLevel(fan_level_entity_id, newLevel, haToken, haUrl)
-    await setFanPresetMode(
-      main_entity_id,
-      HAFanOnlyPresetMode.FAN,
-      haToken,
-      haUrl,
-    )
+    await setFanLevel(entity_id, newLevel, haToken, haUrl)
+    await delay(100)
+
     await mutate()
     setBusy(false)
     toggleButtonList()
@@ -158,6 +151,7 @@ export const useAirPurifier = (
 
   return {
     preset,
+    preset_modes,
     busy,
     show,
     handleClick,
@@ -174,15 +168,9 @@ export const useAirPurifiers = () => {
   const purifiers = []
 
   for (let i = 0; i < list.length; i++) {
-    const { main_entity_id, fan_level_entity_id, name, left, top } = list[i]
+    const { entity_id, preset_modes, name, left, top } = list[i]
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const item = useAirPurifier(
-      main_entity_id,
-      fan_level_entity_id,
-      name,
-      top,
-      left,
-    )
+    const item = useAirPurifier(entity_id, preset_modes, name, top, left)
     purifiers.push(item)
   }
 

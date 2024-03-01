@@ -31,8 +31,8 @@ interface IFloorPlan {
 
 interface IAirPurifier {
   name: string
-  main_entity_id: string
-  fan_level_entity_id: string
+  entity_id: string
+  preset_modes: string[]
   top: string
   left: string
 }
