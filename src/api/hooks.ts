@@ -38,6 +38,9 @@ export const useHAStateValue = (
   useLocalStorage: boolean = false,
 ) => {
   const { data } = useHAStateItems()
+
+  if (!entity_id) return ''
+
   const value = data?.find((item) => item.entity_id === entity_id)?.state
 
   if (useLocalStorage) {
@@ -175,4 +178,21 @@ export const useAirPurifiers = () => {
   }
 
   return purifiers
+}
+
+export const useIndoorData = () => {
+  const airPurifiers = useFeature('airPurifiers') as IConfig['airPurifiers']
+  const { list } = airPurifiers || {}
+  const data = []
+
+  for (let i = 0; i < list.length; i++) {
+    const { temp, humid, name } = list[i]
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const homeTemp = useHAStateValue(temp, true)
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const homeHumid = useHAStateValue(humid, true)
+    data.push({ temp: homeTemp, humid: homeHumid, name })
+  }
+
+  return data
 }

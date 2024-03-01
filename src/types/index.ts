@@ -33,6 +33,8 @@ interface IAirPurifier {
   name: string
   entity_id: string
   preset_modes: string[]
+  temp: string
+  humid: string
   top: string
   left: string
 }

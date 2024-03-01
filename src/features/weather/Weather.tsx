@@ -1,9 +1,9 @@
 import { BsTree } from 'react-icons/bs'
-import { GoHome } from 'react-icons/go'
 
 import { useHAStateValue } from '../../api/hooks'
 import CurrentWeatherIcon from './CurrentWeatherIcon'
 import BeaufortIcon from './BeaufortIcon'
+import Indoor from './Indoor'
 
 import styles from './Weather.module.css'
 
@@ -14,14 +14,6 @@ const Weather = () => {
   const humidity = useHAStateValue(`sensor.openweathermap_humidity`)
   const wind = Math.round(
     +(useHAStateValue(`sensor.openweathermap_wind_speed`) || ''),
-  )
-  const homeTemp = useHAStateValue(
-    'sensor.mi_air_purifier_3_3h_temperature',
-    true,
-  )
-  const homeHumid = useHAStateValue(
-    'sensor.mi_air_purifier_3_3h_humidity',
-    true,
   )
 
   return (
@@ -66,23 +58,7 @@ const Weather = () => {
                   <BsTree />
                 </div>
               </div>
-              <div className={styles.info}>
-                {homeTemp && (
-                  <div className={styles.infoElement} title="Home temperature">
-                    {homeTemp}
-                    <span className={styles.infoUnit}>°C</span>
-                  </div>
-                )}
-                {homeHumid && (
-                  <div className={styles.infoElement} title="Home humidity">
-                    {homeHumid}
-                    <span className={styles.infoUnit}>%</span>
-                  </div>
-                )}
-                <div className={styles.infoIcon} title="Home">
-                  <GoHome />
-                </div>
-              </div>
+              <Indoor />
             </div>
           </div>
         </>
