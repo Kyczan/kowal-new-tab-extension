@@ -1,3 +1,5 @@
+import svgToMiniDataURI from 'mini-svg-data-uri'
+
 import { IConfig } from '../../types'
 import { useLights, useAirPurifiers } from '../../api/hooks'
 import { useFeature } from '../../store/store'
@@ -19,7 +21,11 @@ const FloorPlan = () => {
   return (
     <div className={styles.floorPlan}>
       <div className={styles.wrapper} style={{ width: floorPlanConfig?.width }}>
-        <img src="/plan.svg" alt="Floor Plan" className={styles.planIcon} />
+        <img
+          src={svgToMiniDataURI(floorPlanConfig?.svg)}
+          alt="Floor Plan"
+          className={styles.planIcon}
+        />
         {lightsConfig?.enabled &&
           lights.map(({ name, busy, type, state, toggle, top, left }) => (
             <LightButton

@@ -27,6 +27,7 @@ interface IClock {
 interface IFloorPlan {
   enabled: boolean
   width: string
+  svg: string
 }
 
 interface IAirPurifier {

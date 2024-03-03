@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 import { IConfig, IFeatures } from '../types'
-import initialConfig from './initialConfig.json'
+import { initialConfig } from './initialConfig'
 
 const STORAGE_KEY = 'newTabConfig'
 

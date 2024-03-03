@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import HomeAssistant from '../HomeAssistant/HomeAssistant'
 import Allergens from '../Allergens/Allergens'
+import FloorPlan from '../FloorPlan/FloorPlan'
 import Switch from '../Switch/Switch'
 import { useConfig, useConfigActions } from '../../../store/store'
 
@@ -39,70 +40,73 @@ function ModalBody() {
   }
 
   return form ? (
-    <div className={styles.body}>
-      <HomeAssistant form={form} setForm={setForm} save={save} />
-      <Allergens
-        form={form}
-        setForm={setForm}
-        save={save}
-        toggleFeature={toggleFeature}
-      />
+    <div className={styles.wrapper}>
+      <div className={styles.body}>
+        <HomeAssistant form={form} setForm={setForm} save={save} />
+        <Allergens
+          form={form}
+          setForm={setForm}
+          save={save}
+          toggleFeature={toggleFeature}
+        />
 
-      <div className={styles.feature}>
-        <div className={styles.item}>Clock</div>
-        <Switch
-          isOn={form.clock.enabled}
-          onChange={() => toggleFeature('clock')}
-          id="clock"
+        <div className={styles.feature}>
+          <div className={styles.item}>Clock</div>
+          <Switch
+            isOn={form.clock.enabled}
+            onChange={() => toggleFeature('clock')}
+            id="clock"
+          />
+        </div>
+        <div className={styles.feature}>
+          <div className={styles.item}>Top sites</div>
+          <Switch
+            isOn={form.topSites.enabled}
+            onChange={() => toggleFeature('topSites')}
+            id="topSites"
+          />
+        </div>
+        <div className={styles.feature}>
+          <div className={styles.item}>Weather</div>
+          <Switch
+            isOn={form.weather.enabled}
+            onChange={() => toggleFeature('weather')}
+            id="weather"
+          />
+        </div>
+        <div className={styles.feature}>
+          <div className={styles.item}>Calendar</div>
+          <Switch
+            isOn={form.calendar.enabled}
+            onChange={() => toggleFeature('calendar')}
+            id="calendar"
+          />
+        </div>
+
+        <div className={styles.spacer} />
+
+        <FloorPlan
+          form={form}
+          setForm={setForm}
+          save={save}
+          toggleFeature={toggleFeature}
         />
-      </div>
-      <div className={styles.feature}>
-        <div className={styles.item}>Top sites</div>
-        <Switch
-          isOn={form.topSites.enabled}
-          onChange={() => toggleFeature('topSites')}
-          id="topSites"
-        />
-      </div>
-      <div className={styles.feature}>
-        <div className={styles.item}>Weather</div>
-        <Switch
-          isOn={form.weather.enabled}
-          onChange={() => toggleFeature('weather')}
-          id="weather"
-        />
-      </div>
-      <div className={styles.feature}>
-        <div className={styles.item}>Calendar</div>
-        <Switch
-          isOn={form.calendar.enabled}
-          onChange={() => toggleFeature('calendar')}
-          id="calendar"
-        />
-      </div>
-      <div className={styles.feature}>
-        <div className={styles.item}>Floor plan</div>
-        <Switch
-          isOn={form.floorPlan.enabled}
-          onChange={() => toggleFeature('floorPlan')}
-          id="floorPlan"
-        />
-      </div>
-      <div className={styles.feature}>
-        <div className={styles.item}>Lights</div>
-        <Switch
-          isOn={form.lights.enabled}
-          onChange={() => toggleFeature('lights')}
-          id="lights"
-        />
-      </div>
-      <div className={styles.feature}>
-        <div className={styles.item}>Air purifiers</div>
-        <Switch
-          isOn={form.airPurifiers.enabled}
-          onChange={() => toggleFeature('airPurifiers')}
-          id="airPurifiers"
-        />
+        <div className={styles.feature}>
+          <div className={styles.item}>Lights</div>
+          <Switch
+            isOn={form.lights.enabled}
+            onChange={() => toggleFeature('lights')}
+            id="lights"
+          />
+        </div>
+        <div className={styles.feature}>
+          <div className={styles.item}>Air purifiers</div>
+          <Switch
+            isOn={form.airPurifiers.enabled}
+            onChange={() => toggleFeature('airPurifiers')}
+            id="airPurifiers"
+          />
+        </div>
       </div>
     </div>
   ) : null
