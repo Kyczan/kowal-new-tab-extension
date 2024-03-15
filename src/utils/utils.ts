@@ -35,6 +35,22 @@ export const sameDay = (date1: string | Date, date2: string | Date) => {
   )
 }
 
+export const isMultiDayInRange = (
+  today: string | Date,
+  start: string | Date | undefined,
+  end: string | Date | undefined,
+) => {
+  if (!start || !end) return false
+
+  const t = new Date(today)
+  const s = new Date(start)
+  s.setHours(0, 0, 0, 0)
+  const e = new Date(end)
+  e.setHours(0, 0, 0, 0)
+
+  return t >= s && t < e
+}
+
 export const formatDate = (
   date: string | Date,
   options: Intl.DateTimeFormatOptions,

@@ -2,7 +2,13 @@ import { CSSProperties, useEffect, useState } from 'react'
 
 import { fetchCalEvents, IHAStateItem } from '../../api/api'
 import { useHAStateItems } from '../../api/hooks'
-import { getRange, sameDay, formatDate, extractColor } from '../../utils/utils'
+import {
+  getRange,
+  sameDay,
+  isMultiDayInRange,
+  formatDate,
+  extractColor,
+} from '../../utils/utils'
 import { useFeature } from '../../store/store'
 import { IConfig } from '../../types'
 
@@ -69,8 +75,10 @@ const Calendar = () => {
       const agendaData: IEventItem[] = calData.flat()
 
       const agendaByDays: IAgendaItem[] = allDays.map((day) => {
-        const events = agendaData.filter((event) =>
-          sameDay(day, event.start.dateTime || event.start.date),
+        const events = agendaData.filter(
+          (event) =>
+            sameDay(day, event.start.dateTime || event.start.date) ||
+            isMultiDayInRange(day, event.start.date, event.end.date),
         )
         events.sort((a, b) => {
           const startA = a.start.dateTime || a.start.date
