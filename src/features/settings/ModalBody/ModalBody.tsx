@@ -4,6 +4,7 @@ import HomeAssistant from '../HomeAssistant/HomeAssistant'
 import Allergens from '../Allergens/Allergens'
 import FloorPlan from '../FloorPlan/FloorPlan'
 import Lights from '../Lights/Lights'
+import AirPurifiers from '../AirPurifiers/AirPurifiers'
 import Switch from '../Switch/Switch'
 import { useConfig, useConfigActions } from '../../../store/store'
 
@@ -98,14 +99,12 @@ function ModalBody() {
           save={save}
           toggleFeature={toggleFeature}
         />
-        <div className={styles.feature}>
-          <div className={styles.item}>Air purifiers</div>
-          <Switch
-            isOn={form.airPurifiers.enabled}
-            onChange={() => toggleFeature('airPurifiers')}
-            id="airPurifiers"
-          />
-        </div>
+        <AirPurifiers
+          form={form}
+          setForm={setForm}
+          save={save}
+          toggleFeature={toggleFeature}
+        />
       </div>
     </div>
   ) : null

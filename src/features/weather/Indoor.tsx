@@ -1,29 +1,40 @@
 import { GoHome } from 'react-icons/go'
 
-import { useIndoorData } from '../../api/hooks'
+import { useHAStateValues } from '../../api/hooks'
+import { useFeature } from '../../store/store'
+import { IConfig } from '../../types'
 
 import styles from './Weather.module.css'
 
 const Indoor = () => {
-  const data = useIndoorData()
+  const airPurifiers = useFeature('airPurifiers') as IConfig['airPurifiers']
+  const { list } = airPurifiers || {}
+  const tempEntities = list.map((item) => item.temp)
+  const humidEntities = list.map((item) => item.humid)
+  const temps = useHAStateValues(tempEntities, true)
+  const humids = useHAStateValues(humidEntities, true)
 
   return (
     <>
-      {data.map(({ temp, humid, name }, index) =>
-        temp || humid ? (
+      {list.map(({ temp, humid, name }, index) => {
+        const { value: tempValue } =
+          temps.find((item) => item.entity_id === temp) || {}
+        const { value: humidValue } =
+          humids.find((item) => item.entity_id === humid) || {}
+        return tempValue || humidValue ? (
           <div className={styles.info} key={index}>
             <div className={styles.infoElement}>
               <span className={styles.infoUnit}>{name}:</span>
             </div>
-            {temp && (
+            {tempValue && (
               <div className={styles.infoElement} title="Home temperature">
-                {temp}
+                {tempValue}
                 <span className={styles.infoUnit}>°C</span>
               </div>
             )}
-            {humid && (
+            {humidValue && (
               <div className={styles.infoElement} title="Home humidity">
-                {(+humid).toFixed(0)}
+                {(+humidValue).toFixed(0)}
                 <span className={styles.infoUnit}>%</span>
               </div>
             )}
@@ -31,8 +42,8 @@ const Indoor = () => {
               <GoHome />
             </div>
           </div>
-        ) : null,
-      )}
+        ) : null
+      })}
     </>
   )
 }

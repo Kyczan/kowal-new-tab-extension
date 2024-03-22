@@ -53,6 +53,33 @@ export const useHAStateValue = (
   return value
 }
 
+export const useHAStateValues = (
+  entity_ids: IHAStateItem['entity_id'][],
+  useLocalStorage: boolean = false,
+) => {
+  const { data } = useHAStateItems()
+
+  if (!entity_ids || entity_ids.length === 0) return []
+
+  const results = entity_ids.map((entity_id) => {
+    const value = data?.find((item) => item.entity_id === entity_id)?.state
+
+    if (useLocalStorage) {
+      if (!value || value === 'unavailable') {
+        return {
+          entity_id,
+          value: localStorage.getItem(entity_id) || '',
+        }
+      }
+      localStorage.setItem(entity_id, value)
+    }
+
+    return { entity_id, value }
+  })
+
+  return results
+}
+
 export const useSwitch = (entity_id: IHAStateItem['entity_id']) => {
   const [busy, setBusy] = useState(false)
   const { data, mutate, haToken, haUrl } = useHAStateItems()
@@ -75,13 +102,7 @@ export const useSwitch = (entity_id: IHAStateItem['entity_id']) => {
   }
 }
 
-export const useAirPurifier = (
-  entity_id: IHAStateItem['entity_id'],
-  preset_modes: string[],
-  name: string,
-  top: string,
-  left: string,
-) => {
+export const useAirPurifier = (entity_id: IHAStateItem['entity_id']) => {
   const { data, mutate, haToken, haUrl } = useHAStateItems()
   const [busy, setBusy] = useState(false)
   const [show, setShow] = useState(false)
@@ -129,30 +150,11 @@ export const useAirPurifier = (
 
   return {
     preset,
-    preset_modes,
     busy,
     show,
     handleClick,
     toggleButtonList,
-    name,
-    top,
-    left,
   }
-}
-
-export const useAirPurifiers = () => {
-  const airPurifiers = useFeature('airPurifiers') as IConfig['airPurifiers']
-  const { list } = airPurifiers || {}
-  const purifiers = []
-
-  for (let i = 0; i < list.length; i++) {
-    const { entity_id, preset_modes, name, left, top } = list[i]
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const item = useAirPurifier(entity_id, preset_modes, name, top, left)
-    purifiers.push(item)
-  }
-
-  return purifiers
 }
 
 export const useIndoorData = () => {

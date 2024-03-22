@@ -1,31 +1,22 @@
 import PresetButton from './PresetButton'
-import { HAFanMainPresetModes, HAFanLevels, fanLevels } from '../../api/api'
+import { HAFanMainPresetModes, fanLevels } from '../../api/api'
+import { useAirPurifier } from '../../api/hooks'
 
 import styles from './AirPurifier.module.css'
 
 const mainPresetModes = Object.values(HAFanMainPresetModes)
 
 interface IAirPurifier {
-  preset: HAFanMainPresetModes | HAFanLevels | undefined
-  preset_modes: string[]
-  busy: boolean
-  show: boolean
-  handleClick: (type: HAFanMainPresetModes | HAFanLevels) => void
-  toggleButtonList: () => void
+  entity_id: string
+  preset_modes: string
   style: React.CSSProperties
 }
 
-const AirPurifier = ({
-  preset,
-  preset_modes,
-  busy,
-  show,
-  handleClick,
-  toggleButtonList,
-  style,
-}: IAirPurifier) => {
+const AirPurifier = ({ entity_id, preset_modes, style }: IAirPurifier) => {
+  const { busy, handleClick, preset, show, toggleButtonList } =
+    useAirPurifier(entity_id)
   const intersection = mainPresetModes.filter((value) =>
-    preset_modes.includes(value),
+    preset_modes.split(',').includes(value),
   )
   const purifierStates = [...intersection, ...fanLevels]
 

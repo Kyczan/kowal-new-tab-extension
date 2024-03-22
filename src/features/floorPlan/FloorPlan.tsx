@@ -1,7 +1,6 @@
 import svgToMiniDataURI from 'mini-svg-data-uri'
 
 import { IConfig } from '../../types'
-import { useAirPurifiers } from '../../api/hooks'
 import { useFeature } from '../../store/store'
 import LightButton from './LightButton'
 import AirPurifier from '../airPurifier/AirPurifier'
@@ -11,8 +10,9 @@ import styles from './FloorPlan.module.css'
 
 const FloorPlan = () => {
   const lights = useFeature('lights') as IConfig['lights']
-  const { list } = lights || {}
-  const purifiers = useAirPurifiers()
+  const { list: lightsList } = lights || {}
+  const airPurifiers = useFeature('airPurifiers') as IConfig['airPurifiers']
+  const { list: airPurifiersList } = airPurifiers || {}
   const floorPlanConfig = useFeature('floorPlan') as IConfig['floorPlan']
   const lightsConfig = useFeature('lights') as IConfig['lights']
   const airPurifiersConfig = useFeature(
@@ -28,7 +28,7 @@ const FloorPlan = () => {
           className={styles.planIcon}
         />
         {lightsConfig?.enabled &&
-          list.map(({ entity_id, name, left, top }) => (
+          lightsList.map(({ entity_id, name, left, top }) => (
             <LightButton
               key={name}
               entity_id={entity_id}
@@ -37,26 +37,12 @@ const FloorPlan = () => {
           ))}
         {/* <Vacuum className={styles.vacuum} /> */}
         {airPurifiersConfig?.enabled &&
-          purifiers.map(
-            ({
-              preset,
-              preset_modes,
-              busy,
-              show,
-              handleClick,
-              toggleButtonList,
-              name,
-              top,
-              left,
-            }) => (
+          airPurifiersList.map(
+            ({ entity_id, preset_modes, name, top, left }) => (
               <AirPurifier
                 key={name}
-                preset={preset}
+                entity_id={entity_id}
                 preset_modes={preset_modes}
-                busy={busy}
-                show={show}
-                handleClick={handleClick}
-                toggleButtonList={toggleButtonList}
                 style={{ top, left }}
               />
             ),
