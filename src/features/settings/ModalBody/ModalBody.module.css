@@ -59,6 +59,13 @@
   font-size: 12px;
 }
 
+.button {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 1rem;
+}
+
 .spacer {
   height: 32px;
 }

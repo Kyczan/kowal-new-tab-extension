@@ -3,6 +3,7 @@ import { useState } from 'react'
 import HomeAssistant from '../HomeAssistant/HomeAssistant'
 import Allergens from '../Allergens/Allergens'
 import FloorPlan from '../FloorPlan/FloorPlan'
+import Lights from '../Lights/Lights'
 import Switch from '../Switch/Switch'
 import { useConfig, useConfigActions } from '../../../store/store'
 
@@ -91,14 +92,12 @@ function ModalBody() {
           save={save}
           toggleFeature={toggleFeature}
         />
-        <div className={styles.feature}>
-          <div className={styles.item}>Lights</div>
-          <Switch
-            isOn={form.lights.enabled}
-            onChange={() => toggleFeature('lights')}
-            id="lights"
-          />
-        </div>
+        <Lights
+          form={form}
+          setForm={setForm}
+          save={save}
+          toggleFeature={toggleFeature}
+        />
         <div className={styles.feature}>
           <div className={styles.item}>Air purifiers</div>
           <Switch

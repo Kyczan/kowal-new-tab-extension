@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import useSWR from 'swr'
 
-import { IConfig, LightType } from '../types'
+import { IConfig } from '../types'
 import {
   IHAStateItem,
   haFetcher,
@@ -53,13 +53,7 @@ export const useHAStateValue = (
   return value
 }
 
-export const useSwitch = (
-  entity_id: IHAStateItem['entity_id'],
-  name: string,
-  type: LightType,
-  top: string,
-  left: string,
-) => {
+export const useSwitch = (entity_id: IHAStateItem['entity_id']) => {
   const [busy, setBusy] = useState(false)
   const { data, mutate, haToken, haUrl } = useHAStateItems()
 
@@ -78,26 +72,7 @@ export const useSwitch = (
     state: lightSwitch?.state,
     busy,
     toggle,
-    name,
-    type,
-    top,
-    left,
   }
-}
-
-export const useLights = () => {
-  const lights = useFeature('lights') as IConfig['lights']
-  const { list } = lights || {}
-  const switches = []
-
-  for (let i = 0; i < list.length; i++) {
-    const { entity_id, name, type, left, top } = list[i]
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const item = useSwitch(entity_id, name, type, top, left)
-    switches.push(item)
-  }
-
-  return switches
 }
 
 export const useAirPurifier = (

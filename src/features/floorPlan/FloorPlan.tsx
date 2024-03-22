@@ -1,7 +1,7 @@
 import svgToMiniDataURI from 'mini-svg-data-uri'
 
 import { IConfig } from '../../types'
-import { useLights, useAirPurifiers } from '../../api/hooks'
+import { useAirPurifiers } from '../../api/hooks'
 import { useFeature } from '../../store/store'
 import LightButton from './LightButton'
 import AirPurifier from '../airPurifier/AirPurifier'
@@ -10,7 +10,8 @@ import AirPurifier from '../airPurifier/AirPurifier'
 import styles from './FloorPlan.module.css'
 
 const FloorPlan = () => {
-  const lights = useLights()
+  const lights = useFeature('lights') as IConfig['lights']
+  const { list } = lights || {}
   const purifiers = useAirPurifiers()
   const floorPlanConfig = useFeature('floorPlan') as IConfig['floorPlan']
   const lightsConfig = useFeature('lights') as IConfig['lights']
@@ -27,13 +28,10 @@ const FloorPlan = () => {
           className={styles.planIcon}
         />
         {lightsConfig?.enabled &&
-          lights.map(({ name, busy, type, state, toggle, top, left }) => (
+          list.map(({ entity_id, name, left, top }) => (
             <LightButton
               key={name}
-              busy={busy}
-              type={type}
-              state={state as 'on' | 'off' | undefined}
-              onClick={toggle}
+              entity_id={entity_id}
               style={{ top, left }}
             />
           ))}

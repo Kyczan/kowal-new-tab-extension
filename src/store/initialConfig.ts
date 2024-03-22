@@ -56,14 +56,12 @@ export const initialConfig = {
       {
         name: 'bedroom',
         entity_id: 'switch.sonoff_10003b5dcc',
-        type: 'bulb',
         top: '73%',
         left: '65%',
       },
       {
         name: 'bedroomLamp',
         entity_id: 'switch.sonoff_10005f10dd',
-        type: 'bulb',
         top: '58%',
         left: '52%',
       },

@@ -1,8 +1,3 @@
-export enum LightType {
-  BULB = 'bulb',
-  LAMP = 'lamp',
-}
-
 interface IHomeAssistant {
   haUrl: string
   haToken: string
@@ -48,7 +43,6 @@ interface IAirPurifiers {
 interface ILight {
   name: string
   entity_id: string
-  type: LightType
   top: string
   left: string
 }

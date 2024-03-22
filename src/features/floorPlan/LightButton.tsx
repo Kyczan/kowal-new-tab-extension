@@ -1,25 +1,23 @@
 import Bulb from './Bulb'
-import { LightType } from '../../types'
+import { useSwitch } from '../../api/hooks'
 
 import styles from './FloorPlan.module.css'
 
 interface ILightButton {
-  onClick: () => void
-  busy: boolean
-  type: LightType
-  state?: 'on' | 'off'
+  entity_id: string
   style: React.CSSProperties
 }
 
-const LightButton = ({ onClick, busy, type, state, style }: ILightButton) => {
+const LightButton = ({ entity_id, style }: ILightButton) => {
+  const { busy, state, toggle } = useSwitch(entity_id)
   return (
     <button
-      onClick={onClick}
+      onClick={toggle}
       className={styles.button}
       disabled={busy}
       style={style}
     >
-      <Bulb type={type} state={state} busy={busy} />
+      <Bulb state={state as 'on' | 'off' | undefined} busy={busy} />
     </button>
   )
 }
