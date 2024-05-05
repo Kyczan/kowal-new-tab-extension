@@ -121,11 +121,16 @@ const Calendar = () => {
     <div className={styles.calendar}>
       {agenda.map((item) => (
         <div key={item.day} className={styles['day-container']}>
-          <div className={styles.day}>
+          <a
+            className={styles.day}
+            href="https://calendar.google.com/"
+            target="_blank"
+            rel="noreferrer"
+          >
             {formatDate(item.day, {
               weekday: 'long',
             })}
-          </div>
+          </a>
 
           {item.events.map((event) => (
             <div
