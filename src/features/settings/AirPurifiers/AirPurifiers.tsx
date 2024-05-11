@@ -22,14 +22,7 @@ function AirPurifiers({
   const { updateConfig } = useConfigActions()
   const onInputChange =
     (
-      target:
-        | 'name'
-        | 'entity_id'
-        | 'top'
-        | 'left'
-        | 'temp'
-        | 'humid'
-        | 'preset_modes',
+      target: 'name' | 'entity_id' | 'top' | 'left' | 'temp' | 'humid',
       index: number,
     ) =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -150,23 +143,6 @@ function AirPurifiers({
               className={`${styles.input} ${styles.short}`}
               value={item.left}
               onChange={onInputChange('left', index)}
-              onBlur={save}
-            />
-          </div>
-          <div className={styles.feature}>
-            <label
-              htmlFor={`airPurifiers-presets-${index}`}
-              className={styles.item}
-            >
-              Preset modes
-            </label>
-            <input
-              type="text"
-              id={`airPurifiers-presets-${index}`}
-              name={`airPurifiers-presets-${index}`}
-              className={`${styles.input}`}
-              value={item.preset_modes}
-              onChange={onInputChange('preset_modes', index)}
               onBlur={save}
             />
           </div>

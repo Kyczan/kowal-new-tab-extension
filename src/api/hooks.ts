@@ -108,6 +108,7 @@ export const useAirPurifier = (entity_id: IHAStateItem['entity_id']) => {
   const [show, setShow] = useState(false)
 
   const purifier = data?.find((item) => item.entity_id === entity_id)
+  const presetModes = purifier?.attributes?.preset_modes
   const presetMode = purifier?.attributes?.preset_mode
   const fanLevel = purifier?.attributes?.percentage || ''
   const preset =
@@ -150,6 +151,7 @@ export const useAirPurifier = (entity_id: IHAStateItem['entity_id']) => {
 
   return {
     preset,
+    presetModes,
     busy,
     show,
     handleClick,

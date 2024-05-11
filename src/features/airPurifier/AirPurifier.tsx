@@ -8,15 +8,14 @@ const mainPresetModes = Object.values(HAFanMainPresetModes)
 
 interface IAirPurifier {
   entity_id: string
-  preset_modes: string
   style: React.CSSProperties
 }
 
-const AirPurifier = ({ entity_id, preset_modes, style }: IAirPurifier) => {
-  const { busy, handleClick, preset, show, toggleButtonList } =
+const AirPurifier = ({ entity_id, style }: IAirPurifier) => {
+  const { busy, handleClick, preset, presetModes, show, toggleButtonList } =
     useAirPurifier(entity_id)
-  const intersection = mainPresetModes.filter((value) =>
-    preset_modes.split(',').includes(value),
+  const intersection = mainPresetModes.filter(
+    (value) => presetModes?.includes(value),
   )
   const purifierStates = [...intersection, ...fanLevels]
 

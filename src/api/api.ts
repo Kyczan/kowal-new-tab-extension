@@ -4,6 +4,7 @@ import allergensMockData from '../features/allergens/allergensMock.json'
 interface IHAAttributes {
   friendly_name: string
   preset_mode?: HAFanPresetModes
+  preset_modes?: HAFanMainPresetModes[]
   percentage?: number
 }
 

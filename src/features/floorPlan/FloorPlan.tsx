@@ -37,16 +37,13 @@ const FloorPlan = () => {
           ))}
         {/* <Vacuum className={styles.vacuum} /> */}
         {airPurifiersConfig?.enabled &&
-          airPurifiersList.map(
-            ({ entity_id, preset_modes, name, top, left }) => (
-              <AirPurifier
-                key={name}
-                entity_id={entity_id}
-                preset_modes={preset_modes}
-                style={{ top, left }}
-              />
-            ),
-          )}
+          airPurifiersList.map(({ entity_id, name, top, left }) => (
+            <AirPurifier
+              key={name}
+              entity_id={entity_id}
+              style={{ top, left }}
+            />
+          ))}
       </div>
     </div>
   )

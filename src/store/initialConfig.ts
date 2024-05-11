@@ -37,7 +37,6 @@ export const initialConfig = {
       {
         name: 'Xiaomi 3H',
         entity_id: 'fan.mi_air_purifier_3_3h',
-        preset_modes: ['Auto', 'Silent', 'Favorite', 'Fan'].join(','),
         temp: 'sensor.mi_air_purifier_3_3h_temperature',
         humid: 'sensor.mi_air_purifier_3_3h_humidity',
         top: '23%',
@@ -46,7 +45,6 @@ export const initialConfig = {
       {
         name: 'Xiaomi 4',
         entity_id: 'fan.zhimi_mb5a_2808_air_purifier',
-        preset_modes: ['Auto', 'Sleep', 'Favorite', 'Manual'].join(','),
         temp: 'sensor.zhimi_mb5a_2808_temperature',
         humid: 'sensor.zhimi_mb5a_2808_relative_humidity',
         top: '82%',
