@@ -83,6 +83,7 @@
   background-position: center center;
   background-attachment: fixed, fixed;
   background-size: cover, cover;
+  background-color: black;
   animation: animate 0.5s ease-in-out 0s;
 }
 

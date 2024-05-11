@@ -3,27 +3,6 @@
   position: relative;
 }
 
-.toggle {
-  position: absolute;
-  background: none;
-  color: darkgray;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  width: 14px;
-  height: 14px;
-  top: 6px;
-  left: -16px;
-}
-
-.wrapper-show {
-  display: block;
-}
-
-.wrapper-hide {
-  display: none;
-}
-
 .day-container {
   margin-bottom: 1rem;
 }
@@ -31,6 +10,7 @@
 .day {
   font-size: 16px;
   color: darkgray;
+  text-decoration: none;
 }
 
 .event {

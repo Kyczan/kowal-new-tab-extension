@@ -1,28 +1,10 @@
-import config from '../../config.json'
-import { IConfig, IFeatures } from '../types'
-
 export const dev = import.meta.env.DEV
-
-export const getConfig = (feature: IFeatures) => {
-  const configData = config as IConfig
-  return configData[feature]
-}
-
-export const featureEnabled = (feature: IFeatures) => {
-  const feat = getConfig(feature)
-
-  if ('enabled' in feat) {
-    return feat.enabled
-  }
-
-  return false
-}
 
 export const randomItem = <T>(arr: T[]): T => {
   // it uses bitwise operator `| 0` that does nothing,
   // but before operation float is converted to integer
   // and this is much faster than `Math.floor()`
-  return arr[(Math.random() * arr.length) | 0]
+  return arr && arr[(Math.random() * arr.length) | 0]
 }
 
 export const getRange = () => {
@@ -53,6 +35,22 @@ export const sameDay = (date1: string | Date, date2: string | Date) => {
   )
 }
 
+export const isMultiDayInRange = (
+  today: string | Date,
+  start: string | Date | undefined,
+  end: string | Date | undefined,
+) => {
+  if (!start || !end) return false
+
+  const t = new Date(today)
+  const s = new Date(start)
+  s.setHours(0, 0, 0, 0)
+  const e = new Date(end)
+  e.setHours(0, 0, 0, 0)
+
+  return t >= s && t < e
+}
+
 export const formatDate = (
   date: string | Date,
   options: Intl.DateTimeFormatOptions,
@@ -76,3 +74,5 @@ export const getFavicon = (url: string, size: number = 64): string => {
     chrome.runtime.id
   }/_favicon/?pageUrl=${encodeURIComponent(url)}&size=${size}`
 }
+
+export const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))

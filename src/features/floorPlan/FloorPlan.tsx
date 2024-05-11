@@ -1,6 +1,7 @@
+import svgToMiniDataURI from 'mini-svg-data-uri'
+
 import { IConfig } from '../../types'
-import { useLights, useAirPurifiers } from '../../api/hooks'
-import { featureEnabled, getConfig } from '../../utils/utils'
+import { useFeature } from '../../store/store'
 import LightButton from './LightButton'
 import AirPurifier from '../airPurifier/AirPurifier'
 // import Vacuum from '../vacuum/Vacuum'
@@ -8,49 +9,41 @@ import AirPurifier from '../airPurifier/AirPurifier'
 import styles from './FloorPlan.module.css'
 
 const FloorPlan = () => {
-  const lights = useLights()
-  const purifiers = useAirPurifiers()
-  const { width } = getConfig('floorPlan') as IConfig['floorPlan']
+  const lights = useFeature('lights') as IConfig['lights']
+  const { list: lightsList } = lights || {}
+  const airPurifiers = useFeature('airPurifiers') as IConfig['airPurifiers']
+  const { list: airPurifiersList } = airPurifiers || {}
+  const floorPlanConfig = useFeature('floorPlan') as IConfig['floorPlan']
+  const lightsConfig = useFeature('lights') as IConfig['lights']
+  const airPurifiersConfig = useFeature(
+    'airPurifiers',
+  ) as IConfig['airPurifiers']
 
   return (
     <div className={styles.floorPlan}>
-      <div className={styles.wrapper} style={{ width }}>
-        <img src="/plan.svg" alt="Floor Plan" className={styles.planIcon} />
-        {featureEnabled('lights') &&
-          lights.map(({ name, busy, type, state, toggle, top, left }) => (
+      <div className={styles.wrapper} style={{ width: floorPlanConfig?.width }}>
+        <img
+          src={svgToMiniDataURI(floorPlanConfig?.svg)}
+          alt="Floor Plan"
+          className={styles.planIcon}
+        />
+        {lightsConfig?.enabled &&
+          lightsList.map(({ entity_id, name, left, top }) => (
             <LightButton
               key={name}
-              busy={busy}
-              type={type}
-              state={state as 'on' | 'off' | undefined}
-              onClick={toggle}
+              entity_id={entity_id}
               style={{ top, left }}
             />
           ))}
         {/* <Vacuum className={styles.vacuum} /> */}
-        {featureEnabled('airPurifiers') &&
-          purifiers.map(
-            ({
-              preset,
-              busy,
-              show,
-              handleClick,
-              toggleButtonList,
-              name,
-              top,
-              left,
-            }) => (
-              <AirPurifier
-                key={name}
-                preset={preset}
-                busy={busy}
-                show={show}
-                handleClick={handleClick}
-                toggleButtonList={toggleButtonList}
-                style={{ top, left }}
-              />
-            ),
-          )}
+        {airPurifiersConfig?.enabled &&
+          airPurifiersList.map(({ entity_id, name, top, left }) => (
+            <AirPurifier
+              key={name}
+              entity_id={entity_id}
+              style={{ top, left }}
+            />
+          ))}
       </div>
     </div>
   )

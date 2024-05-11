@@ -1,10 +1,11 @@
-import { IConfig } from '../types'
-import { getConfig, dev } from '../utils/utils'
+import { dev } from '../utils/utils'
 import allergensMockData from '../features/allergens/allergensMock.json'
 
 interface IHAAttributes {
   friendly_name: string
   preset_mode?: HAFanPresetModes
+  preset_modes?: HAFanMainPresetModes[]
+  percentage?: number
 }
 
 export interface IHAStateItem {
@@ -16,39 +17,34 @@ export interface IHAStateItem {
 export enum HAFanMainPresetModes {
   AUTO = 'Auto',
   SILENT = 'Silent',
+  SLEEP = 'Sleep',
   FAVORITE = 'Favorite',
 }
 
 export enum HAFanOnlyPresetMode {
   FAN = 'Fan',
+  MANUAL = 'Manual',
 }
 
 export type HAFanPresetModes = HAFanMainPresetModes | HAFanOnlyPresetMode
 
-export const fanLevels = [1, 2, 3] as const
+export const fanLevels = [33, 66, 100] as const
 export type HAFanLevels = (typeof fanLevels)[number]
 
-export const haFetcher = (url: string) => {
-  const { haToken, haUrl } = getConfig(
-    'homeAssistant',
-  ) as IConfig['homeAssistant']
-
-  return fetch(`${haUrl}${url}`, {
+export const haFetcher = (url: string, token: string) => {
+  return fetch(url, {
     method: 'get',
     headers: new Headers({
-      Authorization: `Bearer ${haToken}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     }),
   }).then((response) => response.json())
 }
 
-export const allergensFetcher = () => {
+export const allergensFetcher = (url: string) => {
   if (dev) return Promise.resolve(allergensMockData)
 
-  const { api } = getConfig('allergens') as IConfig['allergens']
-  const { baseUrl, cityId } = api
-
-  return fetch(`${baseUrl}${cityId}`, {
+  return fetch(url, {
     method: 'get',
     headers: new Headers({
       'Content-Type': 'application/json',
@@ -60,11 +56,9 @@ export const fetchCalEvents = (
   calId: string,
   timeMin: string,
   timeMax: string,
+  haToken: string,
+  haUrl: string,
 ) => {
-  const { haToken, haUrl } = getConfig(
-    'homeAssistant',
-  ) as IConfig['homeAssistant']
-
   return fetch(
     `${haUrl}/api/calendars/${calId}?start=${timeMin}&end=${timeMax}`,
     {
@@ -77,11 +71,11 @@ export const fetchCalEvents = (
   )
 }
 
-export const toggleSwitch = async (entity_id: string) => {
-  const { haToken, haUrl } = getConfig(
-    'homeAssistant',
-  ) as IConfig['homeAssistant']
-
+export const toggleSwitch = async (
+  entity_id: string,
+  haToken: string,
+  haUrl: string,
+) => {
   try {
     await fetch(`${haUrl}/api/services/switch/toggle`, {
       method: 'post',
@@ -99,13 +93,11 @@ export const toggleSwitch = async (entity_id: string) => {
 }
 
 export const setFanPresetMode = async (
-  main_entity_id: string,
+  entity_id: string,
   presetMode: HAFanPresetModes,
+  haToken: string,
+  haUrl: string,
 ) => {
-  const { haToken, haUrl } = getConfig(
-    'homeAssistant',
-  ) as IConfig['homeAssistant']
-
   try {
     await fetch(`${haUrl}/api/services/fan/set_preset_mode`, {
       method: 'post',
@@ -114,7 +106,7 @@ export const setFanPresetMode = async (
         'Content-Type': 'application/json',
       }),
       body: JSON.stringify({
-        entity_id: main_entity_id,
+        entity_id,
         preset_mode: presetMode,
       }),
     })
@@ -124,23 +116,21 @@ export const setFanPresetMode = async (
 }
 
 export const setFanLevel = async (
-  fan_level_entity_id: string,
-  level: HAFanLevels,
+  entity_id: string,
+  percentage: HAFanLevels,
+  haToken: string,
+  haUrl: string,
 ) => {
-  const { haToken, haUrl } = getConfig(
-    'homeAssistant',
-  ) as IConfig['homeAssistant']
-
   try {
-    await fetch(`${haUrl}/api/services/number/set_value`, {
+    await fetch(`${haUrl}/api/services/fan/set_percentage`, {
       method: 'post',
       headers: new Headers({
         Authorization: `Bearer ${haToken}`,
         'Content-Type': 'application/json',
       }),
       body: JSON.stringify({
-        entity_id: fan_level_entity_id,
-        value: level,
+        entity_id,
+        percentage,
       }),
     })
   } catch (e) {

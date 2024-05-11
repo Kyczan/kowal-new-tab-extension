@@ -3,6 +3,8 @@ import useSWR from 'swr'
 
 import Rating from './Rating'
 import { allergensFetcher } from '../../api/api'
+import { useFeature } from '../../store/store'
+import { IConfig } from '../../types'
 
 import styles from './Allergens.module.css'
 
@@ -41,7 +43,12 @@ interface IAllergen {
 }
 
 const Allergens = () => {
-  const { data } = useSWR<IAllergensData>('allergens', allergensFetcher)
+  const { api } = useFeature('allergens') as IConfig['allergens']
+  const { baseUrl, cityId } = api || {}
+  const { data } = useSWR<IAllergensData>(
+    `${baseUrl}${cityId}`,
+    allergensFetcher,
+  )
   const [allergens, setAllergens] = useState<IAllergen[]>([])
 
   useEffect(() => {

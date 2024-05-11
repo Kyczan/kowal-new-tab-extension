@@ -1,9 +1,16 @@
 import { CSSProperties, useEffect, useState } from 'react'
-import { BsChevronRight, BsChevronDown } from 'react-icons/bs'
 
 import { fetchCalEvents, IHAStateItem } from '../../api/api'
 import { useHAStateItems } from '../../api/hooks'
-import { getRange, sameDay, formatDate, extractColor } from '../../utils/utils'
+import {
+  getRange,
+  sameDay,
+  isMultiDayInRange,
+  formatDate,
+  extractColor,
+} from '../../utils/utils'
+import { useFeature } from '../../store/store'
+import { IConfig } from '../../types'
 
 import styles from './Calendar.module.css'
 
@@ -28,24 +35,22 @@ interface IAgendaItem {
 const { timeMin, timeMax, allDays } = getRange()
 const storageKey = {
   AGENDA: 'agenda',
-  TOGGLE: 'toggleAgenda',
 }
 
 const Calendar = () => {
+  const ha = useFeature('homeAssistant') as IConfig['homeAssistant']
+  const { haToken, haUrl } = ha || {}
   const localAgenda = JSON.parse(
-    localStorage.getItem(storageKey.AGENDA) || '[]'
+    localStorage.getItem(storageKey.AGENDA) || '[]',
   )
   const { data } = useHAStateItems()
   const [calendars, setCalendars] = useState<IHAStateItem[]>([])
   const [agenda, setAgenda] = useState<IAgendaItem[]>(localAgenda)
-  const [toggle, setToggle] = useState(
-    localStorage.getItem(storageKey.TOGGLE) || 'show'
-  )
 
   useEffect(() => {
     if (Array.isArray(data)) {
       const filtered = data.filter((item) =>
-        item.entity_id.startsWith('calendar.')
+        item.entity_id.startsWith('calendar.'),
       )
       setCalendars(filtered)
     }
@@ -54,10 +59,10 @@ const Calendar = () => {
   useEffect(() => {
     const getAgenda = async () => {
       const requests = calendars.map((item) =>
-        fetchCalEvents(item.entity_id, timeMin, timeMax)
+        fetchCalEvents(item.entity_id, timeMin, timeMax, haToken, haUrl),
       )
       const calData: IEventItem[][] = await Promise.all(requests).then(
-        (responses) => Promise.all(responses.map((r) => r.json()))
+        (responses) => Promise.all(responses.map((r) => r.json())),
       )
       calendars.forEach((item, i) => {
         const color = extractColor(item.entity_id)
@@ -70,8 +75,10 @@ const Calendar = () => {
       const agendaData: IEventItem[] = calData.flat()
 
       const agendaByDays: IAgendaItem[] = allDays.map((day) => {
-        const events = agendaData.filter((event) =>
-          sameDay(day, event.start.dateTime || event.start.date)
+        const events = agendaData.filter(
+          (event) =>
+            sameDay(day, event.start.dateTime || event.start.date) ||
+            isMultiDayInRange(day, event.start.date, event.end.date),
         )
         events.sort((a, b) => {
           const startA = a.start.dateTime || a.start.date
@@ -88,7 +95,7 @@ const Calendar = () => {
     if (calendars.length > 0) {
       getAgenda()
     }
-  }, [calendars])
+  }, [calendars, haToken, haUrl])
 
   const getTime = (time: string | undefined, day: string) => {
     if (time)
@@ -110,43 +117,35 @@ const Calendar = () => {
     } as CSSProperties
   }
 
-  const handleToggle = () => {
-    setToggle((toggle) => {
-      const newVal = toggle === 'show' ? 'hide' : 'show'
-      localStorage.setItem(storageKey.TOGGLE, newVal)
-      return newVal
-    })
-  }
-
   return (
     <div className={styles.calendar}>
-      <button onClick={handleToggle} className={styles.toggle}>
-        {toggle === 'show' ? <BsChevronDown /> : <BsChevronRight />}
-      </button>
-      <div className={styles[`wrapper-${toggle}`]}>
-        {agenda.map((item) => (
-          <div key={item.day} className={styles['day-container']}>
-            <div className={styles.day}>
-              {formatDate(item.day, {
-                weekday: 'long',
-              })}
-            </div>
+      {agenda.map((item) => (
+        <div key={item.day} className={styles['day-container']}>
+          <a
+            className={styles.day}
+            href="https://calendar.google.com/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {formatDate(item.day, {
+              weekday: 'long',
+            })}
+          </a>
 
-            {item.events.map((event) => (
-              <div
-                key={event.id}
-                className={styles.event}
-                style={getCalStyle(event.color)}
-              >
-                <span className={styles.time}>
-                  {getTime(event.start.dateTime, item.day)}
-                </span>
-                <span className={styles.summary}>{event.summary}</span>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
+          {item.events.map((event) => (
+            <div
+              key={event.id}
+              className={styles.event}
+              style={getCalStyle(event.color)}
+            >
+              <span className={styles.time}>
+                {getTime(event.start.dateTime, item.day)}
+              </span>
+              <span className={styles.summary}>{event.summary}</span>
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   )
 }

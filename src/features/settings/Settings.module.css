@@ -1,0 +1,53 @@
+.settings {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin: 0 4rem 4rem 0;
+}
+
+.button {
+  border: none;
+  background: none;
+  color: darkgray;
+  font-size: 20px;
+  padding: 2px;
+  opacity: 0.5;
+}
+
+.button:hover {
+  cursor: pointer;
+  color: white;
+  opacity: 1;
+  filter: drop-shadow(0px 0px 3px white);
+}
+
+.modal {
+  position: absolute;
+  top: 4rem;
+  left: 4rem;
+  right: 4rem;
+  bottom: 4rem;
+  background-color: #22242b;
+  opacity: 1;
+  border-radius: 4px;
+  padding: 2rem;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-weight: 300;
+  font-size: 2rem;
+}

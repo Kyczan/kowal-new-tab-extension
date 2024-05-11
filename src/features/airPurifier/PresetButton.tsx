@@ -32,9 +32,10 @@ const buttonsMap = {
   [HAFanMainPresetModes.AUTO]: { On: MdHdrAuto, Off: MdOutlineHdrAuto },
   [HAFanMainPresetModes.FAVORITE]: { On: MdFavorite, Off: MdFavoriteBorder },
   [HAFanMainPresetModes.SILENT]: { On: IoMoonSharp, Off: IoMoonOutline },
-  1: { On: PiNumberCircleOneFill, Off: PiNumberCircleOne },
-  2: { On: PiNumberCircleTwoFill, Off: PiNumberCircleTwo },
-  3: { On: PiNumberCircleThreeFill, Off: PiNumberCircleThree },
+  [HAFanMainPresetModes.SLEEP]: { On: IoMoonSharp, Off: IoMoonOutline },
+  33: { On: PiNumberCircleOneFill, Off: PiNumberCircleOne },
+  66: { On: PiNumberCircleTwoFill, Off: PiNumberCircleTwo },
+  100: { On: PiNumberCircleThreeFill, Off: PiNumberCircleThree },
   undefined: { On: PiWarningBold, Off: PiWarningBold },
 }
 

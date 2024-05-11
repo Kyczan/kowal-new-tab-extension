@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import useSWR from 'swr'
 
-import { IConfig, LightType } from '../types'
-import { getConfig } from '../utils/utils'
+import { IConfig } from '../types'
 import {
   IHAStateItem,
   haFetcher,
@@ -13,10 +12,14 @@ import {
   HAFanMainPresetModes,
   HAFanOnlyPresetMode,
 } from './api'
+import { useFeature } from '../store/store'
+import { delay } from '../utils/utils'
 
 export const useHAStateItems = () => {
+  const ha = useFeature('homeAssistant') as IConfig['homeAssistant']
+  const { haToken, haUrl } = ha || {}
   const { data, error, mutate } = useSWR<IHAStateItem[]>(
-    `/api/states`,
+    [`${haUrl}/api/states`, haToken],
     haFetcher,
   )
 
@@ -25,6 +28,8 @@ export const useHAStateItems = () => {
     isLoading: !error && !data,
     isError: error,
     mutate,
+    haToken,
+    haUrl,
   }
 }
 
@@ -33,6 +38,9 @@ export const useHAStateValue = (
   useLocalStorage: boolean = false,
 ) => {
   const { data } = useHAStateItems()
+
+  if (!entity_id) return ''
+
   const value = data?.find((item) => item.entity_id === entity_id)?.state
 
   if (useLocalStorage) {
@@ -45,21 +53,42 @@ export const useHAStateValue = (
   return value
 }
 
-export const useSwitch = (
-  entity_id: IHAStateItem['entity_id'],
-  name: string,
-  type: LightType,
-  top: string,
-  left: string,
+export const useHAStateValues = (
+  entity_ids: IHAStateItem['entity_id'][],
+  useLocalStorage: boolean = false,
 ) => {
+  const { data } = useHAStateItems()
+
+  if (!entity_ids || entity_ids.length === 0) return []
+
+  const results = entity_ids.map((entity_id) => {
+    const value = data?.find((item) => item.entity_id === entity_id)?.state
+
+    if (useLocalStorage) {
+      if (!value || value === 'unavailable') {
+        return {
+          entity_id,
+          value: localStorage.getItem(entity_id) || '',
+        }
+      }
+      localStorage.setItem(entity_id, value)
+    }
+
+    return { entity_id, value }
+  })
+
+  return results
+}
+
+export const useSwitch = (entity_id: IHAStateItem['entity_id']) => {
   const [busy, setBusy] = useState(false)
-  const { data, mutate } = useHAStateItems()
+  const { data, mutate, haToken, haUrl } = useHAStateItems()
 
   const lightSwitch = data?.find?.((item) => item.entity_id === entity_id)
 
   const toggle = async () => {
     setBusy(true)
-    await toggleSwitch(entity_id)
+    await toggleSwitch(entity_id, haToken, haUrl)
     setTimeout(async () => {
       await mutate()
       setBusy(false)
@@ -70,48 +99,21 @@ export const useSwitch = (
     state: lightSwitch?.state,
     busy,
     toggle,
-    name,
-    type,
-    top,
-    left,
   }
 }
 
-export const useLights = () => {
-  const { list } = getConfig('lights') as IConfig['lights']
-  const switches = []
-
-  for (let i = 0; i < list.length; i++) {
-    const { entity_id, name, type, left, top } = list[i]
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const item = useSwitch(entity_id, name, type, top, left)
-    switches.push(item)
-  }
-
-  return switches
-}
-
-export const useAirPurifier = (
-  main_entity_id: IHAStateItem['entity_id'],
-  fan_level_entity_id: IHAStateItem['entity_id'],
-  name: string,
-  top: string,
-  left: string,
-) => {
-  const { data, mutate } = useHAStateItems()
+export const useAirPurifier = (entity_id: IHAStateItem['entity_id']) => {
+  const { data, mutate, haToken, haUrl } = useHAStateItems()
   const [busy, setBusy] = useState(false)
   const [show, setShow] = useState(false)
 
-  const filteredPresets = data?.find(
-    (item) => item.entity_id === main_entity_id,
-  )
-  const filteredLevels = data?.find(
-    (item) => item.entity_id === fan_level_entity_id,
-  )
-  const presetMode = filteredPresets?.attributes?.preset_mode
-  const fanLevel = filteredLevels?.state || ''
+  const purifier = data?.find((item) => item.entity_id === entity_id)
+  const presetModes = purifier?.attributes?.preset_modes
+  const presetMode = purifier?.attributes?.preset_mode
+  const fanLevel = purifier?.attributes?.percentage || ''
   const preset =
-    presetMode === HAFanOnlyPresetMode.FAN
+    presetMode === HAFanOnlyPresetMode.FAN ||
+    presetMode === HAFanOnlyPresetMode.MANUAL
       ? (+fanLevel as HAFanLevels)
       : presetMode
 
@@ -122,7 +124,7 @@ export const useAirPurifier = (
   const handleClickPreset = async (newPreset: HAFanMainPresetModes) => {
     setBusy(true)
 
-    await setFanPresetMode(main_entity_id, newPreset)
+    await setFanPresetMode(entity_id, newPreset, haToken, haUrl)
     await mutate()
     setBusy(false)
     toggleButtonList()
@@ -131,8 +133,9 @@ export const useAirPurifier = (
   const handleClickFan = async (newLevel: HAFanLevels) => {
     setBusy(true)
 
-    await setFanLevel(fan_level_entity_id, newLevel)
-    await setFanPresetMode(main_entity_id, HAFanOnlyPresetMode.FAN)
+    await setFanLevel(entity_id, newLevel, haToken, haUrl)
+    await delay(100)
+
     await mutate()
     setBusy(false)
     toggleButtonList()
@@ -148,32 +151,27 @@ export const useAirPurifier = (
 
   return {
     preset,
+    presetModes,
     busy,
     show,
     handleClick,
     toggleButtonList,
-    name,
-    top,
-    left,
   }
 }
 
-export const useAirPurifiers = () => {
-  const { list } = getConfig('airPurifiers') as IConfig['airPurifiers']
-  const purifiers = []
+export const useIndoorData = () => {
+  const airPurifiers = useFeature('airPurifiers') as IConfig['airPurifiers']
+  const { list } = airPurifiers || {}
+  const data = []
 
   for (let i = 0; i < list.length; i++) {
-    const { main_entity_id, fan_level_entity_id, name, left, top } = list[i]
+    const { temp, humid, name } = list[i]
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const item = useAirPurifier(
-      main_entity_id,
-      fan_level_entity_id,
-      name,
-      top,
-      left,
-    )
-    purifiers.push(item)
+    const homeTemp = useHAStateValue(temp, true)
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const homeHumid = useHAStateValue(humid, true)
+    data.push({ temp: homeTemp, humid: homeHumid, name })
   }
 
-  return purifiers
+  return data
 }

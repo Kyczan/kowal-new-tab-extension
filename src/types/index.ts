@@ -1,8 +1,3 @@
-export enum LightType {
-  BULB = 'bulb',
-  LAMP = 'lamp',
-}
-
 interface IHomeAssistant {
   haUrl: string
   haToken: string
@@ -27,12 +22,15 @@ interface IClock {
 interface IFloorPlan {
   enabled: boolean
   width: string
+  svg: string
 }
 
 interface IAirPurifier {
   name: string
-  main_entity_id: string
-  fan_level_entity_id: string
+  entity_id: string
+  preset_modes: string
+  temp: string
+  humid: string
   top: string
   left: string
 }
@@ -45,7 +43,6 @@ interface IAirPurifiers {
 interface ILight {
   name: string
   entity_id: string
-  type: LightType
   top: string
   left: string
 }
@@ -65,8 +62,6 @@ interface IWallpapers {
 
 interface IWeather {
   enabled: boolean
-  name: string
-  entity_id: string
 }
 
 export interface IConfig {
