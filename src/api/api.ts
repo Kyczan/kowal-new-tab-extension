@@ -52,6 +52,12 @@ export const allergensFetcher = (url: string) => {
   }).then((response) => response.json())
 }
 
+export const goldFetcher = () => {
+  return fetch('https://tavex.pl', {
+    method: 'get',
+  }).then((response) => response.text())
+}
+
 export const fetchCalEvents = (
   calId: string,
   timeMin: string,

@@ -27,6 +27,7 @@ function ModalBody() {
       | 'topSites'
       | 'weather'
       | 'calendar'
+      | 'stocks'
       | 'floorPlan'
       | 'allergens'
       | 'lights'
@@ -82,6 +83,14 @@ function ModalBody() {
             isOn={form.calendar.enabled}
             onChange={() => toggleFeature('calendar')}
             id="calendar"
+          />
+        </div>
+        <div className={styles.feature}>
+          <div className={styles.item}>Stocks</div>
+          <Switch
+            isOn={form.stocks.enabled}
+            onChange={() => toggleFeature('stocks')}
+            id="stocks"
           />
         </div>
 

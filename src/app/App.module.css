@@ -8,8 +8,10 @@
   grid-template-rows: auto;
   grid-template-areas:
     "clock sites weather"
+    "calendar calendar weather"
     "calendar calendar plan"
-    "allergens allergens plan";
+    "calendar calendar stocks"
+    "allergens allergens stocks";
 }
 
 .container>div {
@@ -23,7 +25,7 @@
       "clock weather"
       "calendar sites"
       "calendar plan"
-      "allergens plan";
+      "allergens stocks";
   }
 }
 
@@ -34,7 +36,7 @@
       "clock weather"
       "sites sites"
       "calendar plan"
-      "allergens plan";
+      "allergens stocks";
   }
 }
 
@@ -46,7 +48,7 @@
       "weather weather"
       "sites sites"
       "calendar plan"
-      "allergens plan";
+      "allergens stocks";
   }
 }
 
@@ -60,7 +62,8 @@
       "lights"
       "plan"
       "calendar"
-      "allergens";
+      "allergens"
+      "stocks";
   }
 }
 

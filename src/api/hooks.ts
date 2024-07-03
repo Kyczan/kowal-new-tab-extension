@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import useSWR from 'swr'
 
 import { IConfig } from '../types'
@@ -11,9 +11,10 @@ import {
   HAFanLevels,
   HAFanMainPresetModes,
   HAFanOnlyPresetMode,
+  goldFetcher,
 } from './api'
 import { useFeature } from '../store/store'
-import { delay } from '../utils/utils'
+import { delay, extractGoldPrice, extractEuroPrice } from '../utils/utils'
 
 export const useHAStateItems = () => {
   const ha = useFeature('homeAssistant') as IConfig['homeAssistant']
@@ -174,4 +175,43 @@ export const useIndoorData = () => {
   }
 
   return data
+}
+
+export const useGoldPrice = () => {
+  const values = [
+    'GCAtPh1oz', // Filharmonik
+    'GCAuKa1oz', // Kangur
+  ]
+  const expiringTime = 1000 * 60 * 15 // 15 min
+
+  const {
+    gold: oldGold,
+    euro: oldEuro,
+    timestamp,
+  } = JSON.parse(localStorage.getItem('GOLD') || '{}')
+  const now = Date.now()
+  const shouldFetch = now - (+timestamp || 0) > expiringTime
+
+  const [gold, setGold] = useState(oldGold)
+  const [euro, setEuro] = useState(oldEuro)
+
+  useEffect(() => {
+    const doEffect = async () => {
+      const data = await goldFetcher()
+      const newGold = extractGoldPrice(data || '', values[1])
+      const newEuro = extractEuroPrice(data || '')
+      localStorage.setItem(
+        'GOLD',
+        JSON.stringify({ gold: newGold, euro: newEuro, timestamp: now }),
+      )
+      setGold(newGold)
+      setEuro(newEuro)
+    }
+
+    if (shouldFetch) {
+      doEffect()
+    }
+  }, [])
+
+  return { gold, euro }
 }

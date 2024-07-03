@@ -6,6 +6,7 @@ import Calendar from '../features/calendar/Calendar'
 import Weather from '../features/weather/Weather'
 import Allergens from '../features/allergens/Allergens'
 import FloorPlan from '../features/floorPlan/FloorPlan'
+import Stocks from '../features/stocks/Stocks'
 import Settings from '../features/settings/Settings'
 import { randomItem, dev } from '../utils/utils'
 import { useFeature, useConfigActions } from '../store/store'
@@ -32,6 +33,7 @@ const App = () => {
   const weather = useFeature('weather') as IConfig['weather']
   const allergens = useFeature('allergens') as IConfig['allergens']
   const floorPlan = useFeature('floorPlan') as IConfig['floorPlan']
+  const stocks = useFeature('stocks') as IConfig['stocks']
   const wallpapers = useFeature('wallpapers') as IConfig['wallpapers']
 
   const wallpaperCssVar = {
@@ -47,6 +49,7 @@ const App = () => {
         {weather?.enabled && <Weather />}
         {allergens?.enabled && <Allergens />}
         {floorPlan?.enabled && <FloorPlan />}
+        {stocks?.enabled && <Stocks />}
       </div>
       <Settings />
     </>

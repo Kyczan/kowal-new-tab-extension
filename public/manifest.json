@@ -14,7 +14,8 @@
   ],
   "host_permissions": [
     "http://homeassistant.local:8123/",
-    "https://data.twojapogoda.pl/"
+    "https://data.twojapogoda.pl/",
+    "https://tavex.pl/"
   ],
   "optional_host_permissions": [
     "https://*/*",

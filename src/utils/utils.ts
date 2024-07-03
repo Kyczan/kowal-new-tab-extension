@@ -76,3 +76,25 @@ export const getFavicon = (url: string, size: number = 64): string => {
 }
 
 export const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
+
+export const extractGoldPrice = (data: string, value: string) => {
+  const parser = new DOMParser()
+  const document = parser.parseFromString(data, 'text/html')
+  const element = document.querySelector(
+    `#price-alert-all-products > option[value="${value}"]`,
+  )
+  const attr = element?.getAttribute('data-pricelist')
+  const obj = JSON.parse(attr || '{}')
+
+  return obj?.sell?.[0]?.price || 0
+}
+
+export const extractEuroPrice = (data: string) => {
+  const parser = new DOMParser()
+  const document = parser.parseFromString(data, 'text/html')
+  const price = document.querySelector(
+    '.list-table__row.js-filter-search-row:has(a[href="https://tavex.pl/waluta/euro-kurs-eur/"])>:last-child',
+  )?.textContent
+
+  return price || '0'
+}

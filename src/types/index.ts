@@ -64,6 +64,10 @@ interface IWeather {
   enabled: boolean
 }
 
+interface IStocks {
+  enabled: boolean
+}
+
 export interface IConfig {
   homeAssistant: IHomeAssistant
   allergens: IAllergens
@@ -75,6 +79,7 @@ export interface IConfig {
   topSites: ITopSites
   weather: IWeather
   wallpapers: IWallpapers
+  stocks: IStocks
 }
 
 export type IFeatures = keyof IConfig

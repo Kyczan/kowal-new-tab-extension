@@ -1,0 +1,13 @@
+.stocks {
+  font-size: 22px;
+  width: fit-content;
+  grid-area: stocks;
+  justify-self: end
+}
+
+.stock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}

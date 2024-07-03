@@ -75,6 +75,9 @@ export const initialConfig = {
   weather: {
     enabled: false,
   },
+  stocks: {
+    enabled: false,
+  },
   wallpapers: {
     list: [
       '1-chris-kursikowski-unsplash.webp',
