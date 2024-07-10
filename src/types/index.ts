@@ -83,3 +83,10 @@ export interface IConfig {
 }
 
 export type IFeatures = keyof IConfig
+
+export type GoldConfigItem = {
+  code: string
+  name: string
+  sell?: number | string
+  buy?: number | string
+}

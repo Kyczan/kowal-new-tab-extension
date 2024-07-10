@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import useSWR from 'swr'
 
-import { IConfig } from '../types'
+import { IConfig, GoldConfigItem } from '../types'
 import {
   IHAStateItem,
   haFetcher,
@@ -178,10 +178,6 @@ export const useIndoorData = () => {
 }
 
 export const useGoldPrice = () => {
-  const values = [
-    'GCAtPh1oz', // Filharmonik
-    'GCAuKa1oz', // Kangur
-  ]
   const expiringTime = 1000 * 60 * 15 // 15 min
 
   const {
@@ -192,13 +188,13 @@ export const useGoldPrice = () => {
   const now = Date.now()
   const shouldFetch = now - (+timestamp || 0) > expiringTime
 
-  const [gold, setGold] = useState(oldGold)
-  const [euro, setEuro] = useState(oldEuro)
+  const [gold, setGold] = useState<GoldConfigItem[]>(oldGold)
+  const [euro, setEuro] = useState<GoldConfigItem>(oldEuro)
 
   useEffect(() => {
     const doEffect = async () => {
       const data = await goldFetcher()
-      const newGold = extractGoldPrice(data || '', values[1])
+      const newGold = extractGoldPrice(data || '')
       const newEuro = extractEuroPrice(data || '')
       localStorage.setItem(
         'GOLD',
@@ -211,6 +207,7 @@ export const useGoldPrice = () => {
     if (shouldFetch) {
       doEffect()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return { gold, euro }

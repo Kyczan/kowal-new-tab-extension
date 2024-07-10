@@ -7,12 +7,25 @@ const Stocks = () => {
 
   return (
     <div className={styles.stocks}>
-      <div className={styles.stock}>
-        Złoto <span>{gold} zł</span>
-      </div>
-      <div className={styles.stock}>
-        Euro <span>{euro} zł</span>
-      </div>
+      {gold?.map((item) => (
+        <div className={styles.stock}>
+          {item.name}
+          <div className={styles.prices}>
+            <span>{item.buy} zł</span>
+            <span>{item.sell} zł</span>
+          </div>
+        </div>
+      ))}
+
+      {euro && (
+        <div className={styles.stock}>
+          {euro.name}
+          <div className={styles.prices}>
+            <span>{euro.buy} zł</span>
+            <span>{euro.sell} zł</span>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,3 +1,5 @@
+import { GoldConfigItem } from '../types'
+
 export const dev = import.meta.env.DEV
 
 export const randomItem = <T>(arr: T[]): T => {
@@ -77,24 +79,66 @@ export const getFavicon = (url: string, size: number = 64): string => {
 
 export const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
 
-export const extractGoldPrice = (data: string, value: string) => {
+export const extractGoldPrice = (data: string): GoldConfigItem[] => {
+  const goldConfig: GoldConfigItem[] = [
+    {
+      code: 'GCAtPh1oz',
+      name: 'Filharmonik',
+    },
+    {
+      code: 'GCAuKa1oz',
+      name: 'Kangur',
+    },
+    {
+      code: 'GCCaML',
+      name: 'Klon',
+    },
+    {
+      code: 'GCGbBr1oz',
+      name: 'Britannia',
+    },
+    {
+      code: 'GB1ozVa',
+      name: 'Valcambi',
+    },
+  ]
+
   const parser = new DOMParser()
   const document = parser.parseFromString(data, 'text/html')
-  const element = document.querySelector(
-    `#price-alert-all-products > option[value="${value}"]`,
-  )
-  const attr = element?.getAttribute('data-pricelist')
-  const obj = JSON.parse(attr || '{}')
 
-  return obj?.sell?.[0]?.price || 0
+  const result = goldConfig.map((item) => {
+    const element = document.querySelector(
+      `#price-alert-all-products > option[value="${item.code}"]`,
+    )
+    const attr = element?.getAttribute('data-pricelist')
+    const obj = JSON.parse(attr || '{}')
+
+    const sell = obj?.sell?.[0]?.price || 0
+    const buy = obj?.buy?.[0]?.price || 0
+
+    return {
+      ...item,
+      buy,
+      sell,
+    }
+  })
+
+  return result
 }
 
-export const extractEuroPrice = (data: string) => {
+export const extractEuroPrice = (data: string): GoldConfigItem => {
   const parser = new DOMParser()
   const document = parser.parseFromString(data, 'text/html')
-  const price = document.querySelector(
-    '.list-table__row.js-filter-search-row:has(a[href="https://tavex.pl/waluta/euro-kurs-eur/"])>:last-child',
-  )?.textContent
+  const euroNodes = document.querySelectorAll(
+    '.list-table__row.js-filter-search-row:has(a[href="https://tavex.pl/waluta/euro-kurs-eur/"])>*',
+  )
+  const buy = euroNodes[1]?.textContent || '0'
+  const sell = euroNodes[2]?.textContent || '0'
 
-  return price || '0'
+  return {
+    code: 'euro',
+    name: 'Euro',
+    buy,
+    sell,
+  }
 }
