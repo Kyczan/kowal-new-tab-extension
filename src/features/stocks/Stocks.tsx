@@ -11,8 +11,12 @@ const Stocks = () => {
         <div className={styles.stock}>
           {item.name}
           <div className={styles.prices}>
-            <span>{item.buy} zł</span>
-            <span>{item.sell} zł</span>
+            <span>
+              {item.buy} <span className={styles.infoUnit}>zł</span>
+            </span>
+            <span>
+              {item.sell} <span className={styles.infoUnit}>zł</span>
+            </span>
           </div>
         </div>
       ))}
@@ -21,8 +25,12 @@ const Stocks = () => {
         <div className={styles.stock}>
           {euro.name}
           <div className={styles.prices}>
-            <span>{euro.buy} zł</span>
-            <span>{euro.sell} zł</span>
+            <span>
+              {euro.buy} <span className={styles.infoUnit}>zł</span>
+            </span>
+            <span>
+              {euro.sell} <span className={styles.infoUnit}>zł</span>
+            </span>
           </div>
         </div>
       )}

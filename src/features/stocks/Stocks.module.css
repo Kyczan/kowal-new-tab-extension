@@ -17,3 +17,8 @@
   align-items: center;
   gap: 24px;
 }
+
+.infoUnit {
+  font-size: 0.7em;
+  color: lightgray;
+}
