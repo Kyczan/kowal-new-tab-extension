@@ -13,7 +13,7 @@ const getColor = (val: number) => {
 }
 
 const Rating = ({ val }: IRating) => {
-  const rating: number[] = new Array(5).fill(0)
+  const rating: number[] = new Array(4).fill(0)
   const fullDotClass = `${styles.fullDot} ${styles[getColor(val)]}`
 
   return (
@@ -23,7 +23,7 @@ const Rating = ({ val }: IRating) => {
           <div key={index} className={fullDotClass} />
         ) : (
           <RxDot key={index} className={styles.emptyDot} />
-        )
+        ),
       )}
     </div>
   )
